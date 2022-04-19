@@ -18,19 +18,17 @@ const Modal: React.FC<ModalProps> = ({
   title,
   children,
 }) => {
-  const divRef = useRef<HTMLDivElement>(null);
-
   return (
     <AnimatePresence>
       {show && (
         <>
-          <Backdrop ref={divRef} onClickHandler={onDismiss} show={show} />
+          <Backdrop onClickHandler={onDismiss} show={show} />
           <motion.div
             key={'modal'}
             initial={{ opacity: 0, y: '50%', x: '-50%' }}
             animate={{ opacity: 1, y: '-50%' }}
             exit={{ y: 1000 }}
-            transition={{ duration: 1 }}
+            transition={{ ease: 'anticipate', duration: 1 }}
             id="modal"
             className="fixed top-1/2 left-1/2 flex transform flex-col items-center justify-between rounded bg-grey-50 pr-2 pt-2"
           >
