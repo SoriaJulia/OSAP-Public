@@ -10,7 +10,7 @@ import SectionButton from './SectionButton';
 
 const AfiliadosSectionsNav = () => {
   return (
-    <nav className="flex w-screen gap-4 overflow-x-scroll scroll-smooth p-4 md:p-8 xl:justify-center">
+    <nav className="flex w-screen gap-4 overflow-x-scroll scroll-smooth p-4 md:p-8 lg:justify-center">
       <SectionButton
         label="Consulta a distancia"
         icon={ChatsCircle}
