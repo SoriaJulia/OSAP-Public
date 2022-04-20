@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
-import React from 'react';
+import { Bank, CreditCard, Receipt, Download } from 'phosphor-react';
 import Button from '../../components/Button';
 import ClientsSectionsNav from '../../components/ClientsSectionsNav';
-import { Bank, CreditCard, Receipt, Download } from 'phosphor-react';
+
 export const Clientes: NextPage<{ user: any }> = ({ user }) => {
   return (
     <div>
@@ -40,7 +40,7 @@ export const Clientes: NextPage<{ user: any }> = ({ user }) => {
                 <th>Nro de factura</th>
                 <th>Estado</th>
                 <th>Importe</th>
-                <th className="w-20"></th>
+                <th className="w-20" />
               </tr>
             </thead>
             <tbody className="my-2">

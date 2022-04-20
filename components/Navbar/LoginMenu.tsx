@@ -1,5 +1,5 @@
 import { UserCircle, Person, FirstAidKit } from 'phosphor-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { UserRoles } from '../../types/enums';
 import LoginModal from '../LoginModal';
 import Portal from '../Portal';

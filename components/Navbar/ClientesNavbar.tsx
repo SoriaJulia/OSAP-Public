@@ -1,4 +1,3 @@
-import { NavbarItem } from './NavbarItem';
 import {
   Envelope,
   Suitcase,
@@ -9,6 +8,7 @@ import {
   Phone,
   Buildings,
 } from 'phosphor-react';
+import { NavbarItem } from './NavbarItem';
 
 const ClientesNavbar = () => {
   return (

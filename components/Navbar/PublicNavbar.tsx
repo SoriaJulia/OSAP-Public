@@ -1,4 +1,3 @@
-import { NavbarItem } from './NavbarItem';
 import {
   Question,
   Newspaper,
@@ -9,6 +8,7 @@ import {
   Buildings,
   Suitcase,
 } from 'phosphor-react';
+import { NavbarItem } from './NavbarItem';
 
 const PublicNavbar = () => {
   return (

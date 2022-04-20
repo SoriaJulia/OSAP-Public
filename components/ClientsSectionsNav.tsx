@@ -6,7 +6,6 @@ import {
   FirstAidKit,
   Phone,
 } from 'phosphor-react';
-import React from 'react';
 import SectionButton from './SectionButton';
 
 const ClientsSectionsNav = () => {

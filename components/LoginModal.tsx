@@ -1,19 +1,24 @@
 import Image from 'next/image';
 import { SignIn } from 'phosphor-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import * as React from 'react';
 import Button from './Button';
 import InputText from './InputText';
-import Modal from './Modal';
+import Modal, { ModalProps } from './Modal';
 import loginImg from '../public/img/login.svg';
 import { useAuth } from '../context/AuthContext';
 import { UserRoles } from '../types/enums';
-import { ModalProps } from './Modal';
 
 type LoginModalProps = {
   userRole: UserRoles;
 } & ModalProps;
 
-const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title }) => {
+const LoginModal: React.FC<LoginModalProps> = ({
+  onDismiss,
+  show,
+  title,
+  userRole,
+}) => {
   const { login, setUser } = useAuth();
   const [user, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -67,7 +72,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title }) => {
               onClick={(e) => {
                 e.preventDefault();
                 // login({ user, password });
-                setUser({ name: 'admin cliente', role: UserRoles.CLIENTE });
+                setUser({ name: 'admin cliente', role: userRole });
               }}
             />
           </div>
