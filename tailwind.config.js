@@ -23,6 +23,7 @@ module.exports = {
           900: '#e65200',
         },
         orange: {
+          25: '#ffebe6',
           50: '#ffd6cc',
           100: '#ffad99',
           200: '#ff8566',
@@ -65,6 +66,9 @@ module.exports = {
       },
       screens: {
         xs: '380px',
+      },
+      backgroundImage: {
+        '404img': "url('/img/404.svg')",
       },
     },
   },
