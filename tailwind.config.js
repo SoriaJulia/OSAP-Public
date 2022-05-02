@@ -1,8 +1,5 @@
 module.exports = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
       display: ['trade-gothic-next-condensed', 'sans-serif'],
@@ -44,7 +41,7 @@ module.exports = {
           600: '#347a91',
           700: '#295f71',
           800: '#1d4451',
-          900: '#0c1b20',
+          900: '#112930',
         },
         grey: {
           50: '#f4f4f5',
@@ -61,7 +58,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         'footer-lg': '13% 1.3fr repeat(2, 1fr)',
-        'footer-md': '18% repeat(2, 1fr)',
+        'footer-md': '30% 1fr',
         'footer': 'repeat(2, 1fr)',
       },
       screens: {

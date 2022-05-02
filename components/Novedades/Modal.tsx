@@ -1,17 +1,17 @@
 import { Download, ShareNetwork } from 'phosphor-react';
 import React, { ReactNode } from 'react';
-import Modal, { ModalProps } from './Base/Modal';
+import Modal, { ModalProps } from '../Base/Modal';
 
-type NovedadModalProps = {
+type ModalNovedadProps = {
   text: ReactNode;
   image?: string;
   alt?: string;
 } & ModalProps;
 
-const NovedadModal: React.FC<NovedadModalProps> = ({ onDismiss, show, title, text, image, alt }) => {
+const ModalNovedad: React.FC<ModalNovedadProps> = ({ onDismiss, show, title, text, image, alt }) => {
   return (
     <Modal onDismiss={onDismiss} show={show} title={title}>
-      <div className="flex max-h-[90vh] flex-col justify-between md:w-[70vw] xl:w-auto 2xl:max-h-[80vh]">
+      <div className="flex max-h-[90vh] flex-col justify-between md:w-[70vw]  2xl:max-h-[80vh]">
         <div className="mt-6 h-5/6 overflow-y-scroll p-6 text-lg">
           {image && (
             <img
@@ -36,4 +36,4 @@ const NovedadModal: React.FC<NovedadModalProps> = ({ onDismiss, show, title, tex
   );
 };
 
-export default NovedadModal;
+export default ModalNovedad;

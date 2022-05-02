@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import * as React from 'react';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -25,24 +24,15 @@ const Menus = {
   [UserRoles.PRESTADOR]: ProfileMenu,
 };
 
-const Layout: React.FC<LayoutProps> = ({
-  children,
-  userRole = UserRoles.PUBLICO,
-}) => {
+const Layout: React.FC<LayoutProps> = ({ children, userRole = UserRoles.PUBLICO }) => {
   const Navbar = Navbars[userRole];
   const Menu = Menus[userRole];
   return (
-    <div className="flex min-h-screen flex-col justify-between overflow-x-hidden bg-grey-50 text-blue-900">
-      <Head>
-        <title>Osap</title>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <meta lang="es" />
-      </Head>
+    <div className="bg-grey-50 text-blue-900">
       <Header menu={<Menu />}>
         <Navbar />
       </Header>
-      <main className="flex w-full flex-auto flex-col items-center justify-center  px-9 text-center">
+      <main className="flex min-h-[70vh] w-full flex-auto flex-col items-center justify-center  px-9 text-center">
         {children}
       </main>
       <Footer />

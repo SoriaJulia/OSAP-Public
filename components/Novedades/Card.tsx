@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { ArrowsOutSimple, ShareNetwork } from 'phosphor-react';
-import imagen from '../public/img/Novedad.jpg';
-import Button from './Base/Button';
-import NovedadModal from './NovedadModal';
-import Portal from './Layout/Portal';
+import imagen from '../../public/img/Novedad.jpg';
+import Button from '../Base/Button';
+import ModalNovedad from './Modal';
+import Portal from '../Layout/Portal';
 
 type CardNovedadType = {
   display: string;
@@ -20,7 +20,7 @@ const CardNovedad: React.FC<CardNovedadType> = ({ display }) => {
     <div
       className={`${
         display === 'extended' ? 'flex-row-reverse' : 'flex-col'
-      }  flex rounded bg-white shadow-grey-300 drop-shadow`}
+      }  z-0 flex rounded bg-white shadow-grey-300 drop-shadow`}
     >
       <Image className="rounded object-cover" src={imagen} height={800} width={2300} />
       <div className={`${display === 'extended' ? 'px-14 py-10' : 'p-4'} `}>
@@ -48,7 +48,7 @@ const CardNovedad: React.FC<CardNovedadType> = ({ display }) => {
         </div>
       )}
       <Portal>
-        <NovedadModal
+        <ModalNovedad
           show={showModal}
           onDismiss={() => {
             setShowModal(false);
