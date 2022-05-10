@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Button from '../components/Base/Button';
 import Modal from '../components/Base/Modal';
 import CardNovedad from '../components/Novedades/Card';
-import SliderNovedades from '../components/Novedades/Slider';
 import PublicSectionsNav from '../components/PublicSectionsNav';
 import TelefonosAtencion from '../components/TelefonosAtencion';
 import TelefonosEmergencias from '../components/TelefonosEmergencias';
@@ -20,9 +19,6 @@ const Home: NextPage = () => {
         <meta name="description" content="Obra social de los empleados de Ternium Argentina" />
       </Head>
       <TerniumBanner />
-      <div className=" mb-4 hidden w-screen bg-slate-50 lg:flex">
-        <SliderNovedades />
-      </div>
       <PublicSectionsNav />
       <section className="mx-2 mb-6 flex flex-col gap-6 md:flex-row">
         <TelefonosEmergencias />
