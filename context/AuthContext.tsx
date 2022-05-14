@@ -3,16 +3,23 @@ import { useRouter } from 'next/router';
 import { User } from 'phosphor-react';
 import { NEXT_URL, SOAP_API_URL } from '../config';
 import useLocalStorage from '../hooks/useLocalStorage';
-import { UserRoles } from '../types/enums';
+import { AuthUserRoles, UserRoles } from '../types/enums';
 
 interface User {
   name?: string;
   role: UserRoles;
 }
+
+interface UserCredentials {
+  username: string;
+  password: string;
+  role: AuthUserRoles;
+}
+
 interface IAuthContext {
   user: User | null;
   error: any;
-  login: (credentials: { user: string; password: string }) => void;
+  login: (credentials: UserCredentials) => void;
   logout: () => void;
   setUser: any;
 }
@@ -48,16 +55,22 @@ const AuthProvider: React.FC<any> = ({ children }) => {
   //   }
   // };
 
-  const checkUserLoggedIn = () => {
-    const storagedUser = window.localStorage.getItem('user');
-    if (storagedUser) {
-      setUser(JSON.parse(storagedUser));
+  const checkUserLoggedIn = async () => {
+    const res = await fetch(`${NEXT_URL}/me`, {
+      method: 'GET',
+    });
+
+    if (res.ok) {
+      // const data = await res.json();
+      console.log(res);
+
+      // setUser();
     }
   };
   useEffect(() => {
     checkUserLoggedIn();
   }, []);
-  const login = async (credentials: any) => {
+  const login = async (credentials: UserCredentials) => {
     const res = await fetch(`${NEXT_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
