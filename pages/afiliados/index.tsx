@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import { useEffect } from 'react';
 import { Bank, CreditCard, Receipt, Download } from 'phosphor-react';
 import Head from 'next/head';
-import { API_URL } from '@lib/constants';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
 import FacturasTable from '../../components/FacturasTable';
@@ -78,7 +77,6 @@ export async function getServerSideProps(context: any) {
   //   },
   //   { encodeValuesOnly: true }
   // );
-  // const res = await fetch(`${API_URL}/afiliado/`, {
   //   headers: context.req.headers,
   // });
   // const events = await res.json();
