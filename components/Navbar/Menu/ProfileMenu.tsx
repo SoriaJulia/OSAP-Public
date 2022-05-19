@@ -4,9 +4,9 @@ import NavbarMenu from './NavbarMenu';
 import NavbarMenuItem from './NavbarMenuItem';
 
 function ProfileMenu() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   return (
-    <NavbarMenu text={user?.name || ''} icon={<UserCircle weight="duotone" size={32} />}>
+    <NavbarMenu text={user?.Afiliado || ''} icon={<UserCircle weight="duotone" size={32} />}>
       <NavbarMenuItem
         text="Mis Datos"
         onClick={() => {
@@ -16,7 +16,7 @@ function ProfileMenu() {
       />
       <NavbarMenuItem
         onClick={() => {
-          console.log('TODO cerrar sesion');
+          logout();
         }}
         text="Cerrar sesion"
         icon={<SignOut weight="light" size={32} />}

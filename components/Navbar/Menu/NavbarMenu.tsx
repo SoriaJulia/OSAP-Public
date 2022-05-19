@@ -7,17 +7,17 @@ interface NavbarMenuProps {
 
 const NavbarMenu: React.FC<NavbarMenuProps> = ({ children, text, icon }) => {
   return (
-    <button className="group z-20 rounded-sm p-4 font-display text-xl text-orange-600 transition hover:bg-slate-50 hover:text-orange-400">
+    <div className="group z-20 rounded-sm p-4 font-display text-xl text-orange-600 transition hover:bg-slate-50 hover:text-orange-400">
       <div className="flex items-center">
         {text}
         {icon}
       </div>
-      <ul className="absolute right-5 hidden w-max py-2 text-orange-700 group-hover:block group-focus:block">
+      <div className="absolute right-5 hidden w-max py-2 text-orange-700 group-hover:block">
         {React.Children.map(children, (child) => (
-          <li className="block whitespace-nowrap rounded ">{child}</li>
+          <div className="block whitespace-nowrap rounded ">{child}</div>
         ))}
-      </ul>
-    </button>
+      </div>
+    </div>
   );
 };
 

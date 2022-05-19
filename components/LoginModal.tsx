@@ -16,7 +16,7 @@ type LoginModalProps = {
 } & ModalProps;
 
 const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRole }) => {
-  const { login, setUser } = useAuth();
+  const { login, setUser, error } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -70,10 +70,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               type="submit"
               onClick={(e) => {
                 e.preventDefault();
-                // setUser({ name: 'admin cliente', role: userRole });
-                onDismiss();
-                login({ username, password, role: UserRoles.AFILIADO });
-                // Router.push('/afiliados');
+                login({ username, password, role: UserRoles.AFILIADO }, onDismiss);
               }}
             />
           </div>

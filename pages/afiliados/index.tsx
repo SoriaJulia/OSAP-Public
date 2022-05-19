@@ -62,10 +62,10 @@ export async function getServerSideProps(context: any) {
   //   },
   //   { encodeValuesOnly: true }
   // );
-  const res = await fetch(`${API_URL}/afiliado/`, {
-    headers: context.req.headers,
-  });
-  const events = await res.json();
+  // const res = await fetch(`${API_URL}/afiliado/`, {
+  //   headers: context.req.headers,
+  // });
+  // const events = await res.json();
   // console.log(context);
   return {
     props: {},

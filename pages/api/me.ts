@@ -3,10 +3,7 @@ import { verifyAuth } from '@lib/auth';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getAfiliado } from 'services/user';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<any>
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   // check if cookie, then validate and decrypt jwt to look for user.
   try {
     const tokenPayload = await verifyAuth(req);
@@ -17,9 +14,9 @@ export default async function handler(
       const result = await getAfiliado({ username, password, role });
       res.status(200).json(result);
     } else {
-      res.status(204).end();
+      res.status(202).json(null);
     }
   } catch (err) {
-    res.status(500).json({ message: 'Interal server error' });
+    res.status(500).send('Interal server error');
   }
 }

@@ -14,10 +14,7 @@ export async function verifyAuthMiddleware(request: NextRequest) {
   }
 
   try {
-    const verified = await jwtVerify(
-      token,
-      new TextEncoder().encode(JWT_SECRET_KEY)
-    );
+    const verified = await jwtVerify(token, new TextEncoder().encode(JWT_SECRET_KEY));
     return {
       ...verified.payload,
       username: verified.payload.username as string,
@@ -36,10 +33,7 @@ export async function verifyAuth(request: NextApiRequest) {
   }
 
   try {
-    const verified = await jwtVerify(
-      token,
-      new TextEncoder().encode(JWT_SECRET_KEY)
-    );
+    const verified = await jwtVerify(token, new TextEncoder().encode(JWT_SECRET_KEY));
 
     return {
       ...verified.payload,

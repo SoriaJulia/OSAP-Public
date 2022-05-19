@@ -5,21 +5,15 @@ import Layout from '../components/Layout/Layout';
 import AuthProvider, { useAuth } from '../context/AuthContext';
 import Home from './index';
 
-const authRoutes = ['/afliados', '/afiliados/turnosonline'];
+const authRoutes = ['/afiliados', '/afiliados/turnosonline'];
 const publicRoutes = ['/', '/faq', '/conoceOSAP'];
 
 function MyApp({ Component: PageComponent, pageProps, router }: AppProps) {
   const { user } = useAuth();
 
-  let Page = PageComponent;
-
-  if (!user && authRoutes.includes(router.route)) {
-    Page = Home;
-  }
-
   return (
     <Layout userRole={user?.role}>
-      <Page {...pageProps} user={user} />
+      <PageComponent {...pageProps} user={user} />
     </Layout>
   );
 }
