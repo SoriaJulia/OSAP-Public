@@ -3,3 +3,5 @@ export enum UserRoles {
   AFILIADO = 'AFILIADO',
   PRESTADOR = 'PRESTADOR',
 }
+
+export type AuthUserRoles = Exclude<UserRoles, UserRoles.PUBLICO>;
