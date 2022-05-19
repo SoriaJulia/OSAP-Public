@@ -15,6 +15,7 @@ const consultarAfiliado = (username: string, password: string): string => {
     </soap12:Body>
   </soap12:Envelope>`;
 };
+
 const consultarPrestador = (username: string, password: string): string => {
   return `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
@@ -37,22 +38,22 @@ type GetAfiliadoPayload = {
   role: AuthUserRoles;
 };
 
-// TODO rename
-export const getAfiliado = async ({
-  role,
-  username,
-  password,
-}: GetAfiliadoPayload) => {
-  const action =
-    role === UserRoles.AFILIADO ? consultarAfiliado : consultarPrestador;
-  const resp = await axiosClient.post('', action(username, password), {
-    headers: { SOAPAction: ACTION_NAME },
-  });
-  if (resp.status === 200) {
-    return parseSOAPResponse(ACTION_NAME, RESULT_NAME, resp.data);
-  }
+type GetAfiliadoResponse = {
+  Mensaje: string;
+};
 
-  console.log(resp);
+export const getAfiliado = async ({ role, username, password }: GetAfiliadoPayload): Promise<GetAfiliadoResponse> => {
+  const action = role === UserRoles.AFILIADO ? consultarAfiliado : consultarPrestador;
+  try {
+    const resp = await axiosClient.post('', action(username, password), {
+      headers: { SOAPAction: ACTION_NAME },
+    });
+    const parsedResp = parseSOAPResponse(ACTION_NAME, RESULT_NAME, resp.data);
+    return { ...parsedResp, role };
+  } catch (err) {
+    const errorMessage = (err as Error)?.message || '';
+    throw new Error(`Error calling webservice. ${errorMessage}`);
+  }
 };
 
 // todo create enum for actionnames

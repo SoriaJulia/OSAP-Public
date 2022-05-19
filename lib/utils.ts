@@ -11,23 +11,12 @@ export function jsonResponse(status: number, data: any, init?: ResponseInit) {
   });
 }
 
-export const parseSOAPResponse = (
-  actionName: string,
-  resultName: string,
-  xml: string
-) => {
-  try {
-    if (XMLValidator.validate(xml)) {
-      const parser = new XMLParser();
-      const jsonObj = parser.parse(xml);
-      const result =
-        jsonObj['soap:Envelope']['soap:Body'][`${actionName}Response`][
-          `${actionName}Result`
-        ];
-      const resultObj = parser.parse(result);
-      return resultObj.DocumentElement[resultName];
-    }
-  } catch (err) {
-    throw new Error('Error parsing WS response');
+export const parseSOAPResponse = (actionName: string, resultName: string, xml: string) => {
+  if (XMLValidator.validate(xml)) {
+    const parser = new XMLParser();
+    const jsonObj = parser.parse(xml);
+    const result = jsonObj['soap:Envelope']['soap:Body'][`${actionName}Response`][`${actionName}Result`];
+    const resultObj = parser.parse(result);
+    return resultObj.DocumentElement[resultName];
   }
 };
