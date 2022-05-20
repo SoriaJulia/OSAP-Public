@@ -1,11 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
+
+export type TabsType = {
+  label: string;
+  index: number;
+  Component: React.FC<any>;
+  icon: ReactNode;
+}[];
 
 type TabsProps = {
-  tabs: {
-    label: string;
-    index: number;
-    Component: FC<{ index: number }>;
-  }[];
+  tabs: TabsType;
   selectedTab: number;
   onClick: (index: number) => void;
   orientation?: 'horizontal' | 'vertical';
@@ -23,12 +26,18 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
   const Panel = tabs && tabs.find((tab) => tab.index === selectedTab);
 
   return (
-    <div className="rounded bg-gradient-to-t from-yellow-50/80 to-red-100/60 p-4 pt-0">
-      <div role="tablist" className="flex gap-2" aria-orientation={orientation}>
+    <div className="mt-4 lg:mt-0">
+      <div
+        role="tablist"
+        className="hiddenScrollbar z-10 flex gap-2 overflow-x-scroll md:overflow-x-visible"
+        aria-orientation={orientation}
+      >
         {tabs.map((tab) => (
           <button
-            className={`-mb-0.5 flex items-center gap-2 rounded-t-lg  py-4 px-7 text-xl text-orange-600
-          ${selectedTab === tab.index ? 'border-x-2  border-t-2 border-orange-600  bg-white ' : 'bg-white/30'} `}
+            className={`-mb-0.5 mt-2 flex items-center gap-2 rounded-t-lg border-x-2 border-t-2  py-4 px-7 text-xl  text-orange-600
+          ${
+            selectedTab === tab.index ? ' border-b-2  border-orange-600 border-b-white bg-white' : 'mb-0 bg-white/50'
+          } `}
             onClick={() => onClick(tab.index)}
             key={tab.index}
             type="button"
@@ -38,6 +47,7 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
             tabIndex={selectedTab === tab.index ? 0 : -1}
             id={`btn-${tab.index}`}
           >
+            {tab.icon}
             {tab.label}
           </button>
         ))}
