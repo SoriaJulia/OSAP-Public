@@ -4,27 +4,22 @@ import React, { useState } from 'react';
 import { Bank, CreditCard, Receipt, Scroll } from 'phosphor-react';
 import Button from '../../components/Base/Button';
 import PageTitle from '../../components/Base/PageTitle';
-import FacturasTable from '../../components/FacturasTable';
 import CosegurosTable from '../../components/CosegurosTable';
-import Tabs from '../../components/Base/Tabs';
-
-type TabsType = {
-  label: string;
-  index: number;
-  Component: React.FC<any>;
-}[];
-
+import Tabs, { TabsType } from '../../components/Base/Tabs';
+import FacturasList from '../../components/FacturasList';
 // Tabs Array
 const tabs: TabsType = [
   {
     label: 'Facturas',
     index: 1,
-    Component: FacturasTable,
+    Component: FacturasList,
+    icon: <Scroll weight="duotone" size={26} />,
   },
   {
     label: 'Coseguros',
     index: 2,
     Component: CosegurosTable,
+    icon: <Receipt weight="duotone" size={26} />,
   },
 ];
 const Facturacion: NextPage = () => {
@@ -35,15 +30,15 @@ const Facturacion: NextPage = () => {
       <Head>
         <title>Pagos y Facturación - OSAP</title>
       </Head>
-      <div className="flex items-end justify-between">
+      <div className="flex flex-wrap items-center justify-between">
         <PageTitle title="Pagos y facturación" />
         <div className="flex gap-3">
-          <Button label="Medios de pago" trailingIcon={<Bank />} variant="yellowOutlined" />
-          <Button label="Pago Online" trailingIcon={<CreditCard />} variant="yellowOutlined" />
-          <Button label="Informar pago" trailingIcon={<Receipt />} variant="yellowOutlined" />
+          <Button label="Medios de pago" trailingIcon={<Bank weight="fill" />} variant="fill" />
+          <Button label="Pago Online" trailingIcon={<CreditCard weight="fill" />} variant="fill" />
+          <Button label="Informar pago" trailingIcon={<Receipt weight="fill" />} variant="fill" />
         </div>
       </div>
-      <section>
+      <section className="mt-2">
         <Tabs selectedTab={selectedTab} onClick={setSelectedTab} tabs={tabs} />
       </section>
     </div>

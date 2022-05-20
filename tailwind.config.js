@@ -60,6 +60,7 @@ module.exports = {
         'footer-lg': '13% 1.3fr repeat(2, 1fr)',
         'footer-md': '30% 1fr',
         'footer': 'repeat(2, 1fr)',
+        'facturas': '40% 25% 30% 5%',
       },
       screens: {
         xs: '380px',
