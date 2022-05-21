@@ -1,7 +1,7 @@
 import { DownloadSimple } from 'phosphor-react';
 import React from 'react';
-import { Color, State } from '../types/enums/facturas';
-import { Factura } from '../types/facturas';
+import { Color, State } from '../../types/enums/facturas';
+import { Factura } from '../../types/factura';
 
 const formatPeriodo = (periodo: string) => {
   return `${periodo.slice(4)}-${periodo.slice(0, 4)}`;

@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import { Bank, CreditCard, Receipt, Scroll } from 'phosphor-react';
 import Button from '../../components/Base/Button';
 import PageTitle from '../../components/Base/PageTitle';
-import CosegurosTable from '../../components/CosegurosTable';
 import Tabs, { TabsType } from '../../components/Base/Tabs';
-import FacturasList from '../../components/FacturasList';
+import FacturasList from '../../components/Facturacion/FacturasList';
+import CosegurosList from '../../components/Facturacion/CosegurosList';
 // Tabs Array
 const tabs: TabsType = [
   {
@@ -16,9 +16,9 @@ const tabs: TabsType = [
     icon: <Scroll weight="duotone" size={26} />,
   },
   {
-    label: 'Coseguros',
+    label: 'Coseguros y Cargos',
     index: 2,
-    Component: CosegurosTable,
+    Component: CosegurosList,
     icon: <Receipt weight="duotone" size={26} />,
   },
 ];

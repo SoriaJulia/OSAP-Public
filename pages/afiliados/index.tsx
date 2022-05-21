@@ -3,10 +3,9 @@ import { Bank, CreditCard, Receipt, Download } from 'phosphor-react';
 import Head from 'next/head';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
-
-import CosegurosTable from '../../components/CosegurosTable';
 import GradientBanner from '../../components/Base/GradientBanner';
-import UltimasFacturas from '../../components/UltimasFacturas';
+import UltimasFacturas from '../../components/Facturacion/UltimasFacturas';
+import UltimosCoseguros from '../../components/Facturacion/UltimosCoseguros';
 
 export const Afiliados: NextPage<{ user: any }> = ({ user }) => {
   return (
@@ -29,15 +28,7 @@ export const Afiliados: NextPage<{ user: any }> = ({ user }) => {
           <Button label="Informar pago" variant="yellowOutlined" leadingIcon={<Receipt size={24} />} />
         </div>
         <UltimasFacturas />
-        <article className="mt-6 flex w-screen flex-col overflow-x-scroll bg-white py-4 px-6 text-left md:m-2 lg:my-2 lg:w-3/4">
-          <div className="mb-4 flex  gap-4 sm:justify-between ">
-            <h4 className=" text-lg text-grey-400">Ultimos coseguros y cargos</h4>
-            <button type="button" className="text-left text-blue-400 decoration-blue-300 hover:underline ">
-              Ver todos
-            </button>
-          </div>
-          <CosegurosTable />
-        </article>
+        <UltimosCoseguros />
         <article className="mt-2 w-full px-4 text-left md:px-8 lg:w-3/4 lg:px-0">
           <a
             href="/formulario"
