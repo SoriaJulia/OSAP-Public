@@ -20,7 +20,7 @@ const Home: NextPage = () => {
       </Head>
       <TerniumBanner />
       <PublicSectionsNav />
-      <section className="mx-2 mb-6 flex flex-col gap-6 md:flex-row">
+      <section className="mb-6 flex flex-col gap-6 md:flex-row">
         <TelefonosEmergencias />
         <TelefonosAtencion />
       </section>

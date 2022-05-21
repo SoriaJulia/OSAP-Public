@@ -1,14 +1,10 @@
-import React from 'react';
 import _ from 'lodash';
-import { MagnifyingGlass } from 'phosphor-react';
-import { State } from '../types/enums/facturas';
+import Router from 'next/router';
+import React from 'react';
 import { Factura } from '../types/facturas';
-import Field from './Base/Field';
 import Button from './Base/Button';
 import FacturasXPeriodo from './FacturasXPeriodoCard';
-import Select from './Base/Select';
 
-// TODO call ws
 const facturasWS: Array<Factura> = [
   {
     comp_id: 1873239,
@@ -55,59 +51,24 @@ const facturasWS: Array<Factura> = [
     estado: 'N',
     comp_total: 2650.0,
   },
-  {
-    comp_id: 1829643,
-    comp_peri: '202202',
-    comp_suc: 1,
-    comp_nro: 300715,
-    comp_fecven: '2022-02-25T00:00:00',
-    estado: 'N',
-    comp_total: 2650.0,
-  },
-  {
-    comp_id: 1829643,
-    comp_peri: '202202',
-    comp_suc: 1,
-    comp_nro: 300715,
-    comp_fecven: '2022-02-25T00:00:00',
-    estado: 'N',
-    comp_total: 2650.0,
-  },
 ];
-
 const facturasPorPeriodo = _.groupBy<Factura>(facturasWS, (factura) => factura.comp_peri);
-
-const FacturasList = () => {
+const UltimasFacturas = () => {
   return (
-    <>
-      <div className="my-2 flex flex-wrap items-center justify-end gap-4">
-        <Field label="Periodo" type="month" labelPosition="left" />
-        <Select label="Estado" labelPosition="left">
-          <option value="">Todos</option>
-          {(Object.keys(State) as (keyof typeof State)[]).map((key) => {
-            return (
-              <option value={key} key={key}>
-                {State[key]}
-              </option>
-            );
-          })}
-        </Select>
-        <Button
-          variant="blueFill"
-          label="Buscar"
-          className="h-12 text-lg"
-          trailingIcon={<MagnifyingGlass weight="bold" />}
-        />
+    <article className="flex flex-col overflow-x-scroll bg-white py-4 px-6 text-left md:m-2 lg:my-2 lg:w-3/4">
+      <div className="mb-4 flex  gap-4 sm:justify-between ">
+        <h4 className=" text-lg text-orange-600">Ultimas Facturas</h4>
+        <Button label="Ver todas" variant="blueText" onClick={() => Router.push('/afiliados/facturacion')} />
       </div>
-      <div className="flex flex-wrap gap-5 pt-5">
+      <div className="flex gap-3">
         {Object.values(facturasPorPeriodo)
           .reverse()
           .map((facturas) => {
             return <FacturasXPeriodo key={facturas[0].comp_peri} facturas={facturas} />;
           })}
       </div>
-    </>
+    </article>
   );
 };
 
-export default FacturasList;
+export default UltimasFacturas;

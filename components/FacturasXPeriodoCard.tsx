@@ -20,11 +20,18 @@ const FacturasXPeriodo: React.FC<{ facturas: Factura[] }> = ({ facturas }) => {
       <div>
         {facturas.map((factura: Factura) => {
           return (
-            <div className="mr-4 grid grid-cols-facturas gap-1" key={factura.comp_id}>
+            <div className="mr-4 grid grid-cols-facturas items-center gap-1" key={factura.comp_id}>
               <span>Nº {`${factura.comp_suc} ${factura.comp_nro}`}</span>
               <span className={`${Color[factura.estado]}`}>{State[factura.estado]}</span>
-              <span>$ {factura.comp_total}</span>
-              <DownloadSimple size={24} />
+              <span className="text-right">$ {factura.comp_total}</span>
+
+              <DownloadSimple
+                className="cursor-pointer rounded-full p-1 text-blue-400 transition hover:bg-gray-100 hover:text-blue-500 lg:ml-1"
+                size={28}
+                onClick={() => {
+                  console.log('todo: descarga pdf');
+                }}
+              />
             </div>
           );
         })}
