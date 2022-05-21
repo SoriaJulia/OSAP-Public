@@ -1,12 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
 import { MagnifyingGlass } from 'phosphor-react';
-import { State } from '../types/enums/facturas';
-import { Factura } from '../types/facturas';
-import Field from './Base/Field';
-import Button from './Base/Button';
+import { State } from '../../types/enums/facturas';
+import { Factura } from '../../types/factura';
+import Field from '../Base/Field';
+import Button from '../Base/Button';
 import FacturasXPeriodo from './FacturasXPeriodoCard';
-import Select from './Base/Select';
+import Select from '../Base/Select';
 
 // TODO call ws
 const facturasWS: Array<Factura> = [

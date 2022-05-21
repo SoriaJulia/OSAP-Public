@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import Router from 'next/router';
 import React from 'react';
-import { Factura } from '../types/facturas';
-import Button from './Base/Button';
+import { Factura } from '../../types/factura';
+import Button from '../Base/Button';
 import FacturasXPeriodo from './FacturasXPeriodoCard';
 
 const facturasWS: Array<Factura> = [
@@ -55,12 +55,12 @@ const facturasWS: Array<Factura> = [
 const facturasPorPeriodo = _.groupBy<Factura>(facturasWS, (factura) => factura.comp_peri);
 const UltimasFacturas = () => {
   return (
-    <article className="flex flex-col overflow-x-scroll bg-white py-4 px-6 text-left md:m-2 lg:my-2 lg:w-3/4">
+    <article className="flex w-full flex-col overflow-x-scroll bg-white py-4 px-6 text-left md:m-2 lg:my-2">
       <div className="mb-4 flex  gap-4 sm:justify-between ">
         <h4 className=" text-lg text-orange-600">Ultimas Facturas</h4>
         <Button label="Ver todas" variant="blueText" onClick={() => Router.push('/afiliados/facturacion')} />
       </div>
-      <div className="flex gap-3">
+      <div className="flex gap-4">
         {Object.values(facturasPorPeriodo)
           .reverse()
           .map((facturas) => {
