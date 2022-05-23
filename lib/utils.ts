@@ -1,3 +1,5 @@
+import { AuthUserRoles } from '@appTypes/enums';
+import OSAPUser from '@appTypes/user';
 import { XMLParser, XMLValidator } from 'fast-xml-parser';
 
 export function jsonResponse(status: number, data: any, init?: ResponseInit) {
