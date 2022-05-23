@@ -43,7 +43,7 @@ const facturasWS: Array<Factura> = [
     comp_total: 1780.48,
   },
   {
-    comp_id: 1829643,
+    comp_id: 1829645,
     comp_peri: '202203',
     comp_suc: 1,
     comp_nro: 300715,
