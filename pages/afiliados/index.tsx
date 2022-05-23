@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { useEffect } from 'react';
 import { Bank, CreditCard, Receipt, Download } from 'phosphor-react';
 import Head from 'next/head';
 import Button from '../../components/Base/Button';
@@ -47,5 +48,27 @@ export const Afiliados: NextPage<{ user: any }> = ({ user }) => {
     </div>
   );
 };
+
+export async function getServerSideProps(context: any) {
+  // const query = qs.stringify(
+  //   {
+  //     filters: {
+  //       slug: {
+  //         $eq: slug,
+  //       },
+  //     },
+  //     populate: '*',
+  //   },
+  //   { encodeValuesOnly: true }
+  // );
+  //   headers: context.req.headers,
+  // });
+  // const events = await res.json();
+  // console.log(context);
+  return {
+    props: {},
+    // revalidate: 1,
+  };
+}
 
 export default Afiliados;

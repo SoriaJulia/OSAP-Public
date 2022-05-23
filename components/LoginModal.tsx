@@ -3,6 +3,7 @@ import { SignIn } from 'phosphor-react';
 import { useState } from 'react';
 import * as React from 'react';
 import Router from 'next/router';
+import { InputChangeHandler } from 'types/reactCommon';
 import Button from './Base/Button';
 import Field from './Base/Field';
 import Modal, { ModalProps } from './Base/Modal';
@@ -15,14 +16,15 @@ type LoginModalProps = {
 } & ModalProps;
 
 const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRole }) => {
-  const { login, setUser } = useAuth();
-  const [user, setUsername] = useState('');
+  const { login, setUser, error } = useAuth();
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  // TODO no more anys
-  const changeFormValue = (setterFn: any) => (e: any) => {
-    setterFn(e.target.value);
-  };
+  const changeFormValue =
+    (setterFn: React.Dispatch<React.SetStateAction<string>>): InputChangeHandler =>
+    (e) => {
+      setterFn(e.target.value);
+    };
 
   return (
     <Modal onDismiss={onDismiss} show={show} title={title}>
@@ -39,7 +41,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               placeholder="30256544"
               helpText="Sin espacios ni caracteres especiales"
               errorText=""
-              value={user}
+              value={username}
               onChange={changeFormValue(setUsername)}
             />
             <Field
@@ -68,9 +70,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               type="submit"
               onClick={(e) => {
                 e.preventDefault();
-                // login({ user, password });
-                setUser({ name: 'Julia', role: userRole });
-                Router.push('/afiliados');
+                login({ username, password, role: UserRoles.AFILIADO }, onDismiss);
               }}
             />
           </div>
