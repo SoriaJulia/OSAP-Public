@@ -7,7 +7,7 @@ import { signIn } from 'next-auth/react';
 import { InputChangeHandler } from 'types/reactCommon';
 import { useRouter } from 'next/router';
 import Button from './Base/Button';
-import InputText from './Base/InputText';
+import Field from './Base/Field';
 import Modal, { ModalProps } from './Base/Modal';
 import loginImg from '../public/img/login.svg';
 import { UserRoles } from '../types/enums';
@@ -36,7 +36,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
         </div>
         <form className="mt-10 flex w-full flex-col items-center justify-around px-2 md:w-7/12 md:px-0">
           <div className="flex w-10/12 flex-col gap-6">
-            <InputText
+            <Field
               type="text"
               label="DNI"
               name="user"
@@ -46,7 +46,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               value={username}
               onChange={changeFormValue(setUsername)}
             />
-            <InputText
+            <Field
               type="password"
               label="Contraseña"
               name="pass"

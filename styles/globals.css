@@ -1,5 +1,4 @@
 @import url('https://use.typekit.net/fjq7zjb.css');
-@import '@splidejs/react-splide/css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -49,8 +48,22 @@
   background: theme('colors.blue.300');
 }
 
+.hiddenScrollbar::-webkit-scrollbar {
+  height: 0px;
+  width: 0px;
+}
+
 /* scrollbar */
 
 *:focus-visible {
   outline-color: theme('colors.gray.100');
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Some browsers will not display the caret when using calc, so we put the fallback first */
+  background: url('../public/img/expand_more.svg') white no-repeat 98.5%;
+  background: url('../public/img/expand_more.svg') white no-repeat calc(100% - 8px); /* Better placement regardless of input width */
 }
