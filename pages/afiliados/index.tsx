@@ -1,6 +1,6 @@
-import { NextPage } from 'next';
-import { useEffect } from 'react';
+import { GetServerSideProps, NextPage } from 'next';
 import { Bank, CreditCard, Receipt, Download } from 'phosphor-react';
+import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
@@ -8,7 +8,7 @@ import FacturasTable from '../../components/FacturasTable';
 import CosegurosTable from '../../components/CosegurosTable';
 import GradientBanner from '../../components/Base/GradientBanner';
 
-export const Afiliados: NextPage<{ user: any }> = ({ user }) => {
+export const Afiliados: NextPage = (props) => {
   return (
     <div className="flex flex-col items-center">
       <Head>
@@ -65,26 +65,21 @@ export const Afiliados: NextPage<{ user: any }> = ({ user }) => {
   );
 };
 
-export async function getServerSideProps(context: any) {
-  // const query = qs.stringify(
-  //   {
-  //     filters: {
-  //       slug: {
-  //         $eq: slug,
-  //       },
-  //     },
-  //     populate: '*',
-  //   },
-  //   { encodeValuesOnly: true }
-  // );
-  //   headers: context.req.headers,
-  // });
-  // const events = await res.json();
-  // console.log(context);
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+  console.log(session);
+
+  if (!session || session.status === 'unauthenicated') {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
   return {
     props: {},
-    // revalidate: 1,
   };
-}
+};
 
 export default Afiliados;

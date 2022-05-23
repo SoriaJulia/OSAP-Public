@@ -1,12 +1,12 @@
 import { UserCircle, User, SignOut } from 'phosphor-react';
-import { useAuth } from '../../../context/AuthContext';
+import { signOut, useSession } from 'next-auth/react';
 import NavbarMenu from './NavbarMenu';
 import NavbarMenuItem from './NavbarMenuItem';
 
 function ProfileMenu() {
-  const { user, logout } = useAuth();
+  const session = useSession();
   return (
-    <NavbarMenu text={user?.Afiliado || ''} icon={<UserCircle weight="duotone" size={32} />}>
+    <NavbarMenu text={session.data?.user?.name || 'User'} icon={<UserCircle weight="duotone" size={32} />}>
       <NavbarMenuItem
         text="Mis Datos"
         onClick={() => {
@@ -16,7 +16,7 @@ function ProfileMenu() {
       />
       <NavbarMenuItem
         onClick={() => {
-          logout();
+          signOut();
         }}
         text="Cerrar sesion"
         icon={<SignOut weight="light" size={32} />}
