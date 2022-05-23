@@ -15,8 +15,11 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
+    "typeRoots": ["./authTypes"],
     "paths": {
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@services/*": ["services/*"],
+      "@appTypes/*": ["types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

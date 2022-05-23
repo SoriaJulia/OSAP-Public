@@ -1,14 +1,15 @@
 import Image from 'next/image';
-import { SignIn } from 'phosphor-react';
 import { useState } from 'react';
 import * as React from 'react';
-import Router from 'next/router';
+import { SignIn } from 'phosphor-react';
+import { RedirectableProviderType } from 'next-auth/providers';
+import { signIn } from 'next-auth/react';
 import { InputChangeHandler } from 'types/reactCommon';
+import { useRouter } from 'next/router';
 import Button from './Base/Button';
 import InputText from './Base/InputText';
 import Modal, { ModalProps } from './Base/Modal';
 import loginImg from '../public/img/login.svg';
-import { useAuth } from '../context/AuthContext';
 import { UserRoles } from '../types/enums';
 
 type LoginModalProps = {
@@ -16,9 +17,10 @@ type LoginModalProps = {
 } & ModalProps;
 
 const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRole }) => {
-  const { login, setUser, error } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const changeFormValue =
     (setterFn: React.Dispatch<React.SetStateAction<string>>): InputChangeHandler =>
@@ -28,11 +30,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
 
   return (
     <Modal onDismiss={onDismiss} show={show} title={title}>
-      <div className="flex w-full">
+      <div className="flex h-[50vh] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] 2xl:w-[45vw]">
         <div className="hidden md:contents">
           <Image src={loginImg} />
         </div>
-        <form className="mt-10 flex w-full flex-col items-center justify-around px-2 md:w-9/12 md:px-0">
+        <form className="mt-10 flex w-full flex-col items-center justify-around px-2 md:w-7/12 md:px-0">
           <div className="flex w-10/12 flex-col gap-6">
             <InputText
               type="text"
@@ -53,6 +55,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               value={password}
               onChange={changeFormValue(setPassword)}
             />
+            {error && <div className="text-rose-500">{error}</div>}
           </div>
           <div className="m-4 flex justify-end gap-2 place-self-end pt-10 md:pt-6 ">
             <Button
@@ -70,7 +73,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               type="submit"
               onClick={(e) => {
                 e.preventDefault();
-                login({ username, password, role: UserRoles.AFILIADO }, onDismiss);
+                signIn<RedirectableProviderType>('credentials', {
+                  username,
+                  password,
+                  role: UserRoles.AFILIADO,
+                  redirect: false,
+                }).then((value) => {
+                  if (value?.error) {
+                    setError(value.error);
+                  } else {
+                    router.push('/afiliados');
+                  }
+                });
               }}
             />
           </div>
