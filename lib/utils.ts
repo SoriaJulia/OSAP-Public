@@ -1,5 +1,7 @@
 import { AuthUserRoles } from '@appTypes/enums';
+import { InputChangeHandler } from '@appTypes/reactCommon';
 import OSAPUser from '@appTypes/user';
+import { NEXT_URL } from 'config';
 import { XMLParser, XMLValidator } from 'fast-xml-parser';
 
 export function jsonResponse(status: number, data: any, init?: ResponseInit) {
@@ -22,3 +24,30 @@ export const parseSOAPResponse = (actionName: string, resultName: string, xml: s
     return resultObj.DocumentElement[resultName];
   }
 };
+
+export const parseJSONResponse = (actionName: string, xml: string) => {
+  if (XMLValidator.validate(xml)) {
+    const parser = new XMLParser();
+    const jsonObj = parser.parse(xml);
+    const result = jsonObj['s:Envelope']['s:Body'][`${actionName}Response`][`${actionName}Result`];
+    return JSON.parse(result);
+  }
+};
+
+export const nextFetch = async (url: string, options?: RequestInit) => {
+  const result = await fetch(`${NEXT_URL}/${url}`, options);
+  const data = await result.json();
+  return data;
+};
+
+export const changeTextInput =
+  (setterFn: React.Dispatch<React.SetStateAction<string>>): InputChangeHandler =>
+  (e) => {
+    setterFn(e.target.value);
+  };
+
+export const changeNumberInput =
+  (setterFn: React.Dispatch<React.SetStateAction<number>>): InputChangeHandler =>
+  (e) => {
+    setterFn(parseInt(e.target.value, 10));
+  };

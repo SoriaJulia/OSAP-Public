@@ -1,29 +1,42 @@
-import { NextPage } from 'next';
+/* eslint-disable react/destructuring-assignment */
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
 import { Bank, CreditCard, Receipt, Scroll } from 'phosphor-react';
+import { nextFetch } from '@lib/utils';
+import { getSession } from 'next-auth/react';
+import { Factura } from '@appTypes/factura';
 import Button from '../../components/Base/Button';
 import PageTitle from '../../components/Base/PageTitle';
 import Tabs, { TabsType } from '../../components/Base/Tabs';
-import FacturasList from '../../components/Facturacion/FacturasList';
+import FacturasTab from '../../components/Facturacion/FacturasTab';
 import CosegurosList from '../../components/Facturacion/CosegurosList';
+
 // Tabs Array
 const tabs: TabsType = [
   {
     label: 'Facturas',
-    index: 1,
-    Component: FacturasList,
+    index: 0,
+    Component: FacturasTab,
     icon: <Scroll weight="duotone" size={26} />,
+    significantProp: 'facturas',
   },
   {
     label: 'Coseguros y Cargos',
-    index: 2,
+    index: 1,
     Component: CosegurosList,
     icon: <Receipt weight="duotone" size={26} />,
+    significantProp: 'coseguros',
   },
 ];
-const Facturacion: NextPage = () => {
+type FacturacionProps = {
+  facturas: Array<Factura>;
+  coseguros: Array<Factura>;
+};
+
+const Facturacion: NextPage<FacturacionProps> = (props) => {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
+  const tab = tabs[selectedTab];
 
   return (
     <div>
@@ -39,10 +52,43 @@ const Facturacion: NextPage = () => {
         </div>
       </div>
       <section className="mt-2">
-        <Tabs selectedTab={selectedTab} onClick={setSelectedTab} tabs={tabs} />
+        <Tabs selectedTab={selectedTab} onClick={setSelectedTab} tabs={tabs} payload={props[tab.significantProp]} />
       </section>
     </div>
   );
+};
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
+
+  if (!session || session.status === 'unauthenicated') {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  const nroAfiliado = 80093400;
+
+  // call consultar facturas
+  try {
+    const facturas = await nextFetch(`afiliado/${nroAfiliado}/facturas`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
+    return {
+      props: { facturas },
+    };
+  } catch (err) {
+    console.error(err);
+
+    // TODO check for default values for pages props
+    return {
+      props: {
+        facturas: [],
+      },
+    };
+  }
 };
 
 export default Facturacion;

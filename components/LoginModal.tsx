@@ -6,6 +6,7 @@ import { RedirectableProviderType } from 'next-auth/providers';
 import { signIn } from 'next-auth/react';
 import { InputChangeHandler } from 'types/reactCommon';
 import { useRouter } from 'next/router';
+import { changeTextInput } from '@lib/utils';
 import Button from './Base/Button';
 import Field from './Base/Field';
 import Modal, { ModalProps } from './Base/Modal';
@@ -21,12 +22,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-
-  const changeFormValue =
-    (setterFn: React.Dispatch<React.SetStateAction<string>>): InputChangeHandler =>
-    (e) => {
-      setterFn(e.target.value);
-    };
 
   return (
     <Modal onDismiss={onDismiss} show={show} title={title}>
@@ -44,7 +39,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               helpText="Sin espacios ni caracteres especiales"
               errorText=""
               value={username}
-              onChange={changeFormValue(setUsername)}
+              onChange={changeTextInput(setUsername)}
             />
             <Field
               type="password"
@@ -53,7 +48,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               placeholder="••••••••"
               helpText="Si no tenes contraseña repetí tu DNI"
               value={password}
-              onChange={changeFormValue(setPassword)}
+              onChange={changeTextInput(setPassword)}
             />
             {error && <div className="text-rose-500">{error}</div>}
           </div>

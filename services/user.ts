@@ -2,6 +2,7 @@ import OSAPUser from '@appTypes/user';
 import { parseSOAPResponse } from '@lib/utils';
 import axiosClient from '@lib/axios';
 import { AuthUserRoles, UserRoles } from 'types/enums';
+import { GECROS_API_URL } from 'config';
 
 const consultarAfiliado = (username: string, password: string): string => {
   return `<?xml version="1.0" encoding="utf-8"?>
@@ -58,7 +59,7 @@ const converter = {
 export const getAfiliado = async ({ role, username, password }: GetAfiliadoPayload): Promise<OSAPUser> => {
   const action = role === UserRoles.AFILIADO ? consultarAfiliado : consultarPrestador;
   try {
-    const resp = await axiosClient.post('', action(username, password), {
+    const resp = await axiosClient.post(GECROS_API_URL, action(username, password), {
       headers: { SOAPAction: ACTION_NAME },
     });
     const parsedResp = parseSOAPResponse(ACTION_NAME, RESULT_NAME, resp.data);
