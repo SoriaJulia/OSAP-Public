@@ -2,13 +2,19 @@ import { GetServerSideProps, NextPage } from 'next';
 import { Bank, CreditCard, Receipt, Download } from 'phosphor-react';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
+import { Factura } from '@appTypes/factura';
+import { nextFetch } from '@lib/utils';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
 import GradientBanner from '../../components/Base/GradientBanner';
 import UltimasFacturas from '../../components/Facturacion/UltimasFacturas';
 import UltimosCoseguros from '../../components/Facturacion/UltimosCoseguros';
 
-export const Afiliados: NextPage = (props) => {
+type AfiliadosPageProps = {
+  facturas: Array<Factura>;
+};
+
+export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas }) => {
   return (
     <div className="flex flex-col items-center">
       <Head>
@@ -28,7 +34,7 @@ export const Afiliados: NextPage = (props) => {
           <Button label="Pago online" variant="yellowOutlined" leadingIcon={<CreditCard size={24} />} />
           <Button label="Informar pago" variant="yellowOutlined" leadingIcon={<Receipt size={24} />} />
         </div>
-        <UltimasFacturas />
+        <UltimasFacturas facturas={facturas.slice(0, 4)} />
         <UltimosCoseguros />
         <article className="mt-2 w-full px-4 text-left md:px-8 lg:w-3/4 lg:px-0">
           <a
@@ -51,7 +57,6 @@ export const Afiliados: NextPage = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
-  console.log(session);
 
   if (!session || session.status === 'unauthenicated') {
     return {
@@ -61,9 +66,27 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
     };
   }
-  return {
-    props: {},
-  };
+
+  const nroAfiliado = 80093400;
+
+  // call consultar facturas
+  try {
+    const facturas = await nextFetch(`afiliado/${nroAfiliado}/facturas`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
+    return {
+      props: { facturas },
+    };
+  } catch (err) {
+    console.error(err);
+
+    // TODO check for default values for pages props
+    return {
+      props: {
+        facturas: [],
+      },
+    };
+  }
 };
 
 export default Afiliados;
