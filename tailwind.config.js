@@ -68,6 +68,9 @@ module.exports = {
       backgroundImage: {
         '404img': "url('/img/404.svg')",
       },
+      width: {
+        screen: 'calc(100vw - 8px)',
+      },
     },
   },
   plugins: [],

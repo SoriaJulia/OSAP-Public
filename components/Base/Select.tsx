@@ -30,7 +30,7 @@ const Select: React.FC<FieldProps> = ({
       <select
         aria-label={label}
         {...props}
-        className="w-full rounded-sm border-2 border-grey-400 p-2 py-2.5 transition placeholder:text-grey-300 hover:border-blue-500 focus:border-blue-500 focus:outline-none focus:invalid:border-pink-700 disabled:border-grey-400 disabled:bg-grey-100 md:w-72"
+        className="w-full rounded-sm border-2 border-grey-400 p-2 py-2.5 pr-8 transition placeholder:text-grey-300 hover:border-blue-500 focus:border-blue-500 focus:outline-none focus:invalid:border-pink-700 disabled:border-grey-400 disabled:bg-grey-100 md:w-72"
       >
         {children}
       </select>

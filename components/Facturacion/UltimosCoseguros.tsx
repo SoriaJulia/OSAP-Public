@@ -64,7 +64,7 @@ const cosegurosWS: Array<Coseguro> = [
 const cosegurosPorPeriodo = _.groupBy<Coseguro>(cosegurosWS, (coseg) => coseg.periodo);
 const UltimosCoseguros = () => {
   return (
-    <article className="flex w-full flex-col overflow-x-scroll bg-white py-4 px-6 text-left md:m-2 lg:my-2">
+    <article className="flex w-full flex-col overflow-x-auto bg-white py-4 px-6 text-left md:m-2 lg:my-2">
       <div className="mb-4 flex  gap-4 sm:justify-between ">
         <h4 className=" text-lg text-orange-600">Ultimos Coseguros</h4>
         <Button label="Ver todos" variant="blueText" onClick={() => Router.push('/afiliados/facturacion')} />
