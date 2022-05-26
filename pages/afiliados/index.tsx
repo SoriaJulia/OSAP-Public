@@ -34,7 +34,7 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas }) => {
           <Button label="Pago online" variant="yellowOutlined" leadingIcon={<CreditCard size={24} />} />
           <Button label="Informar pago" variant="yellowOutlined" leadingIcon={<Receipt size={24} />} />
         </div>
-        <UltimasFacturas facturas={facturas.slice(0, 4)} />
+        <UltimasFacturas facturas={facturas} />
         <UltimosCoseguros />
         <article className="mt-2 w-full px-4 text-left md:px-8 lg:w-3/4 lg:px-0">
           <a
@@ -67,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const nroAfiliado = 80093400;
+  const nroAfiliado = session.user?.ageCtaId;
 
   // call consultar facturas
   try {

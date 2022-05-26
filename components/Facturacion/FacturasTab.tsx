@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
-import { MagnifyingGlass } from 'phosphor-react';
-import { changeNumberInput, changeTextInput } from '@lib/utils';
-import { State } from '../../types/enums/facturas';
-import { Factura } from '../../types/factura';
+import { changeNumberInput } from '@lib/utils';
+import { Factura } from '@appTypes/factura';
+import { getFilteredFacturasXPeriodo } from '@lib/facturas';
 import Field from '../Base/Field';
-import Button from '../Base/Button';
 import Select from '../Base/Select';
 import FacturasList from './FacturasList';
+import { State } from '../../types/enums/facturas';
 
-const FacturasTab = ({ payload }: { payload: Array<Factura> }) => {
-  const facturasPorPeriodo = _.groupBy<Factura>(payload, (factura) => factura.comp_peri);
-  const actualYear = new Date().getFullYear();
-  const [selectedYear, setSelectedYear] = useState(actualYear);
+const currentYear = new Date().getFullYear();
+
+const FacturasTab = ({ payload }: { payload: Factura[] }) => {
+  const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedState, setSelectedState] = useState('');
-  const filteredPeriodos = Object.values(facturasPorPeriodo).filter((facturas) =>
-    facturas.filter(
-      (factura) => factura.estado.includes(selectedState) && factura.comp_peri.includes(selectedYear.toString())
-    )
-  );
+  const facturasPorPeriodo = getFilteredFacturasXPeriodo(payload, selectedYear, selectedState);
   return (
     <>
       <div className="my-2 flex flex-wrap items-center justify-end gap-4">
@@ -28,8 +22,7 @@ const FacturasTab = ({ payload }: { payload: Array<Factura> }) => {
           labelPosition="left"
           value={selectedYear}
           onChange={changeNumberInput(setSelectedYear)}
-          min={1990}
-          max={actualYear}
+          max={currentYear}
         />
         <Select
           label="Estado"
@@ -46,14 +39,8 @@ const FacturasTab = ({ payload }: { payload: Array<Factura> }) => {
             );
           })}
         </Select>
-        <Button
-          variant="blueFill"
-          label="Buscar"
-          className="h-12 text-lg"
-          trailingIcon={<MagnifyingGlass weight="bold" />}
-        />
       </div>
-      <FacturasList periodos={filteredPeriodos} />
+      <FacturasList periodos={facturasPorPeriodo} />
     </>
   );
 };
