@@ -6,8 +6,8 @@
 /* scrollbar */
 /* Firefox */
 * {
-  scrollbar-width: none;
-  scrollbar-color: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: #295f7199 #080e1f5d;
 }
 
 /* Chrome, Edge, and Safari */

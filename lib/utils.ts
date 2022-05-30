@@ -14,14 +14,19 @@ export function jsonResponse(status: number, data: any, init?: ResponseInit) {
     },
   });
 }
-
-export const parseSOAPResponse = (actionName: string, resultName: string, xml: string) => {
+export type ParseSOAPOptions = {
+  actionName: string;
+  resultName: string;
+  rootResultName?: string;
+};
+export const parseSOAPResponse = (xml: string, options: ParseSOAPOptions) => {
+  const { actionName, resultName, rootResultName } = options;
   if (XMLValidator.validate(xml)) {
     const parser = new XMLParser();
     const jsonObj = parser.parse(xml);
     const result = jsonObj['soap:Envelope']['soap:Body'][`${actionName}Response`][`${actionName}Result`];
     const resultObj = parser.parse(result);
-    return resultObj.DocumentElement[resultName];
+    return resultObj[rootResultName || 'DocumentElement'][resultName];
   }
 };
 
@@ -51,3 +56,11 @@ export const changeNumberInput =
   (e) => {
     setterFn(parseInt(e.target.value, 10));
   };
+
+export const downloadBase64File = (contentType: string, base64Data: string, fileName: string) => {
+  const linkSource = `data:${contentType};base64,${base64Data}`;
+  const downloadLink = document.createElement('a');
+  downloadLink.href = linkSource;
+  downloadLink.download = fileName;
+  downloadLink.click();
+};

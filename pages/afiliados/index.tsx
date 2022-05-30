@@ -67,11 +67,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const nroAfiliado = session.user?.ageCtaId;
+  const nroAfiliado = session.user?.agentId;
 
   // call consultar facturas
   try {
-    const facturas = await nextFetch(`afiliado/${nroAfiliado}/facturas`, {
+    const facturas = await nextFetch(`afiliado/${nroAfiliado}/factura`, {
       headers: { Cookie: req.headers.cookie || '' },
     });
     return {

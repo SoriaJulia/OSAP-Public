@@ -69,7 +69,7 @@ const UltimosCoseguros = () => {
         <h4 className=" text-lg text-orange-600">Ultimos Coseguros</h4>
         <Button label="Ver todos" variant="blueText" onClick={() => Router.push('/afiliados/facturacion')} />
       </div>
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         {Object.values(cosegurosPorPeriodo)
           .reverse()
           .map((coseguros) => {

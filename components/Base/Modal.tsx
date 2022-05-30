@@ -23,11 +23,11 @@ const Modal: React.FC<ModalProps> = ({ show, onDismiss, showX = true, title, chi
             exit={{ y: 1000 }}
             transition={{ ease: 'anticipate', duration: 1 }}
             id="modal"
-            className="fixed top-1/2 left-1/2 z-30 flex h-screen w-screen transform flex-col items-center justify-start rounded bg-grey-50  md:h-fit md:max-h-screen md:w-fit md:justify-between"
+            className="fixed top-1/2 left-1/2 z-30 flex h-screen w-screen transform flex-col items-center justify-start rounded bg-grey-50 pt-9 md:h-fit  md:max-h-screen md:w-fit md:justify-between md:pt-1"
           >
             {showX && (
               <>
-                <button className="absolute top-3 left-2 md:hidden" onClick={onDismiss}>
+                <button className="absolute top-10 left-2 md:hidden" onClick={onDismiss}>
                   <ArrowLeft weight="bold" className="text-grey-300" size={36} />
                 </button>
                 <button className="absolute right-2 top-2 hidden md:flex" onClick={onDismiss}>

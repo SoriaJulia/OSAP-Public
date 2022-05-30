@@ -10,7 +10,7 @@ const CosegurosXPeriodoCard: React.FC<{ coseguros: Coseguro[] }> = ({ coseguros 
   return (
     <div
       key={coseguros[0].periodo}
-      className="flex h-fit w-1/2 flex-col gap-2 rounded py-2 px-3 text-left ring-1 ring-orange-100/50 ring-offset-2 ring-offset-yellow-50/80"
+      className="flex h-fit flex-col gap-2 rounded py-2 px-3 text-left ring-1 ring-orange-100/50 ring-offset-2 ring-offset-yellow-50/80 sm:w-[48%]"
     >
       <h3 className="font-display text-xl font-semibold tracking-wide text-blue-600">
         Periodo: {formatPeriodo(coseguros[0].periodo)}
