@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import * as React from 'react';
-import { SignIn } from 'phosphor-react';
+import { SignIn, WarningCircle } from 'phosphor-react';
 import { RedirectableProviderType } from 'next-auth/providers';
 import { signIn } from 'next-auth/react';
-import { InputChangeHandler } from 'types/reactCommon';
 import { useRouter } from 'next/router';
+import { changeTextInput } from '@lib/utils';
 import Button from './Base/Button';
 import Field from './Base/Field';
 import Modal, { ModalProps } from './Base/Modal';
@@ -22,29 +22,22 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const changeFormValue =
-    (setterFn: React.Dispatch<React.SetStateAction<string>>): InputChangeHandler =>
-    (e) => {
-      setterFn(e.target.value);
-    };
-
   return (
     <Modal onDismiss={onDismiss} show={show} title={title}>
-      <div className="flex h-[50vh] md:w-[90vw] lg:w-[70vw] xl:w-[60vw] 2xl:w-[45vw]">
+      <div className="flex w-full">
         <div className="hidden md:contents">
           <Image src={loginImg} />
         </div>
-        <form className="mt-10 flex w-full flex-col items-center justify-around px-2 md:w-7/12 md:px-0">
-          <div className="flex w-10/12 flex-col gap-6">
+        <form className="mt-11 flex w-full flex-col items-center justify-around px-2 md:w-7/12 md:px-0">
+          <div className="flex w-11/12 flex-col gap-6 md:w-10/12">
             <Field
               type="text"
               label="DNI"
               name="user"
               placeholder="30256544"
               helpText="Sin espacios ni caracteres especiales"
-              errorText=""
               value={username}
-              onChange={changeFormValue(setUsername)}
+              onChange={changeTextInput(setUsername)}
             />
             <Field
               type="password"
@@ -53,9 +46,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               placeholder="••••••••"
               helpText="Si no tenes contraseña repetí tu DNI"
               value={password}
-              onChange={changeFormValue(setPassword)}
+              onChange={changeTextInput(setPassword)}
             />
-            {error && <div className="text-rose-500">{error}</div>}
+            <div className="h-12 w-80 overflow-hidden text-rose-500">
+              {error ? (
+                <>
+                  <WarningCircle className="mr-1 mb-1 inline" size={18} weight="bold" />
+                  {error}
+                </>
+              ) : (
+                ''
+              )}
+            </div>
           </div>
           <div className="m-4 flex justify-end gap-2 place-self-end pt-10 md:pt-6 ">
             <Button
@@ -63,6 +65,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               variant="outlined"
               type="button"
               onClick={() => {
+                setError(null);
                 onDismiss();
               }}
             />

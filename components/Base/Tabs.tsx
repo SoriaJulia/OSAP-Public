@@ -1,3 +1,4 @@
+import { Factura } from '@appTypes/factura';
 import React, { FC, ReactNode } from 'react';
 
 export type TabsType = {
@@ -5,6 +6,7 @@ export type TabsType = {
   index: number;
   Component: React.FC<any>;
   icon: ReactNode;
+  significantProp: 'facturas' | 'coseguros';
 }[];
 
 type TabsProps = {
@@ -12,6 +14,7 @@ type TabsProps = {
   selectedTab: number;
   onClick: (index: number) => void;
   orientation?: 'horizontal' | 'vertical';
+  payload: Array<Factura>;
 };
 
 /**
@@ -22,7 +25,7 @@ type TabsProps = {
  * @param onClick Function to set the active tab
  * @param orientation Tab orientation Vertical | Horizontal
  */
-const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation = 'horizontal' }) => {
+const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation = 'horizontal', payload }) => {
   const Panel = tabs && tabs.find((tab) => tab.index === selectedTab);
 
   return (
@@ -58,7 +61,7 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
         aria-labelledby={`btn-${selectedTab}`}
         id={`tabpanel-${selectedTab}`}
       >
-        {Panel && <Panel.Component index={selectedTab} />}
+        {Panel && <Panel.Component index={selectedTab} payload={payload} />}
       </div>
     </div>
   );

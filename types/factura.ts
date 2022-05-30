@@ -9,3 +9,7 @@ export type Factura = {
   estado: keyof typeof State;
   comp_peri: string;
 };
+
+export type Periodo = {
+  [key: string]: Factura[];
+};

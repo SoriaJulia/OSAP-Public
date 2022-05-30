@@ -6,28 +6,28 @@
 /* scrollbar */
 /* Firefox */
 * {
-  scrollbar-width: none;
-  scrollbar-color: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: #295f7199 #080e1f5d;
 }
 
 /* Chrome, Edge, and Safari */
 
 *::-webkit-scrollbar {
-  width: 0px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  background: #080e1f5d;
   border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 0px;
+  background: #295f7199;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: transparent;
+  background: #e62e0099;
 }
 
 .horizontalScrollbar::-webkit-scrollbar {
