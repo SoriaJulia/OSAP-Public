@@ -25,5 +25,6 @@ declare module 'next-auth/core/types' {
     role: UserRoles;
     name: string;
     message: string;
+    agentId: string;
   }
 }
