@@ -1,5 +1,5 @@
 import OSAPUser from '@appTypes/user';
-import { parseSOAPResponse } from '@lib/utils';
+import { ParseSOAPOptions, parseSOAPResponse } from '@lib/utils';
 import axiosClient from '@lib/axios';
 import { AuthUserRoles, UserRoles } from 'types/enums';
 import { GECROS_API_URL } from 'config';
@@ -79,7 +79,11 @@ export const getAfiliado = async ({ role, username, password }: GetAfiliadoPaylo
     const resp = await axiosClient.post(GECROS_API_URL, action(username, password), {
       headers: { SOAPAction: ACTION_NAME },
     });
-    const parsedResp = parseSOAPResponse(ACTION_NAME, RESULT_NAME, resp.data);
+    const options: ParseSOAPOptions = {
+      actionName: ACTION_NAME,
+      resultName: RESULT_NAME,
+    };
+    const parsedResp = parseSOAPResponse(resp.data, options);
     return converter.toOSAPUser(parsedResp, role);
   } catch (err) {
     const errorMessage = (err as Error)?.message || err;
