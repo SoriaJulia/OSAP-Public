@@ -3,6 +3,7 @@ import { InputChangeHandler } from '@appTypes/reactCommon';
 import OSAPUser from '@appTypes/user';
 import { NEXT_URL } from 'config';
 import { XMLParser, XMLValidator } from 'fast-xml-parser';
+import _ from 'lodash';
 
 export function jsonResponse(status: number, data: any, init?: ResponseInit) {
   return new Response(JSON.stringify(data), {
@@ -63,4 +64,12 @@ export const downloadBase64File = (contentType: string, base64Data: string, file
   downloadLink.href = linkSource;
   downloadLink.download = fileName;
   downloadLink.click();
+};
+
+export const capitalizeText = (text: string) => {
+  return _.words(text)
+    .map((word) => {
+      return _.capitalize(word);
+    })
+    .join(' ');
 };

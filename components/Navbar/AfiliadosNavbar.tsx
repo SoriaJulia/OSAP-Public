@@ -6,10 +6,10 @@ const AfiliadosNavbar = () => {
     <>
       <NavbarItem
         onNavbar
-        href="/centrosAtencion"
-        title="Centros de atencion"
+        href="/afiliados/facturacion"
+        title="Pagos y facturación"
         variant="secondary"
-        icon={<Buildings />}
+        icon={<CreditCard />}
       />
       <NavbarItem
         onNavbar
@@ -20,10 +20,10 @@ const AfiliadosNavbar = () => {
       />
       <NavbarItem
         onNavbar
-        href="/afiliados/facturacion"
-        title="Pagos y facturación"
+        href="/centrosAtencion"
+        title="Centros de atencion"
         variant="secondary"
-        icon={<CreditCard />}
+        icon={<Buildings />}
       />
     </>
   );

@@ -6,7 +6,6 @@ import { Factura } from '@appTypes/factura';
 import { nextFetch } from '@lib/utils';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
-import GradientBanner from '../../components/Base/GradientBanner';
 import UltimasFacturas from '../../components/Facturacion/UltimasFacturas';
 import UltimosCoseguros from '../../components/Facturacion/UltimosCoseguros';
 
@@ -20,12 +19,6 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas }) => {
       <Head>
         <title>OSAP - Tramites y consultas online</title>
       </Head>
-
-      <GradientBanner
-        title="¡Hola! Te damos la bienvenida"
-        subtitle="Realiza tus tramites y consultas online"
-        variant="blue"
-      />
       <AfiliadosSectionsNav />
       <section className="flex w-full flex-col items-center">
         <h3 className="text-3xl text-blue-800">Pagos y facturación</h3>

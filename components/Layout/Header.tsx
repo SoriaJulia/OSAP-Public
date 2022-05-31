@@ -8,11 +8,7 @@ import Drawer from '../Navbar/Drawer';
 import Logo from '../SVG/Logo';
 import Slogan from '../SVG/Slogan';
 
-type HeaderProps = {
-  menu?: ReactNode;
-};
-
-export const Header: React.FC<HeaderProps> = ({ children, menu }) => {
+export const Header: React.FC = ({ children }) => {
   const [showDrawer, setShowDrawer] = useState(false);
   return (
     <>
@@ -37,7 +33,6 @@ export const Header: React.FC<HeaderProps> = ({ children, menu }) => {
         <div className="flex items-center">
           <ul className="hidden justify-end md:flex">
             <PublicNavbar />
-            {menu}
           </ul>
         </div>
       </nav>

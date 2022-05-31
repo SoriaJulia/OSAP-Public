@@ -48,7 +48,7 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
       <div className="flex items-center gap-3">
         <div className={`${showIcon && !iconEnd ? '' : 'md:hidden'}`}>{icon}</div>
         {title}
-        <div className={`${showIcon && iconEnd ? '' : 'md:hidden'}`}>{icon}</div>
+        <div className={`${iconEnd ? 'hidden md:block' : 'hidden'}`}>{icon}</div>
       </div>
       {caret}
     </button>
