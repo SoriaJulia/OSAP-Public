@@ -2,12 +2,14 @@ import Link from 'next/link';
 import { ReactNode, useState } from 'react';
 import * as React from 'react';
 import { List } from 'phosphor-react';
+import PublicNavbar from 'components/Navbar/PublicNavbar';
+import UserNavbar from 'components/Navbar/UserNavbar';
 import Drawer from '../Navbar/Drawer';
 import Logo from '../SVG/Logo';
 import Slogan from '../SVG/Slogan';
 
 type HeaderProps = {
-  menu: ReactNode;
+  menu?: ReactNode;
 };
 
 export const Header: React.FC<HeaderProps> = ({ children, menu }) => {
@@ -33,16 +35,20 @@ export const Header: React.FC<HeaderProps> = ({ children, menu }) => {
           </button>
         </Link>
         <div className="flex items-center">
-          <ul className="hidden justify-end md:flex">{children}</ul>
-          {menu}
+          <ul className="hidden justify-end md:flex">
+            <PublicNavbar />
+            {menu}
+          </ul>
         </div>
       </nav>
+      <UserNavbar>{children}</UserNavbar>
       <Drawer
         onDismiss={() => {
           setShowDrawer(false);
         }}
         show={showDrawer}
       >
+        <PublicNavbar />
         {children}
       </Drawer>
     </>

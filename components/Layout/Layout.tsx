@@ -10,15 +10,15 @@ import LoginMenu from '../Navbar/Menu/LoginMenu';
 import ProfileMenu from '../Navbar/Menu/ProfileMenu';
 
 const Navbars = {
-  [UserRoles.PUBLICO]: PublicNavbar,
+  [UserRoles.PUBLICO]: null,
   [UserRoles.AFILIADO]: AfiliadosNavbar,
   [UserRoles.PRESTADOR]: PrestadoresNavbar,
 };
 
 const Menus = {
   [UserRoles.PUBLICO]: LoginMenu,
-  [UserRoles.AFILIADO]: ProfileMenu,
-  [UserRoles.PRESTADOR]: ProfileMenu,
+  [UserRoles.AFILIADO]: null,
+  [UserRoles.PRESTADOR]: null,
 };
 
 const Layout: React.FC = ({ children }) => {
@@ -29,9 +29,7 @@ const Layout: React.FC = ({ children }) => {
   const UserMenu = Menus[userRole];
   return (
     <div className="flex min-h-screen flex-col justify-between bg-grey-50 text-blue-900">
-      <Header menu={<UserMenu />}>
-        <Navbar />
-      </Header>
+      <Header menu={UserMenu && <UserMenu />}>{Navbar && <Navbar />}</Header>
       <main className="flex w-full flex-col px-6 text-center lg:px-16 xl:px-20 2xl:px-32">{children}</main>
       <Footer />
     </div>

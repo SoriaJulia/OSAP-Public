@@ -4,18 +4,27 @@ import { NavbarItem } from './NavbarItem';
 const AfiliadosNavbar = () => {
   return (
     <>
-      <NavbarItem onNavbar href="/afiliados" title="Afiliados" icon={<Envelope />} />
-      <NavbarItem href="/contacto" title="Contactanos" icon={<Envelope />} />
-      <NavbarItem href="/faqs" title="Preguntas frecuentes" icon={<Question />} />
-      <NavbarItem href="/telefonos" title="Telefonos Utiles" icon={<Phone />} />
-      <NavbarItem onNavbar title="Farmacias" list icon={<FirstAidKit />}>
-        <NavbarItem onNavbar title="Don Bosco" href="/farmacia" />
-        <NavbarItem onNavbar title="Planta Savio" href="/farmaciaSavio" />
-      </NavbarItem>
-      <NavbarItem onNavbar href="/centrosAtencion" title="Centros de atencion" icon={<Buildings />} />
-      <NavbarItem onNavbar href="/afiliados/turnosonline" title="Turnos online" icon={<Calendar />} />
-      <NavbarItem onNavbar href="/cartillamedica" title="Cartilla médica" icon={<UsersThree />} />
-      <NavbarItem onNavbar href="/afiliados/facturacion" title="Pagos y facturación" icon={<CreditCard />} />
+      <NavbarItem
+        onNavbar
+        href="/centrosAtencion"
+        title="Centros de atencion"
+        variant="secondary"
+        icon={<Buildings />}
+      />
+      <NavbarItem
+        onNavbar
+        href="/afiliados/turnosonline"
+        title="Turnos online"
+        variant="secondary"
+        icon={<Calendar />}
+      />
+      <NavbarItem
+        onNavbar
+        href="/afiliados/facturacion"
+        title="Pagos y facturación"
+        variant="secondary"
+        icon={<CreditCard />}
+      />
     </>
   );
 };
