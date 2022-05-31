@@ -15,8 +15,8 @@ const LoginMenu = () => {
     setUserRole(role);
   };
   return (
-    <>
-      <NavbarMenu text="Ingresar" icon={<UserCircle weight="duotone" size={32} />}>
+    <div className="mr-4 ">
+      <NavbarMenu text="Iniciar Sesion" icon={<UserCircle weight="duotone" size={32} />}>
         <NavbarMenuItem
           text="Como Afiliado"
           onClick={handleClick(UserRoles.AFILIADO)}
@@ -39,7 +39,7 @@ const LoginMenu = () => {
           title="Ingresá con tu numero de DNI y contraseña"
         />
       </Portal>
-    </>
+    </div>
   );
 };
 
