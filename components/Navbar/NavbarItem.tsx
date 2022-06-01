@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import * as React from 'react';
 import { CaretRight, Plus, Minus } from 'phosphor-react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 const variants = {
   primary: 'hover:text-orange-400 font-display lg:text-xl md:text-lg md:text-orange-600',
@@ -43,6 +44,7 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
   ) : (
     <CaretRight className="md:hidden" />
   );
+  const router = useRouter();
   const label = (
     <button onClick={onClick} className="flex w-full items-center justify-between p-4 ">
       <div className="flex items-center gap-3">

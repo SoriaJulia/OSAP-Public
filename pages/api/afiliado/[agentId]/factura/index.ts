@@ -5,21 +5,22 @@ import { OSAP_API_URL } from 'config';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
-const getFactura = (agectaID: string) => {
-  return `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+const getFacturas = (agectaId: string) => {
+  return `<?xml version="1.0" encoding="utf-8"?>
+  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
   <soapenv:Header/>
   <soapenv:Body>
      <tem:GetFacturas>
         <!--Optional:-->
-        <tem:AgeCta_id>${agectaID}</tem:AgeCta_id>
+        <tem:AgeCta_id>${agectaId}</tem:AgeCta_id>
      </tem:GetFacturas>
   </soapenv:Body>
   </soapenv:Envelope>`;
 };
 
-const getFacturasAfiliado = async (agectaID: string): Promise<Array<Factura>> => {
+const getFacturasAfiliado = async (agectaId: string): Promise<Array<Factura>> => {
   try {
-    const resp = await axiosClient.post(OSAP_API_URL, getFactura(agectaID), {
+    const resp = await axiosClient.post(OSAP_API_URL, getFacturas(agectaId), {
       headers: { 'Content-Type': 'text/xml;charset=UTF-8', 'SOAPAction': 'http://tempuri.org/IService1/GetFacturas' },
     });
     const parsedResp = parseJSONResponse('GetFacturas', resp.data);

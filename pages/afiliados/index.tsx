@@ -4,6 +4,8 @@ import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { Factura } from '@appTypes/factura';
 import { nextFetch } from '@lib/utils';
+import { Credencial } from '@appTypes/credencial';
+import Credenciales from 'components/Credencial/List';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
 import UltimasFacturas from '../../components/Facturacion/UltimasFacturas';
@@ -11,18 +13,21 @@ import UltimosCoseguros from '../../components/Facturacion/UltimosCoseguros';
 
 type AfiliadosPageProps = {
   facturas: Array<Factura>;
+  credenciales: Array<Credencial>;
+  agentId: string;
 };
 
-export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas }) => {
+export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales, agentId }) => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
       <Head>
         <title>OSAP - Tramites y consultas online</title>
       </Head>
       <AfiliadosSectionsNav />
-      <section className="flex w-full flex-col items-center">
+      <Credenciales credenciales={credenciales} agentId={agentId} />
+      <section className="flex w-full flex-col items-start pt-8">
         <h3 className="text-3xl text-blue-800">Pagos y facturación</h3>
-        <div className="flex w-full justify-center gap-1 px-2 pb-4 pt-6 sm:gap-4 sm:px-6 xs:gap-2">
+        <div className="flex w-full justify-end gap-1 px-2 pb-4 sm:gap-4 sm:px-6 xs:gap-2">
           <Button label="Medios de pago" variant="yellowOutlined" leadingIcon={<Bank size={24} />} />
           <Button label="Pago online" variant="yellowOutlined" leadingIcon={<CreditCard size={24} />} />
           <Button label="Informar pago" variant="yellowOutlined" leadingIcon={<Receipt size={24} />} />
@@ -60,15 +65,18 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const nroAfiliado = session.user?.agentId;
+  const agentId = session.user?.agentId;
 
   // call consultar facturas
   try {
-    const facturas = await nextFetch(`afiliado/${nroAfiliado}/factura`, {
+    const facturas = await nextFetch(`afiliado/${agentId}/factura`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
+    const credenciales = await nextFetch(`afiliado/${agentId}/credencial`, {
       headers: { Cookie: req.headers.cookie || '' },
     });
     return {
-      props: { facturas },
+      props: { facturas, credenciales, agentId },
     };
   } catch (err) {
     console.error(err);
@@ -77,6 +85,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     return {
       props: {
         facturas: [],
+        credenciales: [],
+        agentId,
       },
     };
   }

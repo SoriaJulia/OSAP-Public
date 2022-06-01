@@ -7,7 +7,7 @@ export type ModalProps = {
   show: boolean;
   onDismiss: () => void;
   showX?: boolean;
-  title: string;
+  title?: string;
 };
 
 const Modal: React.FC<ModalProps> = ({ show, onDismiss, showX = true, title, children }) => {
