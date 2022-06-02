@@ -9,9 +9,9 @@ type CredencialesProps = {
 
 const Credenciales: React.FC<CredencialesProps> = ({ credenciales, agentId }) => {
   return (
-    <section className="my-2 flex w-full flex-col py-6">
+    <section className="my-2 flex w-full flex-col  py-6">
       <h3 className="mb-4 text-3xl text-blue-800">Credenciales</h3>
-      <div className="flex w-full justify-start gap-6 p-3">
+      <div className="flex w-full flex-wrap justify-start gap-6 py-2">
         {credenciales.map((cred) => {
           return <CredencialCard credencial={cred} key={cred.Numero} agentId={agentId} />;
         })}

@@ -8,19 +8,26 @@ import { NavbarItem } from './NavbarItem';
 
 const UserNavbar: React.FC = ({ children }) => {
   const session = useSession();
+  const loggedUser = session.data?.user;
   const userName = session.data?.user ? capitalizeText(session.data?.user?.name) : '';
 
   return (
-    <nav className="sticky top-[4.75rem] z-10 hidden justify-end md:flex">
-      {session.data?.user ? (
+    <nav
+      className={` ${loggedUser ? '' : 'absolute right-0'}
+     top-[4.75rem] z-10 hidden justify-end md:flex
+    `}
+    >
+      {loggedUser ? (
         <div className="flex w-full justify-between bg-blue-800">
           <ul className="flex items-center gap-1 lg:ml-6">
-            <Link href="/afiliados">
-              <li className="flex items-center gap-1 p-4 text-blue-100 md:hover:bg-slate-50 md:hover:text-blue-700">
-                <House className="" weight="duotone" size={24} />
-                {`¡Hola! ${userName}`}
-              </li>
-            </Link>
+            <NavbarItem
+              title={`¡Hola! ${userName}`}
+              variant="secondary"
+              showIcon
+              onNavbar
+              icon={<House className="" weight="duotone" size={24} />}
+              href="/afiliados"
+            />
             {children}
           </ul>
           <ul className="flex items-center gap-1 lg:mr-8">

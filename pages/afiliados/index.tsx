@@ -26,7 +26,7 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales
       <AfiliadosSectionsNav />
       <Credenciales credenciales={credenciales} agentId={agentId} />
       <section className="flex w-full flex-col items-start pt-8">
-        <h3 className="text-3xl text-blue-800">Pagos y facturación</h3>
+        <h3 className="mb-6 text-3xl text-blue-800 md:mb-0">Pagos y facturación</h3>
         <div className="flex w-full justify-end gap-1 px-2 pb-4 sm:gap-4 sm:px-6 xs:gap-2">
           <Button label="Medios de pago" variant="yellowOutlined" leadingIcon={<Bank size={24} />} />
           <Button label="Pago online" variant="yellowOutlined" leadingIcon={<CreditCard size={24} />} />
