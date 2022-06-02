@@ -15,17 +15,17 @@ const LoginMenu = () => {
     setUserRole(role);
   };
   return (
-    <div className="mr-4 ">
-      <NavbarMenu text="Iniciar Sesion" icon={<UserCircle weight="duotone" size={32} />}>
+    <div className="">
+      <NavbarMenu text="Ingresar" icon={<UserCircle weight="duotone" size={36} />}>
         <NavbarMenuItem
-          text="Como Afiliado"
-          onClick={handleClick(UserRoles.AFILIADO)}
-          icon={<Person weight="light" size={32} />}
-        />
-        <NavbarMenuItem
-          text="Como Prestador"
+          text="Prestador"
           onClick={handleClick(UserRoles.PRESTADOR)}
           icon={<FirstAidKit weight="light" size={32} />}
+        />
+        <NavbarMenuItem
+          text="Afiliado"
+          onClick={handleClick(UserRoles.AFILIADO)}
+          icon={<Person weight="light" size={32} />}
         />
       </NavbarMenu>
       <Portal>

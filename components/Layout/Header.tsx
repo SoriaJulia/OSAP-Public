@@ -11,7 +11,7 @@ import Slogan from '../SVG/Slogan';
 export const Header: React.FC = ({ children }) => {
   const [showDrawer, setShowDrawer] = useState(false);
   return (
-    <>
+    <div className="sticky top-0">
       <nav className="sticky top-0 z-10 flex items-center justify-between bg-white py-2 px-4 lg:px-9">
         <List
           className="mr-3 text-orange-700 md:hidden"
@@ -46,6 +46,6 @@ export const Header: React.FC = ({ children }) => {
         <PublicNavbar />
         {children}
       </Drawer>
-    </>
+    </div>
   );
 };
