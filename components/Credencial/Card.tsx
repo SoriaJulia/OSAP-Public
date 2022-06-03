@@ -15,7 +15,7 @@ const Credencial: React.FC<CredencialProps> = ({ credencial, agentId }) => {
     setShowModal(true);
   };
   return (
-    <div>
+    <>
       <div
         role="button"
         onClick={handleClick()}
@@ -61,7 +61,7 @@ const Credencial: React.FC<CredencialProps> = ({ credencial, agentId }) => {
           agentId={agentId}
         />
       </Portal>
-    </div>
+    </>
   );
 };
 

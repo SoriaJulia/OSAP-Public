@@ -7,13 +7,13 @@ interface NavbarMenuProps {
 
 const NavbarMenu: React.FC<NavbarMenuProps> = ({ children, text, icon }) => {
   return (
-    <div className="group z-20  rounded-bl-full border-b-2 border-l-2 border-blue-600 bg-slate-50 pt-2 pb-5 pl-8 pr-6 font-display text-2xl text-blue-600 transition-all hover:bg-blue-100 hover:text-blue-700">
+    <div className="group z-20  rounded-bl-full border-b-2 border-l-2 border-blue-600 bg-blue-700 pt-2 pb-2 pl-5 pr-3 font-display text-lg text-blue-100 transition-all hover:bg-blue-800 hover:text-blue-100 md:pr-6 md:pl-8 md:pb-5 md:text-2xl">
       <div className="flex flex-col items-end gap-1 group-hover:hidden">
         {text}
         {icon}
       </div>
-      <div className="hidden flex-col py-2 pb-8 pl-4  group-hover:flex">
-        <p className="pb-2 text-left font-sans text-lg text-blue-800">Tipo de usuario:</p>
+      <div className="hidden flex-col py-2 pb-6 pl-3 group-hover:flex md:pb-8  md:pl-4">
+        <p className="text-left font-sans text-blue-200 md:pb-2 md:text-lg">Tipo de usuario:</p>
         {/* {React.Children.map(children, (child) => ({ child }))} */}
         {children}
       </div>

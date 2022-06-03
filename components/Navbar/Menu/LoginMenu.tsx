@@ -16,7 +16,7 @@ const LoginMenu = () => {
   };
   return (
     <div className="">
-      <NavbarMenu text="Ingresar" icon={<UserCircle weight="duotone" size={36} />}>
+      <NavbarMenu text="Ingresar" icon={<UserCircle weight="light" size="1.4em" />}>
         <NavbarMenuItem
           text="Prestador"
           onClick={handleClick(UserRoles.PRESTADOR)}
