@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 
-const Portal: React.FC<any> = ({ children }) => {
+const Portal: React.FC = ({ children }) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
