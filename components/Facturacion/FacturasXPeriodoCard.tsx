@@ -22,22 +22,20 @@ const FacturasXPeriodo: React.FC<{ facturas: Factura[]; periodo: string }> = ({ 
       <h3 className="font-display text-xl font-semibold tracking-wide text-blue-600">
         Periodo: <span className="font-2xl">{formatPeriodo(periodo)}</span>
       </h3>
-      <span className="text-lg text-gray-600">
-        Vencimiento: {new Date(facturas[0].comp_fecven).toLocaleDateString()}
-      </span>
+      <span className="text-lg text-gray-600">Vencimiento: {new Date(facturas[0].FecVen).toLocaleDateString()}</span>
       <div>
         {facturas.map((factura: Factura) => {
           return (
-            <div className="mr-4 mt-1 grid grid-cols-facturas items-center gap-1" key={factura.comp_id}>
-              <span className="font-display">Nº {`${factura.comp_suc}-${factura.comp_nro}`}</span>
-              <span className={`${Color[factura.estado]}`}>{State[factura.estado]}</span>
-              <span className="text-right font-semibold text-gray-600">$ {factura.comp_total}</span>
+            <div className="mr-4 mt-1 grid grid-cols-facturas items-center gap-1" key={factura.CompId}>
+              <span className="font-display">Nº {`${factura.Suc}-${factura.Nro}`}</span>
+              <span className={`${Color[factura.Estado]}`}>{State[factura.Estado]}</span>
+              <span className="text-right font-semibold text-gray-600">$ {factura.Total}</span>
 
               <DownloadSimple
                 className="mr-1 cursor-pointer rounded-full p-1 text-blue-400 transition hover:bg-gray-100 hover:text-blue-500 lg:ml-1"
                 size={28}
                 onClick={() => {
-                  getFile(userId, factura.comp_id);
+                  getFile(userId, factura.CompId);
                 }}
               />
             </div>
