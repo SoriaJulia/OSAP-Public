@@ -1,4 +1,4 @@
-import { Envelope, Calendar, UsersThree, CreditCard, Question, Phone, Buildings, FirstAidKit } from 'phosphor-react';
+import { Calendar, CreditCard, Buildings } from 'phosphor-react';
 import { NavbarItem } from './NavbarItem';
 
 const AfiliadosNavbar = () => {
@@ -24,6 +24,7 @@ const AfiliadosNavbar = () => {
         title="Centros de atencion"
         variant="secondary"
         icon={<Buildings />}
+        hideFromDrawer
       />
     </>
   );

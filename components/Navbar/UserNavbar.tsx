@@ -1,6 +1,5 @@
 import { capitalizeText } from '@lib/utils';
 import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
 import { House, SignOut, User } from 'phosphor-react';
 import React from 'react';
 import LoginMenu from './Menu/LoginMenu';
@@ -14,11 +13,11 @@ const UserNavbar: React.FC = ({ children }) => {
   return (
     <nav
       className={` ${loggedUser ? '' : 'absolute right-0'}
-     top-[4.75rem] z-10 hidden justify-end md:flex
+     top-0 z-10 justify-end  md:top-[4.75rem]
     `}
     >
       {loggedUser ? (
-        <div className="flex w-full justify-between bg-blue-800">
+        <div className=" hidden w-full  justify-between bg-blue-800 md:flex">
           <ul className="flex items-center gap-1 lg:ml-6">
             <NavbarItem
               title={`¡Hola! ${userName}`}

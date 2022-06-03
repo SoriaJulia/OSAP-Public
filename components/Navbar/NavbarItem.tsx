@@ -6,8 +6,8 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 
 const variants = {
-  primary: 'hover:text-orange-400 font-display lg:text-xl md:text-lg md:text-orange-600 md:hover:bg-slate-50 ',
-  secondary: 'md:text-blue-100 md:text-base md:hover:text-blue-100 md:hover:bg-blue-600 ',
+  primary: 'hover:text-orange-400  lg:text-xl md:text-lg md:text-orange-600 md:hover:bg-slate-50 ',
+  secondary: 'md:text-blue-100 md:text-base md:font-sans md:hover:text-blue-100 md:hover:bg-blue-600 ',
 };
 
 const selected = {
@@ -27,6 +27,7 @@ type NavbarItemProps = {
   onClick?: () => void;
   showIcon?: boolean;
   iconEnd?: boolean;
+  hideFromDrawer?: boolean;
 };
 
 export const NavbarItem: React.FC<NavbarItemProps> = ({
@@ -40,6 +41,7 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
   onClick,
   showIcon,
   iconEnd,
+  hideFromDrawer,
 }) => {
   const caret = list ? (
     <>
@@ -66,9 +68,9 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.4 }}
-      className={`${onNavbar ? '' : 'md:hidden'} ${variants[variant]} ${
+      className={`${onNavbar ? '' : 'md:hidden'} ${hideFromDrawer && 'hidden md:flex'} ${variants[variant]} ${
         currentPage === href ? selected[variant] : ''
-      } group relative rounded-sm  text-xl text-blue-900 transition  
+      } group relative rounded-sm font-display  text-xl text-blue-900 transition  
        `}
     >
       {list ? (

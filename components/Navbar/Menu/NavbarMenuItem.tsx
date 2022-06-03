@@ -18,7 +18,7 @@ const NavbarMenuItem: React.FC<NavbarMenuItem> = ({ text, icon, onClick }) => {
   // onKeyDown={onEnterKeyDown(onKeyDownHandler)}
   return (
     <button
-      className="flex justify-center gap-1 rounded-3xl py-3 px-2 text-xl hover:bg-blue-200/50 hover:text-blue-900"
+      className="flex justify-end gap-1 rounded-3xl py-3 px-1 text-lg underline-offset-1 hover:text-white hover:underline md:text-xl "
       onClick={onClick}
     >
       {text}
