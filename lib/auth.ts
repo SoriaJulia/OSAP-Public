@@ -1,8 +1,8 @@
 import { NextRequest } from 'next/server';
-import { NextApiRequest, NextApiResponse } from 'next';
-import { AuthUserRoles, UserRoles } from 'types/enums';
+import { NextApiRequest } from 'next';
+import { AuthUserRoles } from 'types/enums';
 import { nanoid } from 'nanoid';
-import { SignJWT, jwtVerify, JWTPayload } from 'jose';
+import { SignJWT, jwtVerify } from 'jose';
 import { JWT_SECRET_KEY, USER_TOKEN } from '@lib/constants';
 import { jsonResponse } from './utils';
 

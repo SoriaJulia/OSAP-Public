@@ -79,7 +79,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
                 signIn<RedirectableProviderType>('credentials', {
                   username,
                   password,
-                  role: UserRoles.AFILIADO,
+                  role: userRole || UserRoles.AFILIADO,
                   redirect: false,
                 }).then((value) => {
                   if (value?.error) {
