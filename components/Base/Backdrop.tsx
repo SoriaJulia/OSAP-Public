@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
 
-const Backdrop: React.FC<any> = ({ onClickHandler, show }) => {
+type BackdropProps = {
+  onClickHandler?: () => void;
+  show: boolean;
+};
+
+const Backdrop: React.FC<BackdropProps> = ({ onClickHandler, show }) => {
   return (
     <motion.div
       id="backdrop"

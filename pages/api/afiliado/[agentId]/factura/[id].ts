@@ -1,6 +1,6 @@
 import axiosClient from '@lib/axios';
-import { parseJSONResponse, ParseSOAPOptions, parseSOAPResponse } from '@lib/utils';
-import { GECROS_API_URL, OSAP_API_URL } from 'config';
+import { ParseSOAPOptions, parseSOAPResponse } from '@lib/utils';
+import { GECROS_API_URL } from 'config';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 

@@ -1,6 +1,4 @@
-import { AuthUserRoles } from '@appTypes/enums';
 import { InputChangeHandler } from '@appTypes/reactCommon';
-import OSAPUser from '@appTypes/user';
 import { NEXT_URL } from 'config';
 import { XMLParser, XMLValidator } from 'fast-xml-parser';
 import _ from 'lodash';
