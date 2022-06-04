@@ -59,11 +59,12 @@
   outline-color: theme('colors.gray.100');
 }
 
-select {
-  -webkit-appearance: none;
+/* TODO fix with postcss url plugin */
+/*select {
+   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
-  /* Some browsers will not display the caret when using calc, so we put the fallback first */
-  background: url('../public/img/expand_more.svg') white no-repeat 98.5%;
-  background: url('../public/img/expand_more.svg') white no-repeat calc(100% - 8px); /* Better placement regardless of input width */
-}
+  appearance: none; */
+/* Some browsers will not display the caret when using calc, so we put the fallback first */
+/* background: url('../public/img/expand_more.svg') white no-repeat 98.5%;
+  background: url('../public/img/expand_more.svg') white no-repeat calc(100% - 8px); Better placement regardless of input width 
+}*/
