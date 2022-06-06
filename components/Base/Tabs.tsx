@@ -1,12 +1,13 @@
 import { Autorizacion } from '@appTypes/autorizacion';
 import { Factura } from '@appTypes/factura';
+import { IconProps } from 'phosphor-react';
 import React, { FC, ReactNode } from 'react';
 
 export type TabsType = {
   label: string;
   index: number;
   Component: React.FC<any>;
-  icon: ReactNode;
+  Icon: React.FC<IconProps>;
   significantProp: 'facturas' | 'coseguros' | 'autorizaciones';
 }[];
 
@@ -38,7 +39,7 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
       >
         {tabs.map((tab) => (
           <button
-            className={`-mb-0.5 mt-2 flex items-center gap-2 rounded-t-lg border-x-2 border-t-2  py-4 px-7 text-xl  text-orange-600
+            className={`-mb-0.5 mt-2 flex items-end gap-1 whitespace-nowrap rounded-t-lg border-x-2 border-t-2 py-2 px-7 text-lg text-orange-600 md:py-4  md:text-xl
           ${
             selectedTab === tab.index ? ' border-b-2  border-orange-600 border-b-white bg-white' : 'mb-0 bg-white/50'
           } `}
@@ -51,7 +52,7 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
             tabIndex={selectedTab === tab.index ? 0 : -1}
             id={`btn-${tab.index}`}
           >
-            {tab.icon}
+            <tab.Icon weight={selectedTab === tab.index ? 'fill' : 'regular'} size="1.2em" />
             {tab.label}
           </button>
         ))}
