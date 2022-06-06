@@ -2,10 +2,12 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
-import { Bank, CreditCard, Receipt, Scroll } from 'phosphor-react';
+import { Bank, CreditCard, Note, Receipt, Scroll } from 'phosphor-react';
 import { nextFetch } from '@lib/utils';
 import { getSession } from 'next-auth/react';
 import { Factura } from '@appTypes/factura';
+import AutorizacionesTab from 'components/Facturacion/AutorizacionesTab';
+import { Autorizacion } from '@appTypes/autorizacion';
 import Button from '../../components/Base/Button';
 import PageTitle from '../../components/Base/PageTitle';
 import Tabs, { TabsType } from '../../components/Base/Tabs';
@@ -22,8 +24,15 @@ const tabs: TabsType = [
     significantProp: 'facturas',
   },
   {
-    label: 'Coseguros y Cargos',
+    label: 'Autorizaciones',
     index: 1,
+    Component: AutorizacionesTab,
+    icon: <Note weight="duotone" size={26} />,
+    significantProp: 'autorizaciones',
+  },
+  {
+    label: 'Coseguros y Cargos',
+    index: 2,
     Component: CosegurosList,
     icon: <Receipt weight="duotone" size={26} />,
     significantProp: 'coseguros',
@@ -32,6 +41,7 @@ const tabs: TabsType = [
 type FacturacionProps = {
   facturas: Array<Factura>;
   coseguros: Array<Factura>;
+  autorizaciones: Array<Autorizacion>;
 };
 
 const Facturacion: NextPage<FacturacionProps> = (props) => {
@@ -68,14 +78,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
     };
   }
-
+  const agentId = session.user?.agentId;
   // call consultar facturas
   try {
-    const facturas = await nextFetch(`afiliado/${session.user?.agentId}/factura`, {
+    const facturas = await nextFetch(`afiliado/${agentId}/factura`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
+    const autorizaciones = await nextFetch(`afiliado/${agentId}/autorizacion`, {
       headers: { Cookie: req.headers.cookie || '' },
     });
     return {
-      props: { facturas },
+      props: { facturas, autorizaciones },
     };
   } catch (err) {
     console.error(err);
@@ -84,6 +97,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     return {
       props: {
         facturas: [],
+        autorizaciones: [],
       },
     };
   }

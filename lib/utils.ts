@@ -71,3 +71,5 @@ export const capitalizeText = (text: string) => {
     })
     .join(' ');
 };
+
+export const currentYear = new Date().getFullYear();

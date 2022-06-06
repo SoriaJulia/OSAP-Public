@@ -1,3 +1,4 @@
+import { Autorizacion } from '@appTypes/autorizacion';
 import { Factura } from '@appTypes/factura';
 import React, { FC, ReactNode } from 'react';
 
@@ -6,7 +7,7 @@ export type TabsType = {
   index: number;
   Component: React.FC<any>;
   icon: ReactNode;
-  significantProp: 'facturas' | 'coseguros';
+  significantProp: 'facturas' | 'coseguros' | 'autorizaciones';
 }[];
 
 type TabsProps = {
@@ -14,7 +15,7 @@ type TabsProps = {
   selectedTab: number;
   onClick: (index: number) => void;
   orientation?: 'horizontal' | 'vertical';
-  payload: Array<Factura>;
+  payload: Array<Factura> | Array<Autorizacion>;
 };
 
 /**
