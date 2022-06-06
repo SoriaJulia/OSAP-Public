@@ -10,6 +10,6 @@ export type Factura = {
   Peri: string;
 };
 
-export type Periodo = {
+export type FacXPeriodo = {
   [key: string]: Factura[];
 };

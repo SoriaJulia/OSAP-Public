@@ -13,8 +13,8 @@ const UserNavbar: React.FC = ({ children }) => {
 
   return (
     <nav
-      className={` ${loggedUser ? '' : 'absolute right-0'}
-     absolute top-0 right-0  z-10 justify-end md:static md:top-[4.75rem]
+      className={` ${loggedUser ? 'md:sticky ' : 'absolute right-0'}
+     absolute top-0 right-0 z-10 justify-end md:top-[4.75rem]
     `}
     >
       {loggedUser ? (
@@ -26,7 +26,7 @@ const UserNavbar: React.FC = ({ children }) => {
               </button>
             </Link>
           </div>
-          <div className=" hidden w-full  justify-between bg-blue-800 md:flex">
+          <div className=" hidden w-screen justify-between bg-blue-800 md:flex">
             <ul className="flex items-center gap-1 lg:ml-6">
               <NavbarItem
                 title={`¡Hola! ${userName}`}
