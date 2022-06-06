@@ -5,7 +5,9 @@ import Head from 'next/head';
 import { Factura } from '@appTypes/factura';
 import { nextFetch } from '@lib/utils';
 import { Credencial } from '@appTypes/credencial';
+import { Autorizacion } from '@appTypes/autorizacion';
 import Credenciales from 'components/Credencial/List';
+import UltimasAutorizaciones from 'components/Facturacion/UltimasAutorizaciones';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
 import UltimasFacturas from '../../components/Facturacion/UltimasFacturas';
@@ -14,10 +16,11 @@ import UltimosCoseguros from '../../components/Facturacion/UltimosCoseguros';
 type AfiliadosPageProps = {
   facturas: Array<Factura>;
   credenciales: Array<Credencial>;
+  autorizaciones: Array<Autorizacion>;
   agentId: string;
 };
 
-export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales, agentId }) => {
+export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales, autorizaciones, agentId }) => {
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
       <Head>
@@ -25,6 +28,7 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales
       </Head>
       <AfiliadosSectionsNav />
       <Credenciales credenciales={credenciales} agentId={agentId} />
+
       <section className="flex w-full flex-col items-start pt-8">
         <h3 className="mb-6 text-3xl text-blue-800 md:mb-0">Pagos y facturación</h3>
         <div className="flex w-full justify-end gap-1 px-2 pb-4 sm:gap-4 sm:px-6 xs:gap-2">
@@ -33,7 +37,9 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales
           <Button label="Informar pago" variant="yellowOutlined" leadingIcon={<Receipt size={24} />} />
         </div>
         <UltimasFacturas facturas={facturas} />
+        <UltimasAutorizaciones autorizaciones={autorizaciones} />
         <UltimosCoseguros />
+
         <article className="mt-2 w-full px-4 text-left md:px-8 lg:w-3/4 lg:px-0">
           <a
             href="/formulario"
@@ -75,8 +81,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const credenciales = await nextFetch(`afiliado/${agentId}/credencial`, {
       headers: { Cookie: req.headers.cookie || '' },
     });
+    const autorizaciones = await nextFetch(`afiliado/${agentId}/autorizacion`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
     return {
-      props: { facturas, credenciales, agentId },
+      props: { facturas, credenciales, autorizaciones, agentId },
     };
   } catch (err) {
     console.error(err);
@@ -86,6 +95,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       props: {
         facturas: [],
         credenciales: [],
+        autorizaciones: [],
         agentId,
       },
     };

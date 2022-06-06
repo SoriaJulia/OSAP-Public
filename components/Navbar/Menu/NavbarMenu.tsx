@@ -14,7 +14,6 @@ const NavbarMenu: React.FC<NavbarMenuProps> = ({ children, text, icon }) => {
       </div>
       <div className="hidden flex-col py-2 pb-6 pl-3 group-hover:flex md:pb-8  md:pl-4">
         <p className="text-left font-sans text-blue-200 md:pb-2 md:text-lg">Tipo de usuario:</p>
-        {/* {React.Children.map(children, (child) => ({ child }))} */}
         {children}
       </div>
     </div>

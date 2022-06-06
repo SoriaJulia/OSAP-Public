@@ -1,27 +1,27 @@
-import { FacXPeriodo } from '@appTypes/factura';
+import { AutXPeriodo } from '@appTypes/autorizacion';
 import { isEmpty } from 'lodash';
 import { Info } from 'phosphor-react';
 import React from 'react';
-import FacturasXPeriodo from './FacturasXPeriodoCard';
+import AutorizacionesXPeriodoCard from './AutorizacionesXPeriodoCard';
 
-const FacturasList = ({ periodos, periodosToShow }: { periodos: FacXPeriodo; periodosToShow?: number }) => {
+const AutorizacionesList = ({ periodos, periodosToShow }: { periodos: AutXPeriodo; periodosToShow?: number }) => {
   return (
     <div className="flex flex-wrap gap-5 pt-5">
       {!isEmpty(periodos) ? (
         Object.entries(periodos)
-          .map(([periodoId, facturas]) => {
-            return <FacturasXPeriodo key={periodoId} facturas={facturas} periodo={periodoId} />;
+          .map(([periodoId, autorizaciones]) => {
+            return <AutorizacionesXPeriodoCard key={periodoId} autorizaciones={autorizaciones} periodo={periodoId} />;
           })
           .reverse()
           .slice(0, periodosToShow)
       ) : (
         <div className="mb-3 mt-1 flex grow items-center justify-center gap-1 text-xl text-teal-700">
           <Info size={24} weight="fill" />
-          No se encontraron facturas...
+          No se encontraron autorizaciónes...
         </div>
       )}
     </div>
   );
 };
 
-export default FacturasList;
+export default AutorizacionesList;

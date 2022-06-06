@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { changeNumberInput } from '@lib/utils';
+import { changeNumberInput, currentYear } from '@lib/utils';
 import { Factura } from '@appTypes/factura';
-import { getFilteredFacturasXPeriodo } from '@lib/facturas';
+import { getFilteredFacturasXPeriodo } from '@lib/facturacion';
 import Field from '../Base/Field';
 import Select from '../Base/Select';
 import FacturasList from './FacturasList';
 import { State } from '../../types/enums/facturas';
-
-const currentYear = new Date().getFullYear();
 
 const FacturasTab = ({ payload }: { payload: Factura[] }) => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
