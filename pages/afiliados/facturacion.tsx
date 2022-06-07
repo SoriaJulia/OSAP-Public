@@ -2,7 +2,7 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
-import { Bank, CreditCard, Note, Receipt, Scroll } from 'phosphor-react';
+import { Bank, CreditCard, Download, Note, Receipt, Scroll } from 'phosphor-react';
 import { nextFetch } from '@lib/utils';
 import { getSession } from 'next-auth/react';
 import { Factura } from '@appTypes/factura';
@@ -63,6 +63,22 @@ const Facturacion: NextPage<FacturacionProps> = (props) => {
       </div>
       <section className="mt-2">
         <Tabs selectedTab={selectedTab} onClick={setSelectedTab} tabs={tabs} payload={props[tab.significantProp]} />
+      </section>
+      <section className="mt-6">
+        <a
+          href="http://www.osapsalud.com.ar/descargar_pdf.php?archivo=wordpress/wp-content/uploads/folleto_reintegros_2016.pdf"
+          className="flex items-center gap-2 py-2 text-blue-700 transition-all hover:text-blue-500 hover:underline hover:decoration-blue-500 md:text-lg"
+          target="_blank"
+        >
+          <Download /> Formulario de acreditación automática de reintegros
+        </a>
+        <a
+          href="http://www.osapsalud.com.ar/descargar_pdf.php?archivo=wordpress/wp-content/uploads/AUTORIZACION%20DE%20DEBITO%20AUTOMATICO%20OSAP.pdf"
+          className="flex items-center gap-2 py-2 text-blue-700 decoration-blue-300 hover:text-blue-500 hover:underline hover:decoration-blue-500 md:text-lg"
+          target="_blank"
+        >
+          <Download /> Formulario de autorización débito automático de cuenta bancaria
+        </a>
       </section>
     </div>
   );
