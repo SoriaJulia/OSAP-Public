@@ -1,7 +1,7 @@
 import { Autorizacion } from '@appTypes/autorizacion';
 import { Factura } from '@appTypes/factura';
 import { IconProps } from 'phosphor-react';
-import React, { FC, ReactNode } from 'react';
+import React, { FC } from 'react';
 
 export type TabsType = {
   label: string;
