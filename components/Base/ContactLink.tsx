@@ -11,12 +11,15 @@ export type ContactLinkType = {
   label: string;
   icon?: ReactNode;
   variant: Variants;
+  inline?: boolean;
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
-const ContactLink: React.FC<ContactLinkType> = ({ href, label, icon, variant, ...props }) => {
+const ContactLink: React.FC<ContactLinkType> = ({ href, label, icon, variant, inline = false, ...props }) => {
   return (
     <a
-      className={`flex flex-nowrap items-center gap-1 underline underline-offset-2 transition ${variants[variant]}`}
+      className={`${
+        inline ? 'inline-flex' : 'flex'
+      } flex-nowrap items-center gap-1 underline underline-offset-2 transition ${variants[variant]}`}
       href={href}
       {...props}
     >
