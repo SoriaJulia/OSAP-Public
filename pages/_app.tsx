@@ -3,14 +3,17 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { useState } from 'react';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { AnimatePresence } from 'framer-motion';
 import Portal from 'components/Layout/Portal';
 import Backdrop from 'components/Base/Backdrop';
 import PageLoader from 'components/Base/PageLoader';
 import Layout from '../components/Layout/Layout';
 
+const noLayoutPages = ['/login', '/logincopy'];
+
 function MyApp({ Component: PageComponent, pageProps: { session, ...pageProps } }: AppProps) {
+  const router = useRouter();
   const [isRouteChanging, setIsRouteChanging] = useState(false);
   React.useEffect(() => {
     const routeChangeStartHandler = () => setIsRouteChanging(true);
@@ -29,18 +32,22 @@ function MyApp({ Component: PageComponent, pageProps: { session, ...pageProps } 
 
   return (
     <SessionProvider session={session}>
-      <Layout>
-        {isRouteChanging ? (
-          <Portal>
-            <Backdrop show />
-            <PageLoader />
-          </Portal>
-        ) : (
-          <AnimatePresence exitBeforeEnter>
-            <PageComponent {...pageProps} />
-          </AnimatePresence>
-        )}
-      </Layout>
+      {noLayoutPages.includes(router.pathname) ? (
+        <PageComponent {...pageProps} />
+      ) : (
+        <Layout>
+          {isRouteChanging ? (
+            <Portal>
+              <Backdrop show />
+              <PageLoader />
+            </Portal>
+          ) : (
+            <AnimatePresence exitBeforeEnter>
+              <PageComponent {...pageProps} />
+            </AnimatePresence>
+          )}
+        </Layout>
+      )}
     </SessionProvider>
   );
 }
