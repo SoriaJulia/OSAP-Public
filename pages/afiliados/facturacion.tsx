@@ -8,6 +8,7 @@ import { getSession } from 'next-auth/react';
 import { Factura } from '@appTypes/factura';
 import AutorizacionesTab from 'components/Facturacion/AutorizacionesTab';
 import { Autorizacion } from '@appTypes/autorizacion';
+import Link from 'next/link';
 import Button from '../../components/Base/Button';
 import PageTitle from '../../components/Base/PageTitle';
 import Tabs, { TabsType } from '../../components/Base/Tabs';
@@ -30,18 +31,19 @@ const tabs: TabsType = [
     Icon: Note,
     significantProp: 'autorizaciones',
   },
-  {
-    label: 'Coseguros y Cargos',
-    index: 2,
-    Component: CosegurosList,
-    Icon: Receipt,
-    significantProp: 'coseguros',
-  },
+  // {
+  //   label: 'Coseguros y Cargos',
+  //   index: 2,
+  //   Component: CosegurosList,
+  //   Icon: Receipt,
+  //   significantProp: 'coseguros',
+  // },
 ];
 type FacturacionProps = {
   facturas: Array<Factura>;
   coseguros: Array<Factura>;
   autorizaciones: Array<Autorizacion>;
+  agentId: string;
 };
 
 const Facturacion: NextPage<FacturacionProps> = (props) => {
@@ -56,9 +58,20 @@ const Facturacion: NextPage<FacturacionProps> = (props) => {
       <div className="flex flex-wrap items-center justify-between">
         <PageTitle title="Pagos y facturación" />
         <div className="flex gap-3">
-          <Button label="Medios de pago" trailingIcon={<Bank weight="fill" />} variant="fill" />
-          <Button label="Pago Online" trailingIcon={<CreditCard weight="fill" />} variant="fill" />
-          <Button label="Informar pago" trailingIcon={<Receipt weight="fill" />} variant="fill" />
+          <Link href="/afiliados/mediosPago">
+            <Button label="Medios de pago" trailingIcon={<Bank weight="fill" />} variant="fill" />
+          </Link>
+          <Button
+            label="Pago Online"
+            trailingIcon={<CreditCard weight="fill" />}
+            variant="fill"
+            onClick={() =>
+              window.open(
+                `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${props.agentId}`,
+                '_blank'
+              )
+            }
+          />
         </div>
       </div>
       <section className="mt-2">
@@ -104,7 +117,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       headers: { Cookie: req.headers.cookie || '' },
     });
     return {
-      props: { facturas, autorizaciones },
+      props: { facturas, autorizaciones, agentId },
     };
   } catch (err) {
     console.error(err);
@@ -114,6 +127,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       props: {
         facturas: [],
         autorizaciones: [],
+        agentId,
       },
     };
   }

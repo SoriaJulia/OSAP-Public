@@ -10,7 +10,7 @@ import Backdrop from 'components/Base/Backdrop';
 import PageLoader from 'components/Base/PageLoader';
 import Layout from '../components/Layout/Layout';
 
-const noLayoutPages = ['/login', '/logincopy'];
+const noLayoutPages = ['/'];
 
 function MyApp({ Component: PageComponent, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();

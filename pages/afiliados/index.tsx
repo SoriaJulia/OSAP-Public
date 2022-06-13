@@ -7,7 +7,6 @@ import { nextFetch } from '@lib/utils';
 import { Credencial } from '@appTypes/credencial';
 import { Autorizacion } from '@appTypes/autorizacion';
 import Credenciales from 'components/Credencial/List';
-import { useRouter } from 'next/router';
 import UltimasAutorizaciones from 'components/Facturacion/UltimasAutorizaciones';
 import Link from 'next/link';
 import Button from '../../components/Base/Button';
@@ -23,7 +22,6 @@ type AfiliadosPageProps = {
 };
 
 export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales, autorizaciones, agentId }) => {
-  const router = useRouter();
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
       <Head>
@@ -46,11 +44,9 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales
               window.open(`https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${agentId}`, '_blank')
             }
           />
-          <Button label="Informar pago" variant="yellowOutlined" leadingIcon={<Receipt size={24} />} />
         </div>
         <UltimasFacturas facturas={facturas} />
         <UltimasAutorizaciones autorizaciones={autorizaciones} />
-        <UltimosCoseguros />
 
         <article className="mt-2 w-full px-4 text-left md:px-8 lg:w-3/4 lg:px-0">
           <a

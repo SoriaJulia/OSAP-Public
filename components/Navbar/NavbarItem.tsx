@@ -76,7 +76,7 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
       {list ? (
         <>
           {label}
-          <ul className="top-14 hidden w-full flex-col pt-2 group-hover:flex md:absolute md:w-max md:bg-white md:py-0">
+          <ul className="top-14 z-20 hidden w-full flex-col pt-2 group-hover:flex md:absolute md:w-max md:bg-white md:py-0">
             {children}
           </ul>
         </>
