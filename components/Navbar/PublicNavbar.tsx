@@ -34,7 +34,7 @@ const PublicNavbar = () => {
         title="Preguntas frecuentes"
         icon={<Question />}
       />
-      <NavbarItem href="/telefonos" title="Telefonos Utiles" icon={<Phone />} />
+      <NavbarItem href="http://www.osapsalud.com.ar/telefonos-utiles/" title="Telefonos Utiles" icon={<Phone />} />
       <NavbarItem href="/centrosAtencion" title="Centros de atencion" icon={<Buildings />} />
     </>
   );

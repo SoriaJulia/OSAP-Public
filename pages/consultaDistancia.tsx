@@ -36,7 +36,7 @@ const ConsultaDistancia: NextPage = () => {
           </span>
           <span className="flex items-center gap-2 p-4 text-lg md:text-xl">
             <ContactLink
-              href="wa-me:336418667"
+              href="https://wa.me/336418667"
               label="(336)4418667"
               variant="blue"
               icon={<WhatsappLogo weight="duotone" size="1.3em" />}

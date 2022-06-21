@@ -22,7 +22,7 @@ const listCentros = [
       { href: 'tel:03364450440', label: '4450440' },
       { href: 'tel:03364450099', label: '4450099' },
     ],
-    wsp: [{ href: 'wa-me:+5491154529960', label: '+54 9 11 5452-9960' }],
+    wsp: [{ href: 'https://wa.me/+5491154529960', label: '+54 9 11 5452-9960' }],
   },
   {
     title: 'Centro de Medicina Preventiva OSAP',
@@ -52,7 +52,7 @@ const listCentros = [
       { href: 'tel:3414112698', label: '(341)4112698' },
       { href: 'tel:3414110482', label: '4110482 ' },
     ],
-    wsp: [{ href: 'wa-me:+5491149983336', label: '+54 9 11 49983336' }],
+    wsp: [{ href: 'https://wa.me/+5491149983336', label: '+54 9 11 49983336' }],
   },
   {
     title: 'Centro Atención Buenos Aires',
@@ -76,7 +76,7 @@ const listCentros = [
       { href: 'tel:03364427042', label: '(0336)4427042' },
       { href: 'tel:03334420700', label: '4420700' },
     ],
-    wsp: [{ href: 'wa-me:+5493364008162', label: '+54 9 336 4008162' }],
+    wsp: [{ href: 'https://wa.me/+5493364008162', label: '+54 9 336 4008162' }],
   },
   {
     title: 'Farmacia Planta Savio',
@@ -85,7 +85,7 @@ const listCentros = [
       { href: 'tel:0336438930', label: '(0336)438930' },
       { href: 'tel:38930', label: '38930 (Interno Planta)' },
     ],
-    wsp: [{ href: 'wa-me:+549336102003', label: '+54 9 336 102003' }],
+    wsp: [{ href: 'https://wa.me/+549336102003', label: '+54 9 336 102003' }],
   },
 ];
 

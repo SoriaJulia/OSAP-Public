@@ -11,13 +11,13 @@ const AfiliadosNavbar = () => {
         variant="secondary"
         icon={<CreditCard />}
       />
-      <NavbarItem
+      {/* <NavbarItem
         onNavbar
         href="/afiliados/turnosonline"
         title="Turnos online"
         variant="secondary"
         icon={<Calendar />}
-      />
+      /> */}
       <NavbarItem
         onNavbar
         href="/centrosAtencion"

@@ -27,7 +27,7 @@ const AsistenciaAlViajero: NextPage = () => {
               </a>
             </strong>
             , además consideramos importante agenden el número de WhatsApp de Assist Travel{' '}
-            <a href="wa-me:+5491135869793" className="underline decoration-orange-100">
+            <a href="https://wa.me/+5491135869793" className="underline decoration-orange-100">
               +54 9 11 35869793
             </a>{' '}
             para tener una comunicación mas rápida y eficiente.

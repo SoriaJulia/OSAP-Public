@@ -49,7 +49,7 @@ const FarmaciaSavio: NextPage = () => {
             </span>
             <span className="flex items-center gap-2 text-lg">
               <ContactLink
-                href="wa-me:3364102003"
+                href="https://wa.me/3364102003"
                 label="(336)4102003"
                 variant="blue"
                 icon={<WhatsappLogo weight="duotone" size="1.3em" />}
