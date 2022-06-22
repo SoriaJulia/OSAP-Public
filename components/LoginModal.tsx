@@ -1,13 +1,15 @@
 import Image from 'next/image';
-import { SignIn } from 'phosphor-react';
 import { useState } from 'react';
 import * as React from 'react';
-import Router from 'next/router';
+import { SignIn, WarningCircle } from 'phosphor-react';
+import { RedirectableProviderType } from 'next-auth/providers';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { changeTextInput } from '@lib/utils';
 import Button from './Base/Button';
-import InputText from './Base/InputText';
+import Field from './Base/Field';
 import Modal, { ModalProps } from './Base/Modal';
 import loginImg from '../public/img/login.svg';
-import { useAuth } from '../context/AuthContext';
 import { UserRoles } from '../types/enums';
 
 type LoginModalProps = {
@@ -15,14 +17,10 @@ type LoginModalProps = {
 } & ModalProps;
 
 const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRole }) => {
-  const { login, setUser } = useAuth();
-  const [user, setUsername] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  // TODO no more anys
-  const changeFormValue = (setterFn: any) => (e: any) => {
-    setterFn(e.target.value);
-  };
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   return (
     <Modal onDismiss={onDismiss} show={show} title={title}>
@@ -30,27 +28,36 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
         <div className="hidden md:contents">
           <Image src={loginImg} />
         </div>
-        <form className="mt-10 flex w-full flex-col items-center justify-around px-2 md:w-9/12 md:px-0">
-          <div className="flex w-10/12 flex-col gap-6">
-            <InputText
+        <form className="mt-11 flex w-full flex-col items-center justify-around px-2 md:w-7/12 md:px-0">
+          <div className="flex w-11/12 flex-col gap-6 md:w-10/12">
+            <Field
               type="text"
               label="DNI"
               name="user"
               placeholder="30256544"
               helpText="Sin espacios ni caracteres especiales"
-              errorText=""
-              value={user}
-              onChange={changeFormValue(setUsername)}
+              value={username}
+              onChange={changeTextInput(setUsername)}
             />
-            <InputText
+            <Field
               type="password"
               label="Contraseña"
               name="pass"
               placeholder="••••••••"
               helpText="Si no tenes contraseña repetí tu DNI"
               value={password}
-              onChange={changeFormValue(setPassword)}
+              onChange={changeTextInput(setPassword)}
             />
+            <div className="h-12 w-80 overflow-hidden text-rose-500">
+              {error ? (
+                <>
+                  <WarningCircle className="mr-1 mb-1 inline" size={18} weight="bold" />
+                  {error}
+                </>
+              ) : (
+                ''
+              )}
+            </div>
           </div>
           <div className="m-4 flex justify-end gap-2 place-self-end pt-10 md:pt-6 ">
             <Button
@@ -58,6 +65,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               variant="outlined"
               type="button"
               onClick={() => {
+                setError(null);
                 onDismiss();
               }}
             />
@@ -68,9 +76,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               type="submit"
               onClick={(e) => {
                 e.preventDefault();
-                // login({ user, password });
-                setUser({ name: 'Julia', role: userRole });
-                Router.push('/afiliados');
+                signIn<RedirectableProviderType>('credentials', {
+                  username,
+                  password,
+                  role: userRole || UserRoles.AFILIADO,
+                  redirect: false,
+                }).then((value) => {
+                  if (value?.error) {
+                    setError(value.error);
+                  } else {
+                    router.push('/afiliados');
+                  }
+                });
               }}
             />
           </div>

@@ -27,6 +27,7 @@ module.exports = {
           300: '#ff5c33',
           400: '#ff4719',
           500: '#ff3300',
+          550: '#F84209',
           600: '#e62e00',
           700: '#cc2900',
           800: '#991f00',
@@ -60,12 +61,17 @@ module.exports = {
         'footer-lg': '13% 1.3fr repeat(2, 1fr)',
         'footer-md': '30% 1fr',
         'footer': 'repeat(2, 1fr)',
+        'facturas': '40% 25% 30% 5%',
+        'autorizaciones': '14% 57% 25% 4%',
       },
       screens: {
         xs: '380px',
       },
       backgroundImage: {
         '404img': "url('/img/404.svg')",
+      },
+      width: {
+        screen: 'calc(100vw - 8px)',
       },
     },
   },

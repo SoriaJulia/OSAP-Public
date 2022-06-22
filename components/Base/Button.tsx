@@ -8,6 +8,8 @@ const buttonVariants = {
   yellowOutlined: 'ring-2 ring-inset  ring-yellow-500 text-yellow-700 bg-white/50 hover:bg-white',
   text: 'underline decoration-orange-300/80 font-normal text-orange-500 hover:bg-white underline-offset-1',
   blueText: 'underline decoration-blue-400/80 font-normal text-blue-600 hover:bg-white underline-offset-1',
+  blueFill: 'bg-blue-500 text-gray-50 hover:bg-blue-400',
+  slateText: 'underline decoration-slate-600/80 font-normal text-slate-700 hover:text-slate-800 underline-offset-1',
 };
 type Variants = keyof typeof buttonVariants;
 type ButtonProps = {

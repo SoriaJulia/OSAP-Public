@@ -1,5 +1,4 @@
 @import url('https://use.typekit.net/fjq7zjb.css');
-@import '@splidejs/react-splide/css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,28 +6,28 @@
 /* scrollbar */
 /* Firefox */
 * {
-  scrollbar-width: none;
-  scrollbar-color: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: #295f7199 #080e1f5d;
 }
 
 /* Chrome, Edge, and Safari */
 
 *::-webkit-scrollbar {
-  width: 0px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: transparent;
+  background: #080e1f5d;
   border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 0px;
+  background: #295f7199;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: transparent;
+  background: #e62e0099;
 }
 
 .horizontalScrollbar::-webkit-scrollbar {
@@ -49,8 +48,23 @@
   background: theme('colors.blue.300');
 }
 
+.hiddenScrollbar::-webkit-scrollbar {
+  height: 0px;
+  width: 0px;
+}
+
 /* scrollbar */
 
 *:focus-visible {
   outline-color: theme('colors.gray.100');
 }
+
+/* TODO fix with postcss url plugin */
+/*select {
+   -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; */
+/* Some browsers will not display the caret when using calc, so we put the fallback first */
+/* background: url('../public/img/expand_more.svg') white no-repeat 98.5%;
+  background: url('../public/img/expand_more.svg') white no-repeat calc(100% - 8px); Better placement regardless of input width 
+}*/

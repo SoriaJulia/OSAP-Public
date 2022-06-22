@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { MapPin, Phone, Envelope, Printer } from 'phosphor-react';
+import { MapPin, Phone, Envelope, WhatsappLogo } from 'phosphor-react';
 import Link from 'next/link';
 import logoSSS from '../../public/img/logo-sss.png';
 import logoSSSsmall from '../../public/img/logo-sss-small.png';
@@ -24,7 +24,12 @@ export const Footer = () => {
           <ContactLink href="tel:3364450440" label="4450440" variant="lightBlue" />
           <ContactLink href="tel:3364450099" label="4450099" variant="lightBlue" />
         </div>
-        <ContactLink href="tel:3364437600" label="(0336)4437600" variant="lightBlue" icon={<Printer size={24} />} />
+        <ContactLink
+          href="https://wa.me/+5491154529960"
+          label="+54 9 11 54529960"
+          variant="lightBlue"
+          icon={<WhatsappLogo size={24} />}
+        />
         <ContactLink
           href="mailto:info@osap.org.ar"
           label="info@osap.org.ar"
@@ -35,19 +40,19 @@ export const Footer = () => {
 
       <ul className="mt-8 hidden flex-col justify-center gap-2 text-blue-400 md:flex lg:mt-0">
         <li className="transition hover:text-blue-300 hover:underline">
-          <Link href="/contacto">Contactanos</Link>
+          <Link href="http://www.osapsalud.com.ar/contacto/">Contactanos</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
-          <Link href="/trabaja">Trabajá con nosotros</Link>
+          <Link href="http://www.osapsalud.com.ar/quiero-ser-prestador-osap/">Trabajá con nosotros</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
-          <Link href="/faq">Preguntas frecuentes</Link>
+          <Link href="http://www.osapsalud.com.ar/normas-generales/">Preguntas frecuentes</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
-          <Link href="/telefonos">Telefonos útiles</Link>
+          <Link href="http://www.osapsalud.com.ar/telefonos-utiles/">Telefonos útiles</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
-          <Link href="/centrosatencion">Centros de atención</Link>
+          <Link href="/centrosAtencion">Centros de atención</Link>
         </li>
       </ul>
       <div className="col-span-2 flex flex-col items-end gap-2 md:col-auto">

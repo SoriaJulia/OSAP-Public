@@ -16,16 +16,16 @@ const LoginMenu = () => {
   };
   return (
     <>
-      <NavbarMenu text="Ingresar" icon={<UserCircle weight="duotone" size={32} />}>
+      <NavbarMenu text="Ingresar" icon={<UserCircle weight="light" size="1.4em" />}>
         <NavbarMenuItem
-          text="Como Afiliado"
-          onClick={handleClick(UserRoles.AFILIADO)}
-          icon={<Person weight="light" size={32} />}
-        />
-        <NavbarMenuItem
-          text="Como Prestador"
+          text="Prestador"
           onClick={handleClick(UserRoles.PRESTADOR)}
           icon={<FirstAidKit weight="light" size={32} />}
+        />
+        <NavbarMenuItem
+          text="Afiliado"
+          onClick={handleClick(UserRoles.AFILIADO)}
+          icon={<Person weight="light" size={32} />}
         />
       </NavbarMenu>
       <Portal>
