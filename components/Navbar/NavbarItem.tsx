@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import * as React from 'react';
 import { CaretRight, Plus, Minus } from 'phosphor-react';
 import { motion } from 'framer-motion';
@@ -43,6 +43,13 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
   iconEnd,
   hideFromDrawer,
 }) => {
+  const router = useRouter();
+  const currentPage = router.pathname;
+  const [isListOpen, setIsListOpen] = useState(false);
+  const handleList = () => {
+    return isListOpen ? setIsListOpen(false) : setIsListOpen(true);
+  };
+
   const caret = list ? (
     <>
       <Plus className="group-hover:hidden md:hidden" />
@@ -51,10 +58,9 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
   ) : (
     <CaretRight className="md:hidden" />
   );
-  const router = useRouter();
-  const currentPage = router.pathname;
+
   const label = (
-    <button onClick={onClick} className="flex w-full items-center justify-between p-4 ">
+    <button onClick={list ? handleList : onClick} className="flex w-full items-center justify-between p-4 ">
       <div className="flex items-center gap-3">
         <div className={`${showIcon && !iconEnd ? '' : 'md:hidden'}`}>{icon}</div>
         {title}
@@ -63,6 +69,7 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
       {caret}
     </button>
   );
+
   return (
     <motion.li
       initial={{ opacity: 0 }}
@@ -76,7 +83,11 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({
       {list ? (
         <>
           {label}
-          <ul className="top-14 z-20 hidden w-full flex-col pt-2 group-hover:flex md:absolute md:w-max md:bg-white md:py-0">
+          <ul
+            className={`${
+              isListOpen ? 'flex' : 'hidden'
+            } top-14 z-20 w-full flex-col pt-2 group-hover:flex md:absolute md:w-max md:bg-white md:py-0`}
+          >
             {children}
           </ul>
         </>

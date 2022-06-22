@@ -14,8 +14,12 @@ import { NavbarItem } from './NavbarItem';
 const PublicNavbar = () => {
   return (
     <>
-      <NavbarItem href="/trabaja" title="Trabaja con nosotros" icon={<Suitcase />} />
-      <NavbarItem href="/contacto" title="Contactanos" icon={<Envelope />} />
+      <NavbarItem
+        href="http://www.osapsalud.com.ar/quiero-ser-prestador-osap/"
+        title="Trabaja con nosotros"
+        icon={<Suitcase />}
+      />
+      <NavbarItem href="http://www.osapsalud.com.ar/contacto/" title="Contactanos" icon={<Envelope />} />
       <NavbarItem onNavbar href="/conoceOSAP" title="Conocé OSAP" icon={<House />} />
       <NavbarItem onNavbar href="http://www.osapsalud.com.ar/novedades/" title="Novedades" icon={<Newspaper />} />
       <NavbarItem

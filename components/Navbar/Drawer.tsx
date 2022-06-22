@@ -32,13 +32,12 @@ const Drawer: React.FC<DrawerProps> = ({ show, onDismiss, children }) => {
             exit={{ x: -400 }}
             transition={{ ease: 'easeInOut', duration: 1 }}
             className="fixed top-0 z-30 flex h-full overflow-y-scroll rounded-r-xl bg-grey-50 px-8 pt-14 "
-            onClick={onDismiss}
           >
             <button className="absolute top-2 right-2 self-end p-3" onKeyDown={onDismiss} onClick={onDismiss}>
               <X weight="bold" className=" text-grey-300" />
             </button>
 
-            <ul className="flex w-full flex-col-reverse justify-end gap-3 divide-y divide-y-reverse  ">{children}</ul>
+            <ul className="flex w-full flex-col-reverse justify-end gap-3 divide-y divide-y-reverse">{children}</ul>
           </motion.nav>
         </>
       )}
