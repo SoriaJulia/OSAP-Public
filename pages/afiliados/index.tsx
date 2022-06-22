@@ -8,6 +8,7 @@ import { Credencial } from '@appTypes/credencial';
 import { Autorizacion } from '@appTypes/autorizacion';
 import Credenciales from 'components/Credencial/List';
 import UltimasAutorizaciones from 'components/Facturacion/UltimasAutorizaciones';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
@@ -22,6 +23,7 @@ type AfiliadosPageProps = {
 };
 
 export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales, autorizaciones, agentId }) => {
+  const router = useRouter();
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
       <Head>
@@ -33,9 +35,13 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales
       <section className="flex w-full flex-col items-start pt-8">
         <h3 className="mb-6 text-3xl text-blue-800 md:mb-0">Pagos y facturación</h3>
         <div className="flex w-full justify-end gap-1 px-2 pb-4 sm:gap-4 sm:px-6 xs:gap-2">
-          <Link href="/afiliados/mediosPago">
-            <Button label="Medios de pago" variant="yellowOutlined" leadingIcon={<Bank size={24} />} />
-          </Link>
+          <Button
+            label="Medios de pago"
+            variant="yellowOutlined"
+            leadingIcon={<Bank size={24} />}
+            onClick={() => router.push('/afiliados/mediosPago')}
+          />
+
           <Button
             label="Pago online"
             variant="yellowOutlined"
