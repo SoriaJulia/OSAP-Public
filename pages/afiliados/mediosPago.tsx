@@ -5,7 +5,7 @@ import Image from 'next/image';
 import ContactLink from 'components/Base/ContactLink';
 import React from 'react';
 import { getSession } from 'next-auth/react';
-import { Buildings, Copy, CopySimple, DownloadSimple, Envelope, FileArrowDown } from 'phosphor-react';
+import { Buildings, CopySimple, Envelope, FileArrowDown } from 'phosphor-react';
 import Button from 'components/Base/Button';
 import Federacion from '../../public/img/Federacion.png';
 import Link from '../../public/img/RedLink.png';

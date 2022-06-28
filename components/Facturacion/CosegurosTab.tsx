@@ -1,6 +1,6 @@
 import { getFilteredCosegurosXPeriodo } from '@lib/facturacion';
 import { changeNumberInput, currentYear } from '@lib/utils';
-import _, { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 import { Info } from 'phosphor-react';
 import React, { useState } from 'react';
 import { Coseguro } from '../../types/coseguro';

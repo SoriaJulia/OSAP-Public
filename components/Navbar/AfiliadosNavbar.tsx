@@ -1,4 +1,4 @@
-import { Calendar, CreditCard, Buildings } from 'phosphor-react';
+import { CreditCard, Buildings } from 'phosphor-react';
 import NavbarItem from './NavbarItem';
 
 const AfiliadosNavbar: React.FC<{ closeDrawer?: () => void }> = ({ closeDrawer }) => {

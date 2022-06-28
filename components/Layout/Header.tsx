@@ -4,7 +4,7 @@ import * as React from 'react';
 import { List } from 'phosphor-react';
 import PublicNavbar from 'components/Navbar/PublicNavbar';
 import UserNavbar from 'components/Navbar/UserNavbar';
-import NavbarItem, { NavbarItemProps } from 'components/Navbar/NavbarItem';
+import { NavbarItemProps } from 'components/Navbar/NavbarItem';
 import Drawer from '../Navbar/Drawer';
 import Logo from '../SVG/Logo';
 import Slogan from '../SVG/Slogan';

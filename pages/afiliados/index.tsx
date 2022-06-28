@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { Bank, CreditCard, Receipt, Download } from 'phosphor-react';
+import { Bank, CreditCard, Download } from 'phosphor-react';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { Factura } from '@appTypes/factura';
@@ -9,7 +9,6 @@ import { Autorizacion } from '@appTypes/autorizacion';
 import Credenciales from 'components/Credencial/List';
 import UltimasAutorizaciones from 'components/Facturacion/UltimasAutorizaciones';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { Coseguro } from '@appTypes/coseguro';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';

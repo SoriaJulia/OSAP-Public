@@ -1,4 +1,4 @@
-import { ChatsCircle, FirstAid, Calendar, UserList, FirstAidKit, Phone, Car } from 'phosphor-react';
+import { ChatsCircle, Calendar, UserList, FirstAidKit, Phone, Car } from 'phosphor-react';
 import SectionButton from './Base/SectionButton';
 
 const AfiliadosSectionsNav = () => {
