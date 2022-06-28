@@ -1,15 +1,13 @@
 import { capitalizeText } from '@lib/utils';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { House, SignOut, User } from 'phosphor-react';
+import { House, SignOut } from 'phosphor-react';
 import React from 'react';
 import LoginMenu from './Menu/LoginMenu';
-import { NavbarItem } from './NavbarItem';
+import NavbarItem from './NavbarItem';
 
 const UserNavbar: React.FC = ({ children }) => {
   const session = useSession();
-  const router = useRouter();
   const loggedUser = session.data?.user;
   const userName = session.data?.user ? capitalizeText(session.data?.user?.name) : '';
 
@@ -53,7 +51,6 @@ const UserNavbar: React.FC = ({ children }) => {
               /> */}
               <NavbarItem
                 onClick={() => {
-                  router.push('/');
                   signOut();
                 }}
                 onNavbar

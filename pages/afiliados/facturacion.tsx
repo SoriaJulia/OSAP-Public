@@ -8,12 +8,13 @@ import { getSession } from 'next-auth/react';
 import { Factura } from '@appTypes/factura';
 import AutorizacionesTab from 'components/Facturacion/AutorizacionesTab';
 import { Autorizacion } from '@appTypes/autorizacion';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Coseguro } from '@appTypes/coseguro';
 import Button from '../../components/Base/Button';
 import PageTitle from '../../components/Base/PageTitle';
 import Tabs, { TabsType } from '../../components/Base/Tabs';
 import FacturasTab from '../../components/Facturacion/FacturasTab';
-import CosegurosList from '../../components/Facturacion/CosegurosList';
+import CosegurosTab from '../../components/Facturacion/CosegurosTab';
 
 // Tabs Array
 const tabs: TabsType = [
@@ -31,17 +32,17 @@ const tabs: TabsType = [
     Icon: Note,
     significantProp: 'autorizaciones',
   },
-  // {
-  //   label: 'Coseguros y Cargos',
-  //   index: 2,
-  //   Component: CosegurosList,
-  //   Icon: Receipt,
-  //   significantProp: 'coseguros',
-  // },
+  {
+    label: 'Coseguros y Cargos',
+    index: 2,
+    Component: CosegurosTab,
+    Icon: Receipt,
+    significantProp: 'coseguros',
+  },
 ];
 type FacturacionProps = {
   facturas: Array<Factura>;
-  coseguros: Array<Factura>;
+  coseguros: Array<Coseguro>;
   autorizaciones: Array<Autorizacion>;
   agentId: string;
 };
@@ -49,6 +50,7 @@ type FacturacionProps = {
 const Facturacion: NextPage<FacturacionProps> = (props) => {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
   const tab = tabs[selectedTab];
+  const router = useRouter();
 
   return (
     <div>
@@ -58,9 +60,15 @@ const Facturacion: NextPage<FacturacionProps> = (props) => {
       <div className="flex flex-wrap items-center justify-between">
         <PageTitle title="Pagos y facturación" />
         <div className="flex gap-3">
-          <Link href="/afiliados/mediosPago">
-            <Button label="Medios de pago" trailingIcon={<Bank weight="fill" />} variant="fill" />
-          </Link>
+          <Button
+            label="Medios de pago"
+            trailingIcon={<Bank weight="fill" />}
+            variant="fill"
+            onClick={() => {
+              router.push('/afiliados/mediosPago');
+            }}
+          />
+
           <Button
             label="Pago Online"
             trailingIcon={<CreditCard weight="fill" />}
@@ -108,7 +116,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
   const agentId = session.user?.agentId;
-  // call consultar facturas
+
   try {
     const facturas = await nextFetch(`afiliado/${agentId}/factura`, {
       headers: { Cookie: req.headers.cookie || '' },
@@ -116,8 +124,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const autorizaciones = await nextFetch(`afiliado/${agentId}/autorizacion`, {
       headers: { Cookie: req.headers.cookie || '' },
     });
+    const coseguros = await nextFetch(`afiliado/${agentId}/coseguro`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
+
     return {
-      props: { facturas, autorizaciones, agentId },
+      props: { facturas, autorizaciones, coseguros, agentId },
     };
   } catch (err) {
     console.error(err);
@@ -127,6 +139,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       props: {
         facturas: [],
         autorizaciones: [],
+        coseguros: [],
         agentId,
       },
     };

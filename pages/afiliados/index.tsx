@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { Bank, CreditCard, Receipt, Download } from 'phosphor-react';
+import { Bank, CreditCard, Download } from 'phosphor-react';
 import { getSession } from 'next-auth/react';
 import Head from 'next/head';
 import { Factura } from '@appTypes/factura';
@@ -9,7 +9,7 @@ import { Autorizacion } from '@appTypes/autorizacion';
 import Credenciales from 'components/Credencial/List';
 import UltimasAutorizaciones from 'components/Facturacion/UltimasAutorizaciones';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { Coseguro } from '@appTypes/coseguro';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
 import UltimasFacturas from '../../components/Facturacion/UltimasFacturas';
@@ -19,10 +19,17 @@ type AfiliadosPageProps = {
   facturas: Array<Factura>;
   credenciales: Array<Credencial>;
   autorizaciones: Array<Autorizacion>;
+  coseguros: Array<Coseguro>;
   agentId: string;
 };
 
-export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales, autorizaciones, agentId }) => {
+export const Afiliados: NextPage<AfiliadosPageProps> = ({
+  facturas,
+  credenciales,
+  autorizaciones,
+  agentId,
+  coseguros,
+}) => {
   const router = useRouter();
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
@@ -53,6 +60,7 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({ facturas, credenciales
         </div>
         <UltimasFacturas facturas={facturas} />
         <UltimasAutorizaciones autorizaciones={autorizaciones} />
+        <UltimosCoseguros coseguros={coseguros} />
 
         <article className="mt-2 w-full px-4 text-left md:px-8 lg:w-3/4 lg:px-0">
           <a
@@ -100,8 +108,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const autorizaciones = await nextFetch(`afiliado/${agentId}/autorizacion`, {
       headers: { Cookie: req.headers.cookie || '' },
     });
+    const coseguros = await nextFetch(`afiliado/${agentId}/coseguro`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
     return {
-      props: { facturas, credenciales, autorizaciones, agentId },
+      props: { facturas, credenciales, autorizaciones, agentId, coseguros },
     };
   } catch (err) {
     console.error(err);
@@ -112,6 +123,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         facturas: [],
         credenciales: [],
         autorizaciones: [],
+        coseguros: [],
         agentId,
       },
     };

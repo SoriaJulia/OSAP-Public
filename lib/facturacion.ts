@@ -1,4 +1,5 @@
 import { Autorizacion, AutXPeriodo } from '@appTypes/autorizacion';
+import { Coseguro, CosegXPeriodo } from '@appTypes/coseguro';
 import { Factura, FacXPeriodo } from '@appTypes/factura';
 import { capitalizeText } from './utils';
 
@@ -51,6 +52,25 @@ export const getFilteredAutorizacionesXPeriodo = (
       autorizacionesxPeriodo[autorizacion.Periodo].push(autorizacion);
     }
     return autorizacionesxPeriodo;
+  }, {});
+
+  return result;
+};
+
+export const getFilteredCosegurosXPeriodo = (coseguros: Coseguro[], selectedYear?: number) => {
+  let year = '';
+  if (selectedYear) year = selectedYear.toString();
+
+  const filteredCoseguros = coseguros.filter((coseguro) => coseguro.Periodo.slice(0, 4).includes(year));
+
+  const result = filteredCoseguros.reduce((cosegurosxPeriodo: CosegXPeriodo, coseguro) => {
+    if (!cosegurosxPeriodo[coseguro.Periodo]) {
+      // eslint-disable-next-line no-param-reassign
+      cosegurosxPeriodo[coseguro.Periodo] = [coseguro];
+    } else {
+      cosegurosxPeriodo[coseguro.Periodo].push(coseguro);
+    }
+    return cosegurosxPeriodo;
   }, {});
 
   return result;

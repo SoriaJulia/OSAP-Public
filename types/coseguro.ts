@@ -1,9 +1,13 @@
 export type Coseguro = {
-  id: number;
-  periodo: string;
-  fecha: string;
-  prestador: string;
-  concepto: string;
-  detalle: string;
-  importe: number;
+  Periodo: string;
+  Fecha: string;
+  Prestador: string;
+  Concepto: string;
+  Detalle: string;
+  Importe: number;
+  GrupoFamiliar: string;
+};
+
+export type CosegXPeriodo = {
+  [key: string]: Coseguro[];
 };
