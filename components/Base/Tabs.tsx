@@ -1,4 +1,5 @@
 import { Autorizacion } from '@appTypes/autorizacion';
+import { Coseguro } from '@appTypes/coseguro';
 import { Factura } from '@appTypes/factura';
 import { IconProps } from 'phosphor-react';
 import React, { FC } from 'react';
@@ -16,7 +17,7 @@ type TabsProps = {
   selectedTab: number;
   onClick: (index: number) => void;
   orientation?: 'horizontal' | 'vertical';
-  payload: Array<Factura> | Array<Autorizacion>;
+  payload: Array<Factura> | Array<Autorizacion> | Array<Coseguro>;
 };
 
 /**

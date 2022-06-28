@@ -10,17 +10,16 @@ type CoseguroItemProps = {
 const CoseguroItem: React.FC<CoseguroItemProps> = ({ coseguro }) => {
   const [showDetail, setShowDetail] = useState(false);
   return (
-    <div className="group flex w-full flex-col gap-1 py-3 hover:bg-slate-50">
+    <div className="group flex w-full flex-col gap-3 py-3 hover:bg-slate-50">
       <button
         onClick={() => {
           setShowDetail(!showDetail);
         }}
-        className="mr-4 ml-1 flex items-center justify-between gap-1 "
-        key={coseguro.id}
+        className="mr-4 ml-1 grid grid-cols-coseguros items-center gap-1 text-left "
       >
-        <span className="text-lg">Fecha: {new Date(coseguro.fecha).toLocaleDateString()}</span>
-        <span>{_.capitalize(coseguro.concepto)}</span>
-        <span className="text-right text-lg text-teal-500">$ {coseguro.importe}</span>
+        {/* <span className="text-lg">Fecha: {new Date(coseguro.Fecha).toLocaleDateString()}</span> */}
+        <span>{_.capitalize(coseguro.Detalle)}</span>
+        <span className="mr-1  text-lg text-teal-500">$ {coseguro.Importe}</span>
         {showDetail ? <CaretUp /> : <CaretDown />}
       </button>
       <div
@@ -29,10 +28,10 @@ const CoseguroItem: React.FC<CoseguroItemProps> = ({ coseguro }) => {
         }`}
       >
         <span>
-          <span className="text-lg text-orange-800">Prestador:</span> {_.capitalize(coseguro.prestador)}
+          <span className="text-lg text-orange-800">Concepto:</span> {_.capitalize(coseguro.Concepto)}
         </span>
         <span>
-          <span className="text-lg text-orange-800">Detalle:</span> {_.capitalize(coseguro.detalle)}
+          <span className="text-lg text-orange-800">Prestador:</span> {_.capitalize(coseguro.Prestador)}
         </span>
       </div>
     </div>
