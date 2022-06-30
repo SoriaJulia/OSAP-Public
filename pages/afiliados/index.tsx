@@ -9,6 +9,7 @@ import { Autorizacion } from '@appTypes/autorizacion';
 import Credenciales from 'components/Credencial/List';
 import UltimasAutorizaciones from 'components/Facturacion/UltimasAutorizaciones';
 import { useRouter } from 'next/router';
+import { getLinkPago } from '@lib/facturacion';
 import { Coseguro } from '@appTypes/coseguro';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
@@ -21,6 +22,7 @@ type AfiliadosPageProps = {
   autorizaciones: Array<Autorizacion>;
   coseguros: Array<Coseguro>;
   agentId: string;
+  convenio: string;
 };
 
 export const Afiliados: NextPage<AfiliadosPageProps> = ({
@@ -29,8 +31,10 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({
   autorizaciones,
   agentId,
   coseguros,
+  convenio,
 }) => {
   const router = useRouter();
+  const linkPago = getLinkPago(convenio, agentId);
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
       <Head>
@@ -53,9 +57,7 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({
             label="Pago online"
             variant="yellowOutlined"
             leadingIcon={<CreditCard size={24} />}
-            onClick={() =>
-              window.open(`https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${agentId}`, '_blank')
-            }
+            onClick={() => window.open(linkPago, '_blank')}
           />
         </div>
         <UltimasFacturas facturas={facturas} />
@@ -96,7 +98,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const agentId = session.user?.agentId;
-
+  const convenio = session.user?.convenio;
   // call consultar facturas
   try {
     const facturas = await nextFetch(`afiliado/${agentId}/factura`, {
@@ -112,7 +114,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       headers: { Cookie: req.headers.cookie || '' },
     });
     return {
-      props: { facturas, credenciales, autorizaciones, agentId, coseguros },
+      props: { facturas, credenciales, autorizaciones, agentId, coseguros, convenio },
     };
   } catch (err) {
     console.error(err);
@@ -125,6 +127,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         autorizaciones: [],
         coseguros: [],
         agentId,
+        convenio,
       },
     };
   }

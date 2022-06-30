@@ -8,11 +8,10 @@ const consultarAfiliado = (username: string, password: string): string => {
   return `<?xml version="1.0" encoding="utf-8"?>
   <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
     <soap12:Body>
-      <ConsultarAfiliado xmlns="http://tempuri.org/">
+      <ConsultarAfiliadoPorUsuario xmlns="http://tempuri.org/">
         <pUsuario>${username}</pUsuario>
         <pClave>${password}</pClave>
-        <pXml>&lt;Afiliado&gt;&lt;TipoDoc&gt;2&lt;/TipoDoc&gt;&lt;NroDoc&gt;${username}&lt;/NroDoc&gt;&lt;NumeroAfiliado&gt;&lt;/NumeroAfiliado&gt;&lt;Fecha&gt;12/04/2022&lt;/Fecha&gt;&lt;/Afiliado&gt;</pXml>
-      </ConsultarAfiliado>
+      </ConsultarAfiliadoPorUsuario>
     </soap12:Body>
   </soap12:Envelope>`;
 };
@@ -62,29 +61,35 @@ type GCrossUser = {
 };
 
 const converter = {
-  toOSAPUser: (xmlUser: GCrossUser, role: AuthUserRoles): OSAPUser => {
+  toOSAPUser: (xmlUser: GCrossUser, role: AuthUserRoles, convenio: string): OSAPUser => {
     const user: OSAPUser = {
       message: xmlUser.Mensaje,
       name: xmlUser.Nombre,
       role,
       agentId: xmlUser.agecta_id,
+      convenio,
     };
     return user;
   },
 };
 
 export const getAfiliado = async ({ role, username, password }: GetAfiliadoPayload): Promise<OSAPUser> => {
-  const action = role === UserRoles.AFILIADO ? consultarUsuario : consultarPrestador;
+  const action = role === UserRoles.AFILIADO ? consultarAfiliado : consultarPrestador;
   try {
     const resp = await axiosClient.post(GECROS_API_URL, action(username, password), {
       headers: { SOAPAction: ACTION_NAME },
     });
-    const options: ParseSOAPOptions = {
+    const userResp = await axiosClient.post(GECROS_API_URL, consultarUsuario(username, password), {
+      headers: { SOAPAction: ACTION_NAME },
+    });
+    const userOptions: ParseSOAPOptions = {
       actionName: ACTION_NAME,
       resultName: RESULT_NAME,
     };
+    const options = { actionName: 'ConsultarAfiliadoPorUsuario', resultName: 'ConsultaAfiliado' };
     const parsedResp = parseSOAPResponse(resp.data, options);
-    return converter.toOSAPUser(parsedResp, role);
+    const parsedUserResp = parseSOAPResponse(userResp.data, userOptions);
+    return converter.toOSAPUser(parsedUserResp, role, parsedResp.Convenio);
   } catch (err) {
     const errorMessage = (err as Error)?.message || err;
     const error = new Error(`Error calling webservice. ${errorMessage}`);

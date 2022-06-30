@@ -26,5 +26,6 @@ declare module 'next-auth/core/types' {
     name: string;
     message: string;
     agentId: string;
+    convenio: string;
   }
 }
