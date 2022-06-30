@@ -114,35 +114,35 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
   const agentId = session.user?.agentId;
   const convenio = session.user?.convenio;
+  let facturas = [];
+  let autorizaciones = [];
+  let coseguros = [];
 
   try {
-    const facturas = await nextFetch(`afiliado/${agentId}/factura`, {
+    facturas = await nextFetch(`afiliado/${agentId}/factura`, {
       headers: { Cookie: req.headers.cookie || '' },
     });
-    const autorizaciones = await nextFetch(`afiliado/${agentId}/autorizacion`, {
-      headers: { Cookie: req.headers.cookie || '' },
-    });
-    const coseguros = await nextFetch(`afiliado/${agentId}/coseguro`, {
-      headers: { Cookie: req.headers.cookie || '' },
-    });
-
-    return {
-      props: { facturas, autorizaciones, coseguros, agentId, convenio },
-    };
   } catch (err) {
     console.error(err);
-
-    // TODO check for default values for pages props
-    return {
-      props: {
-        facturas: [],
-        autorizaciones: [],
-        coseguros: [],
-        agentId,
-        convenio,
-      },
-    };
   }
+  try {
+    autorizaciones = await nextFetch(`afiliado/${agentId}/autorizacion`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
+  } catch (err) {
+    console.error(err);
+  }
+  try {
+    coseguros = await nextFetch(`afiliado/${agentId}/coseguro`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
+  } catch (err) {
+    console.error(err);
+  }
+
+  return {
+    props: { facturas, autorizaciones, coseguros, agentId, convenio },
+  };
 };
 
 export default Facturacion;

@@ -27,7 +27,7 @@ const CosegurosTab: React.FC<{ payload: Array<Coseguro> }> = ({ payload }) => {
           Object.values(cosegurosXPeriodo)
             .reverse()
             .map((coseg) => {
-              return <CosegurosXPeriodoCard key={coseg[0].Periodo} coseguros={coseg} />;
+              return <CosegurosXPeriodoCard key={coseg[0].periodo} coseguros={coseg} />;
             })
         ) : (
           <div className="mb-3 mt-1 flex grow items-center justify-center gap-1 text-xl text-teal-700">

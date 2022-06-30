@@ -18,7 +18,7 @@ const UltimosCoseguros: React.FC<{ coseguros: Array<Coseguro> }> = ({ coseguros 
         {Object.values(cosegurosXPeriodo)
           .reverse()
           .map((coseg) => {
-            return <CosegurosXPeriodoCard key={coseg[0].Periodo} coseguros={coseg} />;
+            return <CosegurosXPeriodoCard key={coseg[0].periodo} coseguros={coseg} />;
           })}
       </div>
     </article>

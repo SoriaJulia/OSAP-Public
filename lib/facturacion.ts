@@ -61,14 +61,14 @@ export const getFilteredCosegurosXPeriodo = (coseguros: Coseguro[], selectedYear
   let year = '';
   if (selectedYear) year = selectedYear.toString();
 
-  const filteredCoseguros = coseguros.filter((coseguro) => coseguro.Periodo.slice(0, 4).includes(year));
+  const filteredCoseguros = coseguros.filter((coseguro) => coseguro.periodo.slice(0, 4).includes(year));
 
   const result = filteredCoseguros.reduce((cosegurosxPeriodo: CosegXPeriodo, coseguro) => {
-    if (!cosegurosxPeriodo[coseguro.Periodo]) {
+    if (!cosegurosxPeriodo[coseguro.periodo]) {
       // eslint-disable-next-line no-param-reassign
-      cosegurosxPeriodo[coseguro.Periodo] = [coseguro];
+      cosegurosxPeriodo[coseguro.periodo] = [coseguro];
     } else {
-      cosegurosxPeriodo[coseguro.Periodo].push(coseguro);
+      cosegurosxPeriodo[coseguro.periodo].push(coseguro);
     }
     return cosegurosxPeriodo;
   }, {});
