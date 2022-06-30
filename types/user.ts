@@ -5,6 +5,7 @@ type User = {
   name: string;
   message: string;
   agentId: string;
+  convenio: string;
 };
 
 export default User;

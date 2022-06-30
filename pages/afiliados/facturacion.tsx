@@ -9,6 +9,7 @@ import { Factura } from '@appTypes/factura';
 import AutorizacionesTab from 'components/Facturacion/AutorizacionesTab';
 import { Autorizacion } from '@appTypes/autorizacion';
 import { useRouter } from 'next/router';
+import { getLinkPago } from '@lib/facturacion';
 import { Coseguro } from '@appTypes/coseguro';
 import Button from '../../components/Base/Button';
 import PageTitle from '../../components/Base/PageTitle';
@@ -45,13 +46,14 @@ type FacturacionProps = {
   coseguros: Array<Coseguro>;
   autorizaciones: Array<Autorizacion>;
   agentId: string;
+  convenio: string;
 };
 
 const Facturacion: NextPage<FacturacionProps> = (props) => {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
   const tab = tabs[selectedTab];
   const router = useRouter();
-
+  const linkPago = getLinkPago(props.convenio, props.agentId);
   return (
     <div>
       <Head>
@@ -73,12 +75,7 @@ const Facturacion: NextPage<FacturacionProps> = (props) => {
             label="Pago Online"
             trailingIcon={<CreditCard weight="fill" />}
             variant="fill"
-            onClick={() =>
-              window.open(
-                `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${props.agentId}`,
-                '_blank'
-              )
-            }
+            onClick={() => window.open(linkPago, '_blank')}
           />
         </div>
       </div>
@@ -116,6 +113,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
   const agentId = session.user?.agentId;
+  const convenio = session.user?.convenio;
 
   try {
     const facturas = await nextFetch(`afiliado/${agentId}/factura`, {
@@ -129,7 +127,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     });
 
     return {
-      props: { facturas, autorizaciones, coseguros, agentId },
+      props: { facturas, autorizaciones, coseguros, agentId, convenio },
     };
   } catch (err) {
     console.error(err);
@@ -141,6 +139,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         autorizaciones: [],
         coseguros: [],
         agentId,
+        convenio,
       },
     };
   }

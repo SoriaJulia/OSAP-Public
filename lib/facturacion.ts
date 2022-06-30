@@ -85,3 +85,9 @@ export const getAfiliados = (autorizaciones: Autorizacion[]) => {
   }, {});
   return result;
 };
+
+export const getLinkPago = (convenio: string, agentId: string) => {
+  if (convenio === 'ADHERENTE')
+    return `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17935&Param1=${agentId}`;
+  return `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${agentId}`;
+};
