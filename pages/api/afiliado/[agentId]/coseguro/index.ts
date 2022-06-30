@@ -38,8 +38,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<any>) => {
   const session = await getSession({ req });
 
   if (session?.user) {
-    const facturas = await getCosegurosAfiliado(session.user.agentId);
-    return res.status(200).json(facturas);
+    const coseguros = await getCosegurosAfiliado(session.user.agentId);
+    return res.status(200).json(coseguros);
   }
   return res.status(401).end();
 };
