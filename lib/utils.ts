@@ -40,8 +40,11 @@ export const parseJSONResponse = (actionName: string, xml: string) => {
 
 export const nextFetch = async (url: string, options?: RequestInit) => {
   const result = await fetch(`${NEXT_URL}/${url}`, options);
-  const data = await result.json();
-  return data;
+
+  if (result.ok) {
+    const data = await result.json();
+    return data;
+  }
 };
 
 export const changeTextInput =

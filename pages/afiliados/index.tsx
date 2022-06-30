@@ -102,14 +102,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   let credenciales = [];
   let facturas = [];
   let autorizaciones = [];
+  let coseguros = [];
 
-  // try {
-  //   coseguros = await nextFetch(`afiliado/${agentId}/coseguro`, {
-  //     headers: { Cookie: req.headers.cookie || '' },
-  //   });
-  // } catch (err) {
-  //   console.error(err);
-  // }
+  try {
+    coseguros = await nextFetch(`afiliado/${agentId}/coseguro`, {
+      headers: { Cookie: req.headers.cookie || '' },
+    });
+  } catch (err) {
+    console.error(err);
+  }
   try {
     facturas = await nextFetch(`afiliado/${agentId}/factura`, {
       headers: { Cookie: req.headers.cookie || '' },
@@ -132,7 +133,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     console.error(err);
   }
   return {
-    props: { facturas, credenciales, autorizaciones, agentId, coseguros: [], convenio },
+    props: { facturas, credenciales, autorizaciones, agentId, coseguros, convenio },
   };
 };
 
