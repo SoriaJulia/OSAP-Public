@@ -18,8 +18,8 @@ const CoseguroItem: React.FC<CoseguroItemProps> = ({ coseguro }) => {
         className="mr-4 ml-1 grid grid-cols-coseguros items-center gap-1 text-left "
       >
         {/* <span className="text-lg">Fecha: {new Date(coseguro.Fecha).toLocaleDateString()}</span> */}
-        <span>{_.capitalize(coseguro.Detalle)}</span>
-        <span className="mr-1  text-lg text-teal-500">$ {coseguro.Importe}</span>
+        <span>{_.capitalize(coseguro.detalle)}</span>
+        <span className="mr-1  text-lg text-teal-500">$ {coseguro.importe}</span>
         {showDetail ? <CaretUp /> : <CaretDown />}
       </button>
       <div
@@ -28,10 +28,10 @@ const CoseguroItem: React.FC<CoseguroItemProps> = ({ coseguro }) => {
         }`}
       >
         <span>
-          <span className="text-lg text-orange-800">Concepto:</span> {_.capitalize(coseguro.Concepto)}
+          <span className="text-lg text-orange-800">Concepto:</span> {_.capitalize(coseguro.concepto)}
         </span>
         <span>
-          <span className="text-lg text-orange-800">Prestador:</span> {_.capitalize(coseguro.Prestador)}
+          <span className="text-lg text-orange-800">Prestador:</span> {_.capitalize(coseguro.prestador)}
         </span>
       </div>
     </div>
