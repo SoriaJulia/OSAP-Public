@@ -23,7 +23,6 @@ type AfiliadosPageProps = {
   coseguros: Array<Coseguro>;
   agentId: string;
   convenio: string;
-  coseguroError?: string;
 };
 
 export const Afiliados: NextPage<AfiliadosPageProps> = ({
@@ -33,12 +32,9 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({
   agentId,
   coseguros,
   convenio,
-  coseguroError,
 }) => {
   const router = useRouter();
   const linkPago = getLinkPago(convenio, agentId);
-  console.log(coseguroError);
-  console.log(coseguros);
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
       <Head>
@@ -107,13 +103,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   let facturas = [];
   let autorizaciones = [];
   let coseguros = [];
-  let coseguroError;
   try {
     coseguros = await nextFetch(`afiliado/${agentId}/coseguro`, {
       headers: { Cookie: req.headers.cookie || '' },
     });
   } catch (err) {
-    coseguroError = err;
+    console.error(err);
   }
   try {
     facturas = await nextFetch(`afiliado/${agentId}/factura`, {
@@ -137,7 +132,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     console.error(err);
   }
   return {
-    props: { facturas, credenciales, autorizaciones, agentId, coseguros, convenio, coseguroError },
+    props: { facturas, credenciales, autorizaciones, agentId, coseguros, convenio },
   };
 };
 
