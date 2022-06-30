@@ -48,6 +48,8 @@ export const nextFetch = async (url: string, options?: RequestInit) => {
   const obj = {
     status: result.status,
     statusText: result.statusText,
+    headers: result.headers,
+    url: result.url,
   };
   return obj;
 };
