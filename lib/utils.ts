@@ -45,6 +45,8 @@ export const nextFetch = async (url: string, options?: RequestInit) => {
     const data = await result.json();
     return data;
   }
+  console.error(result.statusText);
+  console.log('result', result);
 };
 
 export const changeTextInput =
