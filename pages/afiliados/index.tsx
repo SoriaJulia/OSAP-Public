@@ -38,6 +38,7 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({
   const router = useRouter();
   const linkPago = getLinkPago(convenio, agentId);
   console.log(coseguroError);
+  console.log(coseguros);
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
       <Head>
