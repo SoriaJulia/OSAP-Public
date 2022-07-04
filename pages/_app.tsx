@@ -6,8 +6,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { AnimatePresence } from 'framer-motion';
 import Portal from 'components/Layout/Portal';
+import Script from 'next/script';
 import Backdrop from 'components/Base/Backdrop';
-import PageLoader from 'components/Base/PageLoader';
+import PageLoader from '../components/Base/PageLoader';
 import Layout from '../components/Layout/Layout';
 
 const noLayoutPages = ['/'];
@@ -32,6 +33,20 @@ function MyApp({ Component: PageComponent, pageProps: { session, ...pageProps } 
 
   return (
     <SessionProvider session={session}>
+      <Script
+        strategy="lazyOnload"
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      />
+      <Script strategy="lazyOnload">
+        {`  
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+
+         gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {page_path: window.location.pathname,});
+       `}
+      </Script>
       {noLayoutPages.includes(router.pathname) ? (
         <PageComponent {...pageProps} />
       ) : (
