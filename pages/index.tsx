@@ -20,6 +20,8 @@ const Login: NextPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [loginIn, setLoginIn] = useState(false);
+
   return (
     <div className="flex h-screen w-full flex-col">
       <Head>
@@ -67,22 +69,15 @@ const Login: NextPage = () => {
               )}
             </div>
           </div>
-          <div className="flex gap-2 pt-10 md:pt-0 ">
+          <div className="flex flex-row-reverse gap-2 pt-10 md:pt-0 ">
             <Button
-              label="Cancelar"
-              variant="outlined"
-              type="button"
-              onClick={() => {
-                setError(null);
-                window.open('http://www.osapsalud.com.ar/', '_self');
-              }}
-            />
-            <Button
-              label="Ingresar"
+              label={loginIn ? 'Ingresando...' : 'Ingresar'}
               variant="fill"
               trailingIcon={<SignIn weight="bold" size={20} />}
               type="submit"
+              disabled={!username || !password}
               onClick={(e) => {
+                setLoginIn(true);
                 e.preventDefault();
                 signIn<RedirectableProviderType>('credentials', {
                   username,
@@ -96,6 +91,15 @@ const Login: NextPage = () => {
                     router.push('/afiliados');
                   }
                 });
+              }}
+            />
+            <Button
+              label="Cancelar"
+              variant="outlined"
+              type="button"
+              onClick={() => {
+                setError(null);
+                window.open('http://www.osapsalud.com.ar/', '_self');
               }}
             />
           </div>
