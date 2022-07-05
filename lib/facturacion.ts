@@ -1,3 +1,4 @@
+import { AgenteCta } from '@appTypes/agenteCta';
 import { Autorizacion, AutXPeriodo } from '@appTypes/autorizacion';
 import { Coseguro, CosegXPeriodo } from '@appTypes/coseguro';
 import { Factura, FacXPeriodo } from '@appTypes/factura';
@@ -86,8 +87,8 @@ export const getAfiliados = (autorizaciones: Autorizacion[]) => {
   return result;
 };
 
-export const getLinkPago = (convenio: string, agentId: string) => {
-  if (convenio === 'ADHERENTE')
-    return `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17935&Param1=${agentId}`;
-  return `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${agentId}`;
+export const getLinkPago = (agent: AgenteCta) => {
+  if (agent.convenio === 'ADHERENTE')
+    return `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17935&Param1=${agent.id}`;
+  return `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${agent.id}`;
 };
