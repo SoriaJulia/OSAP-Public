@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import * as React from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
@@ -47,20 +48,22 @@ function MyApp({ Component: PageComponent, pageProps: { session, ...pageProps } 
          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {page_path: window.location.pathname,});
        `}
       </Script>
-      {noLayoutPages.includes(router.pathname) ? (
-        <PageComponent {...pageProps} />
-      ) : (
-        <Layout>
-          {isRouteChanging ? (
-            <Portal>
-              <Backdrop show />
-              <PageLoader />
-            </Portal>
-          ) : (
+      {!isRouteChanging ? (
+        noLayoutPages.includes(router.pathname) ? (
+          <PageComponent {...pageProps} />
+        ) : (
+          <Layout>
             <AnimatePresence exitBeforeEnter>
               <PageComponent {...pageProps} />
             </AnimatePresence>
-          )}
+          </Layout>
+        )
+      ) : (
+        <Layout>
+          <Portal>
+            <Backdrop show />
+            <PageLoader />
+          </Portal>
         </Layout>
       )}
     </SessionProvider>
