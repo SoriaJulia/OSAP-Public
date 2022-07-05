@@ -11,6 +11,7 @@ import UltimasAutorizaciones from 'components/Facturacion/UltimasAutorizaciones'
 import { useRouter } from 'next/router';
 import { getLinkPago } from '@lib/facturacion';
 import { Coseguro } from '@appTypes/coseguro';
+import { AgenteCta } from '@appTypes/agenteCta';
 import Button from '../../components/Base/Button';
 import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
 import UltimasFacturas from '../../components/Facturacion/UltimasFacturas';
@@ -21,27 +22,25 @@ type AfiliadosPageProps = {
   credenciales: Array<Credencial>;
   autorizaciones: Array<Autorizacion>;
   coseguros: Array<Coseguro>;
-  agentId: string;
-  convenio: string;
+  agente: AgenteCta;
 };
 
 export const Afiliados: NextPage<AfiliadosPageProps> = ({
   facturas,
   credenciales,
   autorizaciones,
-  agentId,
   coseguros,
-  convenio,
+  agente,
 }) => {
   const router = useRouter();
-  const linkPago = getLinkPago(convenio, agentId);
+  const linkPago = getLinkPago(agente);
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
       <Head>
         <title>OSAP - Tramites y consultas online</title>
       </Head>
       <AfiliadosSectionsNav />
-      <Credenciales credenciales={credenciales} agentId={agentId} />
+      <Credenciales credenciales={credenciales} agentId={agente.id} />
 
       <section className="flex w-full flex-col items-start pt-8">
         <h3 className="mb-6 text-3xl text-blue-800 md:mb-0">Pagos y facturación</h3>
@@ -98,11 +97,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const agentId = session.user?.agentId;
-  const convenio = session.user?.convenio;
   let credenciales;
   let facturas;
   let autorizaciones;
   let coseguros;
+  let agente;
+
   try {
     coseguros =
       (await nextFetch(`afiliado/${agentId}/coseguro`, {
@@ -135,8 +135,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   } catch (err) {
     console.error(err);
   }
+
+  try {
+    agente = (await nextFetch('afiliado', { headers: { Cookie: req.headers.cookie || '' } })) || {};
+  } catch (err) {
+    console.error(err);
+  }
   return {
-    props: { facturas, credenciales, autorizaciones, agentId, coseguros, convenio },
+    props: { facturas, credenciales, autorizaciones, agentId, coseguros, agente },
   };
 };
 

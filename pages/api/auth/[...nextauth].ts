@@ -1,5 +1,5 @@
 import OSAPUser from '@appTypes/user';
-import { JWT_SECRET_KEY } from '@lib/constants';
+import { JWT_SECRET_KEY, SERVER_ERROR } from '@lib/constants';
 import { getAfiliado } from '@services/user';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -37,7 +37,7 @@ export default NextAuth({
           if (typeof err === 'string') {
             throw new Error(err);
           }
-          throw new Error('Error interno del servidor');
+          throw new Error(SERVER_ERROR);
         }
         // If you return null then an error will be displayed advising the user to check their details.
       },

@@ -11,6 +11,7 @@ import { Autorizacion } from '@appTypes/autorizacion';
 import { useRouter } from 'next/router';
 import { getLinkPago } from '@lib/facturacion';
 import { Coseguro } from '@appTypes/coseguro';
+import { AgenteCta } from '@appTypes/agenteCta';
 import Button from '../../components/Base/Button';
 import PageTitle from '../../components/Base/PageTitle';
 import Tabs, { TabsType } from '../../components/Base/Tabs';
@@ -45,15 +46,14 @@ type FacturacionProps = {
   facturas: Array<Factura>;
   coseguros: Array<Coseguro>;
   autorizaciones: Array<Autorizacion>;
-  agentId: string;
-  convenio: string;
+  agente: AgenteCta;
 };
 
 const Facturacion: NextPage<FacturacionProps> = (props) => {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
   const tab = tabs[selectedTab];
   const router = useRouter();
-  const linkPago = getLinkPago(props.convenio, props.agentId);
+  const linkPago = getLinkPago(props.agente);
   return (
     <div>
       <Head>
@@ -113,10 +113,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
   const agentId = session.user?.agentId;
-  const convenio = session.user?.convenio;
   let facturas;
   let autorizaciones;
   let coseguros;
+  let agente;
 
   try {
     facturas =
@@ -143,8 +143,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     console.error(err);
   }
 
+  try {
+    agente = (await nextFetch('afiliado', { headers: { Cookie: req.headers.cookie || '' } })) || {};
+  } catch (err) {
+    console.error(err);
+  }
   return {
-    props: { facturas, autorizaciones, coseguros, agentId, convenio },
+    props: { facturas, autorizaciones, coseguros, agente },
   };
 };
 
