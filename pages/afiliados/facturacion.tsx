@@ -1,10 +1,11 @@
 /* eslint-disable react/destructuring-assignment */
+// eslint-disable-next-line camelcase
+import { unstable_getServerSession } from 'next-auth';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
-import { Bank, CreditCard, Download, Note, Receipt, Scroll } from 'phosphor-react';
-import { nextFetch } from '@lib/utils';
-import { getSession } from 'next-auth/react';
+import { Bank, CreditCard, CurrencyCircleDollar, Download, Note, Receipt, Scroll } from 'phosphor-react';
+import { defaultQueryOptions, queryService } from '@lib/utils';
 import { Factura } from '@appTypes/factura';
 import AutorizacionesTab from 'components/Facturacion/AutorizacionesTab';
 import { Autorizacion } from '@appTypes/autorizacion';
@@ -12,6 +13,13 @@ import { useRouter } from 'next/router';
 import { getLinkPago } from '@lib/facturacion';
 import { Coseguro } from '@appTypes/coseguro';
 import { AgenteCta } from '@appTypes/agenteCta';
+import User from '@appTypes/user';
+import { nextAuthOptions } from 'pages/api/auth/[...nextauth]';
+import { dehydrate, QueryClient } from 'react-query';
+import { GET_FACTURAS_QUERY_KEY } from 'hooks/facturas/useFacturas';
+import { getAutorizacionesAfiliado, getCosegurosAfiliado, getFacturasAfiliado } from '@services/agente';
+import { GET_AUTORIZACIONES_QUERY_KEY } from 'hooks/autorizaciones/useAutorizaciones';
+import { GET_COSEGUROS_QUERY_KEY } from 'hooks/coseguros/useCoseguros';
 import Button from '../../components/Base/Button';
 import PageTitle from '../../components/Base/PageTitle';
 import Tabs, { TabsType } from '../../components/Base/Tabs';
@@ -25,21 +33,18 @@ const tabs: TabsType = [
     index: 0,
     Component: FacturasTab,
     Icon: Scroll,
-    significantProp: 'facturas',
   },
   {
     label: 'Autorizaciones',
     index: 1,
     Component: AutorizacionesTab,
     Icon: Note,
-    significantProp: 'autorizaciones',
   },
   {
     label: 'Coseguros y Cargos',
     index: 2,
     Component: CosegurosTab,
     Icon: Receipt,
-    significantProp: 'coseguros',
   },
 ];
 type FacturacionProps = {
@@ -47,13 +52,13 @@ type FacturacionProps = {
   coseguros: Array<Coseguro>;
   autorizaciones: Array<Autorizacion>;
   agente: AgenteCta;
+  user: User;
 };
 
-const Facturacion: NextPage<FacturacionProps> = (props) => {
+const Facturacion: NextPage<FacturacionProps> = ({ user }) => {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
-  const tab = tabs[selectedTab];
   const router = useRouter();
-  const linkPago = getLinkPago(props.agente);
+  const linkPago = getLinkPago(user.agentId, user.convenio);
   return (
     <div>
       <Head>
@@ -64,23 +69,28 @@ const Facturacion: NextPage<FacturacionProps> = (props) => {
         <div className="flex gap-3">
           <Button
             label="Medios de pago"
-            trailingIcon={<Bank weight="fill" />}
+            trailingIcon={<Bank size={22} />}
             variant="fill"
             onClick={() => {
               router.push('/afiliados/mediosPago');
             }}
           />
-
           <Button
             label="Pago Online"
-            trailingIcon={<CreditCard weight="fill" />}
+            trailingIcon={<CreditCard size={22} />}
             variant="fill"
             onClick={() => window.open(linkPago, '_blank')}
+          />
+          <Button
+            label="Informar pago"
+            variant="fill"
+            trailingIcon={<CurrencyCircleDollar size={22} />}
+            onClick={() => router.push('/afiliados/informarPago')}
           />
         </div>
       </div>
       <section className="mt-2">
-        <Tabs selectedTab={selectedTab} onClick={setSelectedTab} tabs={tabs} payload={props[tab.significantProp]} />
+        <Tabs agentId={user.agentId} selectedTab={selectedTab} onClick={setSelectedTab} tabs={tabs} />
       </section>
       <section className="mt-6">
         <a
@@ -101,8 +111,8 @@ const Facturacion: NextPage<FacturacionProps> = (props) => {
     </div>
   );
 };
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await unstable_getServerSession(req, res, nextAuthOptions);
 
   if (!session || session.status === 'unauthenicated') {
     return {
@@ -112,44 +122,22 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       },
     };
   }
-  const agentId = session.user?.agentId;
-  let facturas;
-  let autorizaciones;
-  let coseguros;
-  let agente;
+  const { agentId } = session.user;
 
-  try {
-    facturas =
-      (await nextFetch(`afiliado/${agentId}/factura`, {
-        headers: { Cookie: req.headers.cookie || '' },
-      })) || [];
-  } catch (err) {
-    console.error(err);
-  }
-  try {
-    autorizaciones =
-      (await nextFetch(`afiliado/${agentId}/autorizacion`, {
-        headers: { Cookie: req.headers.cookie || '' },
-      })) || [];
-  } catch (err) {
-    console.error(err);
-  }
-  try {
-    coseguros =
-      (await nextFetch(`afiliado/${agentId}/coseguro`, {
-        headers: { Cookie: req.headers.cookie || '' },
-      })) || [];
-  } catch (err) {
-    console.error(err);
-  }
+  const queryClient = new QueryClient({ defaultOptions: { queries: defaultQueryOptions } });
 
-  try {
-    agente = (await nextFetch('afiliado', { headers: { Cookie: req.headers.cookie || '' } })) || {};
-  } catch (err) {
-    console.error(err);
-  }
+  await queryClient.prefetchQuery([GET_COSEGUROS_QUERY_KEY, agentId], queryService(getCosegurosAfiliado, agentId));
+  await queryClient.prefetchQuery([GET_FACTURAS_QUERY_KEY, agentId], queryService(getFacturasAfiliado, agentId));
+  await queryClient.prefetchQuery(
+    [GET_AUTORIZACIONES_QUERY_KEY, agentId],
+    queryService(getAutorizacionesAfiliado, agentId)
+  );
+
   return {
-    props: { facturas, autorizaciones, coseguros, agente },
+    props: {
+      user: session.user,
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 };
 

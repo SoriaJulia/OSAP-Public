@@ -7,13 +7,19 @@ import CredencialModal from './Modal';
 type CredencialProps = {
   credencial: Credencial;
   agentId: string;
+  isLoading: boolean;
 };
 
-const Credencial: React.FC<CredencialProps> = ({ credencial, agentId }) => {
+const Credencial = ({ credencial, agentId, isLoading }: CredencialProps) => {
   const [showModal, setShowModal] = useState(false);
   const handleClick = () => () => {
     setShowModal(true);
   };
+
+  if (isLoading) {
+    return <div>show credencial card skeleton</div>;
+  }
+
   return (
     <>
       <div

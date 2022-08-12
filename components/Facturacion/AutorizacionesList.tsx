@@ -4,13 +4,26 @@ import { Info } from 'phosphor-react';
 import React from 'react';
 import AutorizacionesXPeriodoCard from './AutorizacionesXPeriodoCard';
 
-const AutorizacionesList = ({ periodos, periodosToShow }: { periodos: AutXPeriodo; periodosToShow?: number }) => {
+type Props = {
+  periodos: AutXPeriodo;
+  periodosToShow?: number;
+  isLoading: boolean;
+};
+
+const AutorizacionesList = ({ periodos, periodosToShow, isLoading }: Props) => {
   return (
     <div className="flex flex-wrap gap-5 pt-5">
       {!isEmpty(periodos) ? (
         Object.entries(periodos)
           .map(([periodoId, autorizaciones]) => {
-            return <AutorizacionesXPeriodoCard key={periodoId} autorizaciones={autorizaciones} periodo={periodoId} />;
+            return (
+              <AutorizacionesXPeriodoCard
+                isLoading={isLoading}
+                key={periodoId}
+                autorizaciones={autorizaciones}
+                periodo={periodoId}
+              />
+            );
           })
           .reverse()
           .slice(0, periodosToShow)

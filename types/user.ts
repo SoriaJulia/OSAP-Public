@@ -1,11 +1,11 @@
 import { UserRoles } from './enums';
 
 type User = {
-  role: UserRoles;
   name: string;
-  message: string;
   agentId: string;
   dni: string;
+  role: UserRoles;
+  convenio: string;
 };
 
 export default User;

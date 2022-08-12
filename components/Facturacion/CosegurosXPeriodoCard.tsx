@@ -6,7 +6,15 @@ const formatPeriodo = (periodo: string) => {
   return `${periodo.slice(4)}-${periodo.slice(0, 4)}`;
 };
 
-const CosegurosXPeriodoCard: React.FC<{ coseguros: Coseguro[] }> = ({ coseguros }) => {
+type Props = {
+  coseguros: Coseguro[];
+  isLoading: boolean;
+};
+
+const CosegurosXPeriodoCard = ({ coseguros, isLoading }: Props) => {
+  if (isLoading) {
+    return <div> show coseguro card skeleton</div>;
+  }
   return (
     <div
       key={coseguros[0].periodo}

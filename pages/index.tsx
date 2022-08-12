@@ -2,9 +2,11 @@ import { UserRoles } from '@appTypes/enums';
 import { changeTextInput } from '@lib/utils';
 import Button from 'components/Base/Button';
 import Field from 'components/Base/Field';
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { RedirectableProviderType } from 'next-auth/providers';
 import { signIn, useSession } from 'next-auth/react';
+// eslint-disable-next-line camelcase
+import { unstable_getServerSession } from 'next-auth';
 import { useRouter } from 'next/router';
 import { WarningCircle, SignIn } from 'phosphor-react';
 import Head from 'next/head';
@@ -12,15 +14,32 @@ import React, { useState } from 'react';
 import Logo from 'components/SVG/Logo';
 import Slogan from 'components/SVG/Slogan';
 import Link from 'next/link';
+import { nextAuthOptions } from './api/auth/[...nextauth]';
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const session = useSession();
-  if (session.data?.user) router.replace('/afiliados');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loginIn, setLoginIn] = useState(false);
+
+  const handleLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setLoginIn(true);
+    e.preventDefault();
+    signIn<RedirectableProviderType>('credentials', {
+      username,
+      password,
+      role: UserRoles.AFILIADO,
+      redirect: false,
+    }).then((value) => {
+      if (value?.error) {
+        setLoginIn(false);
+        setError(value.error);
+      } else {
+        router.push('/afiliados');
+      }
+    });
+  };
 
   return (
     <div className="flex h-screen w-full flex-col">
@@ -76,22 +95,8 @@ const Login: NextPage = () => {
               trailingIcon={<SignIn weight="bold" size={20} />}
               type="submit"
               disabled={!username || !password}
-              onClick={(e) => {
-                setLoginIn(true);
-                e.preventDefault();
-                signIn<RedirectableProviderType>('credentials', {
-                  username,
-                  password,
-                  role: UserRoles.AFILIADO,
-                  redirect: false,
-                }).then((value) => {
-                  if (value?.error) {
-                    setError(value.error);
-                  } else {
-                    router.push('/afiliados');
-                  }
-                });
-              }}
+              onClick={handleLogin}
+              showIconOnMobile
             />
             <Button
               label="Cancelar"
@@ -108,4 +113,20 @@ const Login: NextPage = () => {
     </div>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await unstable_getServerSession(req, res, nextAuthOptions);
+
+  if (session && session.user) {
+    return {
+      redirect: {
+        destination: '/afiliados',
+        permanent: true,
+      },
+    };
+  }
+
+  return { props: {} };
+};
+
 export default Login;

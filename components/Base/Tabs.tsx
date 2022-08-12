@@ -1,6 +1,4 @@
-import { Autorizacion } from '@appTypes/autorizacion';
-import { Coseguro } from '@appTypes/coseguro';
-import { Factura } from '@appTypes/factura';
+import classNames from 'classnames';
 import { IconProps } from 'phosphor-react';
 import React, { FC } from 'react';
 
@@ -9,7 +7,6 @@ export type TabsType = {
   index: number;
   Component: React.FC<any>;
   Icon: React.FC<IconProps>;
-  significantProp: 'facturas' | 'coseguros' | 'autorizaciones';
 }[];
 
 type TabsProps = {
@@ -17,7 +14,7 @@ type TabsProps = {
   selectedTab: number;
   onClick: (index: number) => void;
   orientation?: 'horizontal' | 'vertical';
-  payload: Array<Factura> | Array<Autorizacion> | Array<Coseguro>;
+  agentId: string;
 };
 
 /**
@@ -28,7 +25,7 @@ type TabsProps = {
  * @param onClick Function to set the active tab
  * @param orientation Tab orientation Vertical | Horizontal
  */
-const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation = 'horizontal', payload }) => {
+const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation = 'horizontal', agentId }) => {
   const Panel = tabs && tabs.find((tab) => tab.index === selectedTab);
 
   return (
@@ -40,10 +37,12 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
       >
         {tabs.map((tab) => (
           <button
-            className={`-mb-0.5 mt-2 flex items-end gap-1 whitespace-nowrap rounded-t-lg border-x-2 border-t-2 py-2 px-7 text-lg text-orange-600 md:py-4  md:text-xl
-          ${
-            selectedTab === tab.index ? ' border-b-2  border-orange-600 border-b-white bg-white' : 'mb-0 bg-white/50'
-          } `}
+            className={classNames({
+              '-mb-0.5 mt-2 flex items-end gap-1 whitespace-nowrap rounded-t-lg border-x-2 border-t-2 py-2 px-7 text-lg text-orange-600 md:py-4  md:text-xl':
+                true,
+              'mb-0 bg-white/50': selectedTab !== tab.index,
+              'border-b-2  border-orange-600 border-b-white bg-white': selectedTab === tab.index,
+            })}
             onClick={() => onClick(tab.index)}
             key={tab.index}
             type="button"
@@ -64,7 +63,7 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
         aria-labelledby={`btn-${selectedTab}`}
         id={`tabpanel-${selectedTab}`}
       >
-        {Panel && <Panel.Component index={selectedTab} payload={payload} />}
+        {Panel && <Panel.Component index={selectedTab} agentId={agentId} />}
       </div>
     </div>
   );

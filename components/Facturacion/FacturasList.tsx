@@ -4,13 +4,19 @@ import { Info } from 'phosphor-react';
 import React from 'react';
 import FacturasXPeriodo from './FacturasXPeriodoCard';
 
-const FacturasList = ({ periodos, periodosToShow }: { periodos: FacXPeriodo; periodosToShow?: number }) => {
+type Props = {
+  periodos: FacXPeriodo;
+  periodosToShow?: number;
+  isLoading: boolean;
+};
+
+const FacturasList = ({ periodos, periodosToShow, isLoading }: Props) => {
   return (
     <div className="flex flex-wrap gap-5 pt-5">
       {!isEmpty(periodos) ? (
         Object.entries(periodos)
           .map(([periodoId, facturas]) => {
-            return <FacturasXPeriodo key={periodoId} facturas={facturas} periodo={periodoId} />;
+            return <FacturasXPeriodo isLoading={isLoading} key={periodoId} facturas={facturas} periodo={periodoId} />;
           })
           .reverse()
           .slice(0, periodosToShow)

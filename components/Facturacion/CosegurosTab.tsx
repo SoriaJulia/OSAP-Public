@@ -1,15 +1,20 @@
 import { getFilteredCosegurosXPeriodo } from '@lib/facturacion';
 import { changeNumberInput, currentYear } from '@lib/utils';
+import useCoseguros from 'hooks/coseguros/useCoseguros';
 import { isEmpty } from 'lodash';
 import { Info } from 'phosphor-react';
 import React, { useState } from 'react';
-import { Coseguro } from '../../types/coseguro';
 import Field from '../Base/Field';
 import CosegurosXPeriodoCard from './CosegurosXPeriodoCard';
 
-const CosegurosTab: React.FC<{ payload: Array<Coseguro> }> = ({ payload }) => {
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-  const cosegurosXPeriodo = getFilteredCosegurosXPeriodo(payload, selectedYear);
+type Props = {
+  agentId: string;
+};
+
+const CosegurosTab = ({ agentId }: Props) => {
+  const [selectedYear, setSelectedYear] = useState<number | ''>(currentYear);
+  const { coseguros, isLoading } = useCoseguros(agentId);
+  const cosegurosXPeriodo = getFilteredCosegurosXPeriodo(coseguros, selectedYear);
   return (
     <div>
       <div className="my-2 flex flex-wrap items-center justify-end gap-4">
@@ -27,7 +32,7 @@ const CosegurosTab: React.FC<{ payload: Array<Coseguro> }> = ({ payload }) => {
           Object.values(cosegurosXPeriodo)
             .reverse()
             .map((coseg) => {
-              return <CosegurosXPeriodoCard key={coseg[0].periodo} coseguros={coseg} />;
+              return <CosegurosXPeriodoCard isLoading={isLoading} key={coseg[0].periodo} coseguros={coseg} />;
             })
         ) : (
           <div className="mb-3 mt-1 flex grow items-center justify-center gap-1 text-xl text-teal-700">

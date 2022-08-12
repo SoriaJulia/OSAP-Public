@@ -1,16 +1,17 @@
 import { getFilteredFacturasXPeriodo } from '@lib/facturacion';
+import useFacturas from 'hooks/facturas/useFacturas';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { Factura } from '../../types/factura';
 import Button from '../Base/Button';
 import FacturasList from './FacturasList';
 
-type UltimasFacturasProps = {
-  facturas: Array<Factura>;
+type Props = {
+  agentId: string;
 };
 
-const UltimasFacturas: React.FC<UltimasFacturasProps> = ({ facturas }) => {
+const UltimasFacturas = ({ agentId }: Props) => {
   const router = useRouter();
+  const { facturas, isLoading } = useFacturas(agentId);
   const facturasPorPeriodo = getFilteredFacturasXPeriodo(facturas);
   return (
     <article className="flex w-full flex-col overflow-x-auto bg-white py-4 px-6 text-left md:m-2 lg:my-2">
@@ -19,7 +20,7 @@ const UltimasFacturas: React.FC<UltimasFacturasProps> = ({ facturas }) => {
         <Button label="Ver todas" variant="blueText" onClick={() => router.push('/afiliados/facturacion')} />
       </div>
       <div className="flex gap-4">
-        <FacturasList periodos={facturasPorPeriodo} periodosToShow={3} />
+        <FacturasList isLoading={isLoading} periodos={facturasPorPeriodo} periodosToShow={3} />
       </div>
     </article>
   );

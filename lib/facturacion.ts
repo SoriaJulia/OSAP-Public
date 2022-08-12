@@ -8,7 +8,7 @@ export const formatPeriodo = (periodo: string) => {
   return `${periodo.slice(4)}-${periodo.slice(0, 4)}`;
 };
 
-export const getFilteredFacturasXPeriodo = (facturas: Factura[], selectedYear?: number, selectedState = '') => {
+export const getFilteredFacturasXPeriodo = (facturas: Factura[], selectedYear?: number | '', selectedState = '') => {
   let year = '';
   if (selectedYear) year = selectedYear.toString();
 
@@ -31,9 +31,9 @@ export const getFilteredFacturasXPeriodo = (facturas: Factura[], selectedYear?: 
 
 export const getFilteredAutorizacionesXPeriodo = (
   autorizaciones: Autorizacion[],
-  selectedYear?: number,
-  selectedState = '',
-  selectedAfiliado = ''
+  selectedYear?: number | '',
+  selectedAfiliado = '',
+  selectedState = ''
 ) => {
   let year = '';
   if (selectedYear) year = selectedYear.toString();
@@ -58,7 +58,7 @@ export const getFilteredAutorizacionesXPeriodo = (
   return result;
 };
 
-export const getFilteredCosegurosXPeriodo = (coseguros: Coseguro[], selectedYear?: number) => {
+export const getFilteredCosegurosXPeriodo = (coseguros: Coseguro[], selectedYear?: number | '') => {
   let year = '';
   if (selectedYear) year = selectedYear.toString();
 
@@ -87,8 +87,8 @@ export const getAfiliados = (autorizaciones: Autorizacion[]) => {
   return result;
 };
 
-export const getLinkPago = (agent: AgenteCta) => {
-  if (agent.convenio === 'ADHERENTE')
-    return `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17935&Param1=${agent.id}`;
-  return `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${agent.id}`;
+export const getLinkPago = (agentId: string, convenio: string) => {
+  if (convenio === 'ADHERENTE')
+    return `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17935&Param1=${agentId}`;
+  return `https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${agentId}`;
 };

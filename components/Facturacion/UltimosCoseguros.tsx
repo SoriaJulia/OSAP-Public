@@ -1,12 +1,22 @@
 import { getFilteredCosegurosXPeriodo } from '@lib/facturacion';
+import { queryService } from '@lib/utils';
+import { getCosegurosAfiliado } from '@services/agente';
+import useCoseguros from 'hooks/coseguros/useCoseguros';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { Coseguro } from '../../types/coseguro';
 import Button from '../Base/Button';
 import CosegurosXPeriodoCard from './CosegurosXPeriodoCard';
 
-const UltimosCoseguros: React.FC<{ coseguros: Array<Coseguro> }> = ({ coseguros }) => {
+type Props = {
+  agentId: string;
+};
+
+const UltimosCoseguros = ({ agentId }: Props) => {
   const router = useRouter();
+  const { coseguros, isLoading } = useCoseguros(agentId);
+
+  // TODO create CosegurosList
+
   const cosegurosXPeriodo = getFilteredCosegurosXPeriodo(coseguros);
   return (
     <article className="flex w-full flex-col overflow-x-auto bg-white py-4 px-6 text-left md:m-2 lg:my-2">
@@ -18,7 +28,7 @@ const UltimosCoseguros: React.FC<{ coseguros: Array<Coseguro> }> = ({ coseguros 
         {Object.values(cosegurosXPeriodo)
           .reverse()
           .map((coseg) => {
-            return <CosegurosXPeriodoCard key={coseg[0].periodo} coseguros={coseg} />;
+            return <CosegurosXPeriodoCard isLoading={isLoading} key={coseg[0].periodo} coseguros={coseg} />;
           })}
       </div>
     </article>

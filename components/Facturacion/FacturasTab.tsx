@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { changeNumberInput, currentYear } from '@lib/utils';
-import { Factura } from '@appTypes/factura';
 import { getFilteredFacturasXPeriodo } from '@lib/facturacion';
+import useFacturas from 'hooks/facturas/useFacturas';
 import Field from '../Base/Field';
 import Select from '../Base/Select';
 import FacturasList from './FacturasList';
 import { State } from '../../types/enums/facturas';
 
-const FacturasTab = ({ payload }: { payload: Factura[] }) => {
-  const [selectedYear, setSelectedYear] = useState(currentYear);
+const FacturasTab = ({ agentId }: { agentId: string }) => {
+  const [selectedYear, setSelectedYear] = useState<number | ''>(currentYear);
   const [selectedState, setSelectedState] = useState('');
-  const facturasPorPeriodo = getFilteredFacturasXPeriodo(payload, selectedYear, selectedState);
+  const { facturas, isLoading } = useFacturas(agentId);
+  const facturasPorPeriodo = getFilteredFacturasXPeriodo(facturas, selectedYear, selectedState);
+
   return (
     <>
       <div className="my-2 flex flex-wrap items-center justify-end gap-4">
@@ -38,7 +40,7 @@ const FacturasTab = ({ payload }: { payload: Factura[] }) => {
           })}
         </Select>
       </div>
-      <FacturasList periodos={facturasPorPeriodo} />
+      <FacturasList isLoading={isLoading} periodos={facturasPorPeriodo} />
     </>
   );
 };

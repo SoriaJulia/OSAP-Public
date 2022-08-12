@@ -1,46 +1,46 @@
-import { GetServerSideProps, NextPage } from 'next';
-import { Bank, CreditCard, Download } from 'phosphor-react';
-import { getSession } from 'next-auth/react';
+/* eslint-disable camelcase */
+import { GetServerSideProps } from 'next';
+import { Bank, CreditCard, CurrencyCircleDollar, Download } from 'phosphor-react';
 import Head from 'next/head';
-import { Factura } from '@appTypes/factura';
-import { nextFetch } from '@lib/utils';
-import { Credencial } from '@appTypes/credencial';
-import { Autorizacion } from '@appTypes/autorizacion';
+import { defaultQueryOptions, queryService } from '@lib/utils';
 import Credenciales from 'components/Credencial/List';
 import UltimasAutorizaciones from 'components/Facturacion/UltimasAutorizaciones';
 import { useRouter } from 'next/router';
 import { getLinkPago } from '@lib/facturacion';
-import { Coseguro } from '@appTypes/coseguro';
-import { AgenteCta } from '@appTypes/agenteCta';
-import Button from '../../components/Base/Button';
-import AfiliadosSectionsNav from '../../components/AfiliadosSectionsNav';
-import UltimasFacturas from '../../components/Facturacion/UltimasFacturas';
-import UltimosCoseguros from '../../components/Facturacion/UltimosCoseguros';
+import { dehydrate, QueryClient } from 'react-query';
+import Button from '@components/Base/Button';
+import AfiliadosSectionsNav from '@components/AfiliadosSectionsNav';
+import UltimasFacturas from '@components/Facturacion/UltimasFacturas';
+import UltimosCoseguros from '@components/Facturacion/UltimosCoseguros';
+import {
+  getAutorizacionesAfiliado,
+  getCosegurosAfiliado,
+  getCredencialesGrupo,
+  getFacturasAfiliado,
+} from '@services/agente';
+import { unstable_getServerSession } from 'next-auth';
+import { nextAuthOptions } from 'pages/api/auth/[...nextauth]';
+import User from '@appTypes/user';
+import { GET_AUTORIZACIONES_QUERY_KEY } from 'hooks/autorizaciones/useAutorizaciones';
+import { GET_FACTURAS_QUERY_KEY } from 'hooks/facturas/useFacturas';
+import { GET_CREDENCIALES_QUERY_KEY } from 'hooks/credenciales/useCredenciales';
+import { GET_COSEGUROS_QUERY_KEY } from 'hooks/coseguros/useCoseguros';
 
-type AfiliadosPageProps = {
-  facturas: Array<Factura>;
-  credenciales: Array<Credencial>;
-  autorizaciones: Array<Autorizacion>;
-  coseguros: Array<Coseguro>;
-  agente: AgenteCta;
+type Props = {
+  user: User;
 };
 
-export const Afiliados: NextPage<AfiliadosPageProps> = ({
-  facturas,
-  credenciales,
-  autorizaciones,
-  coseguros,
-  agente,
-}) => {
+export const Afiliados = ({ user }: Props) => {
   const router = useRouter();
-  const linkPago = getLinkPago(agente);
+  const linkPago = getLinkPago(user.agentId, user.convenio);
+
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
       <Head>
         <title>OSAP - Tramites y consultas online</title>
       </Head>
       <AfiliadosSectionsNav />
-      <Credenciales credenciales={credenciales} agentId={agente.id} />
+      <Credenciales agentId={user.agentId} />
 
       <section className="flex w-full flex-col items-start pt-8">
         <h3 className="mb-6 text-3xl text-blue-800 md:mb-0">Pagos y facturación</h3>
@@ -51,17 +51,22 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({
             leadingIcon={<Bank size={24} />}
             onClick={() => router.push('/afiliados/mediosPago')}
           />
-
           <Button
             label="Pago online"
             variant="yellowOutlined"
             leadingIcon={<CreditCard size={24} />}
             onClick={() => window.open(linkPago, '_blank')}
           />
+          <Button
+            label="Informar pago"
+            variant="yellowOutlined"
+            leadingIcon={<CurrencyCircleDollar size={24} />}
+            onClick={() => router.push('/afiliados/informarPago')}
+          />
         </div>
-        <UltimasFacturas facturas={facturas} />
-        <UltimasAutorizaciones autorizaciones={autorizaciones} />
-        <UltimosCoseguros coseguros={coseguros} />
+        <UltimasFacturas agentId={user.agentId} />
+        <UltimasAutorizaciones agentId={user.agentId} />
+        <UltimosCoseguros agentId={user.agentId} />
 
         <article className="mt-2 w-full px-4 text-left md:px-8 lg:w-3/4 lg:px-0">
           <a
@@ -84,10 +89,10 @@ export const Afiliados: NextPage<AfiliadosPageProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await unstable_getServerSession(req, res, nextAuthOptions);
 
-  if (!session || session.status === 'unauthenicated') {
+  if (!session || session.status === 'unauthenicated' || !session.user) {
     return {
       redirect: {
         destination: '/',
@@ -96,53 +101,23 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  const agentId = session.user?.agentId;
-  let credenciales;
-  let facturas;
-  let autorizaciones;
-  let coseguros;
-  let agente;
+  const { agentId } = session.user;
 
-  try {
-    coseguros =
-      (await nextFetch(`afiliado/${agentId}/coseguro`, {
-        headers: { Cookie: req.headers.cookie || '' },
-      })) || [];
-  } catch (err) {
-    console.error(err);
-  }
-  try {
-    facturas =
-      (await nextFetch(`afiliado/${agentId}/factura`, {
-        headers: { Cookie: req.headers.cookie || '' },
-      })) || [];
-  } catch (err) {
-    console.error(err);
-  }
-  try {
-    credenciales =
-      (await nextFetch(`afiliado/${agentId}/credencial`, {
-        headers: { Cookie: req.headers.cookie || '' },
-      })) || [];
-  } catch (err) {
-    console.error(err);
-  }
-  try {
-    autorizaciones =
-      (await nextFetch(`afiliado/${agentId}/autorizacion`, {
-        headers: { Cookie: req.headers.cookie || '' },
-      })) || [];
-  } catch (err) {
-    console.error(err);
-  }
+  const queryClient = new QueryClient({ defaultOptions: { queries: defaultQueryOptions } });
 
-  try {
-    agente = (await nextFetch('afiliado', { headers: { Cookie: req.headers.cookie || '' } })) || {};
-  } catch (err) {
-    console.error(err);
-  }
+  await queryClient.prefetchQuery([GET_CREDENCIALES_QUERY_KEY, agentId], queryService(getCredencialesGrupo, agentId));
+  await queryClient.prefetchQuery([GET_COSEGUROS_QUERY_KEY, agentId], queryService(getCosegurosAfiliado, agentId));
+  await queryClient.prefetchQuery([GET_FACTURAS_QUERY_KEY, agentId], queryService(getFacturasAfiliado, agentId));
+  await queryClient.prefetchQuery(
+    [GET_AUTORIZACIONES_QUERY_KEY, agentId],
+    queryService(getAutorizacionesAfiliado, agentId)
+  );
+
   return {
-    props: { facturas, credenciales, autorizaciones, agentId, coseguros, agente },
+    props: {
+      user: session.user,
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 };
 

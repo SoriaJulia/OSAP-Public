@@ -4,20 +4,22 @@ import { getAfiliados, getFilteredAutorizacionesXPeriodo } from '@lib/facturacio
 import { changeNumberInput, currentYear } from '@lib/utils';
 import Field from 'components/Base/Field';
 import Select from 'components/Base/Select';
+import useAutorizaciones from 'hooks/autorizaciones/useAutorizaciones';
 import React, { useState } from 'react';
 import AutorizacionesList from './AutorizacionesList';
 
-const AutorizacionesTab = ({ payload }: { payload: Autorizacion[] }) => {
-  const [selectedYear, setSelectedYear] = useState(currentYear);
+const AutorizacionesTab = ({ agentId }: { agentId: string }) => {
+  const [selectedYear, setSelectedYear] = useState<number | ''>(currentYear);
   const [selectedState, setSelectedState] = useState('');
   const [selectedAfiliado, setSelectedAfiliado] = useState('');
+  const { autorizaciones, isLoading } = useAutorizaciones(agentId);
   const autorizacionesPorPeriodo = getFilteredAutorizacionesXPeriodo(
-    payload,
+    autorizaciones,
     selectedYear,
-    selectedState,
-    selectedAfiliado
+    selectedAfiliado,
+    selectedState
   );
-  const afiliados = getAfiliados(payload);
+  const afiliados = getAfiliados(autorizaciones);
   return (
     <>
       <div className="my-2 flex flex-wrap items-center justify-end gap-4">
@@ -60,7 +62,7 @@ const AutorizacionesTab = ({ payload }: { payload: Autorizacion[] }) => {
           })}
         </Select>
       </div>
-      <AutorizacionesList periodos={autorizacionesPorPeriodo} />
+      <AutorizacionesList isLoading={isLoading} periodos={autorizacionesPorPeriodo} />
     </>
   );
 };

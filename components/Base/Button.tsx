@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import * as React from 'react';
+import classNames from 'classnames';
 
 const buttonVariants = {
   fill: 'bg-orange-500 text-grey-50 hover:bg-orange-400 focus:bg-yellow-500 disabled:bg-gray-500',
@@ -18,6 +19,7 @@ type ButtonProps = {
   variant?: Variants;
   trailingIcon?: ReactNode;
   leadingIcon?: ReactNode;
+  showIconOnMobile?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button: React.FC<ButtonProps> = ({
@@ -28,19 +30,23 @@ const Button: React.FC<ButtonProps> = ({
   trailingIcon,
   leadingIcon,
   className,
+  showIconOnMobile,
   ...props
 }) => {
   return (
     <button
-      className={`flex h-fit w-fit items-center justify-center gap-2 rounded-md px-2 py-2 tracking-wide transition ease-in-out hover:scale-105 focus:scale-105 disabled:cursor-not-allowed
-        ${className} ${buttonVariants[variant]}`}
+      className={classNames(className, {
+        'flex h-fit w-fit items-center justify-center gap-2 rounded-md px-2 py-2 tracking-wide transition ease-in-out hover:scale-105 focus:scale-105 disabled:cursor-not-allowed':
+          true,
+        [`${buttonVariants[variant]}`]: true,
+      })}
       onClick={onClick}
       type={type}
       {...props}
     >
-      <div className="hidden pl-1 sm:block">{leadingIcon}</div>
+      <div className={` ${showIconOnMobile ? '' : 'hidden'} pl-1 sm:block`}>{leadingIcon}</div>
       {label}
-      <div className="hidden pr-1 sm:block">{trailingIcon}</div>
+      <div className={` ${showIconOnMobile ? '' : 'hidden'} pr-1 sm:block`}>{trailingIcon}</div>
     </button>
   );
 };

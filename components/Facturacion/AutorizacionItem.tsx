@@ -5,8 +5,13 @@ import _ from 'lodash';
 import { CaretDown, CaretUp } from 'phosphor-react';
 import React, { useState } from 'react';
 
-const AutorizacionItem: React.FC<{ autorizacion: Autorizacion }> = ({ autorizacion }) => {
+type Props = { autorizacion: Autorizacion; isLoading: boolean };
+
+const AutorizacionItem = ({ autorizacion, isLoading }: Props) => {
   const [showDetail, setShowDetail] = useState(false);
+  if (isLoading) {
+    return <p>autorizaciones card skeleton</p>;
+  }
   return (
     <div className="group flex w-full flex-col gap-1 py-3 hover:bg-slate-50">
       <button
