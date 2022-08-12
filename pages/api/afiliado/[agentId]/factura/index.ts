@@ -1,6 +1,3 @@
-import { Factura } from '@appTypes/factura';
-import axiosClient from '@lib/axios';
-import { parseJSONResponse } from '@lib/utils';
 import { getFacturasAfiliado } from '@services/agente';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
