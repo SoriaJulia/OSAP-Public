@@ -2,7 +2,6 @@ import { Factura } from '@appTypes/factura';
 import axiosClient from '@lib/axios';
 import { parseJSONResponse } from '@lib/utils';
 import { getFacturasAfiliado } from '@services/agente';
-import { OSAP_API_URL } from 'config';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
