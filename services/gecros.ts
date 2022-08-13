@@ -9,12 +9,14 @@ export const GECROSService = {
     const response: ServiceResponse<OSAPUser> = { data: null, message: '' };
 
     const { data: usuario, message: usuarioMsg } = await getUser(credentials);
+    console.log('get user', usuario);
 
     if (!usuario) {
       response.message = usuarioMsg;
       return response;
     }
     const { data: agente, message: agenteMsg } = await getAgente(credentials.username);
+    console.log('get agente ', agente);
 
     if (!agente) {
       response.message = agenteMsg;

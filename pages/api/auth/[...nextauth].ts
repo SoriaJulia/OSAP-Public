@@ -19,12 +19,13 @@ export const nextAuthOptions: NextAuthOptions = {
         role: { label: 'role', type: 'text' },
       },
       async authorize(credentials): Promise<OSAPUser | null> {
+        console.log(credentials);
         if (!credentials) {
           return null;
         }
 
         const loginResult = await GECROSService.login(credentials as Credentials);
-
+        console.log(loginResult);
         if (loginResult.message) {
           throw new Error(loginResult.message);
         }
