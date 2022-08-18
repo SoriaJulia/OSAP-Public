@@ -63,7 +63,8 @@ module.exports = {
         'footer': 'repeat(2, 1fr)',
         'facturas': '40% 25% 30% 5%',
         'autorizaciones': '14% 57% 25% 4%',
-        'coseguros': '1fr 15% 4%',
+        'coseguros': '16% 1fr 15% 4%',
+        'coseguros-print': '10% 1fr 15%',
       },
       screens: {
         xs: '380px',

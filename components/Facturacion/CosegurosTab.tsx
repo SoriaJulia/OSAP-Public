@@ -1,9 +1,11 @@
+import PrintHeader from '@components/Base/PrintHeader';
 import { getFilteredCosegurosXPeriodo } from '@lib/facturacion';
 import { changeNumberInput, currentYear } from '@lib/utils';
 import useCoseguros from 'hooks/coseguros/useCoseguros';
 import { isEmpty } from 'lodash';
-import { Info } from 'phosphor-react';
-import React, { useState } from 'react';
+import { Download, Info } from 'phosphor-react';
+import React, { useRef, useState } from 'react';
+import { useReactToPrint } from 'react-to-print';
 import Field from '../Base/Field';
 import CosegurosXPeriodoCard from './CosegurosXPeriodoCard';
 
@@ -15,6 +17,12 @@ const CosegurosTab = ({ agentId }: Props) => {
   const [selectedYear, setSelectedYear] = useState<number | ''>(currentYear);
   const { coseguros, isLoading } = useCoseguros(agentId);
   const cosegurosXPeriodo = getFilteredCosegurosXPeriodo(coseguros, selectedYear);
+  const listRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => listRef.current,
+    documentTitle: 'OSAP-CartillaPrestadores',
+  });
+
   return (
     <div>
       <div className="my-2 flex flex-wrap items-center justify-end gap-4">
@@ -26,8 +34,16 @@ const CosegurosTab = ({ agentId }: Props) => {
           onChange={changeNumberInput(setSelectedYear)}
           max={currentYear}
         />
+        <Download
+          onClick={handlePrint}
+          size={44}
+          weight="duotone"
+          className="mr-6 rounded-full p-2 text-teal-500 hover:bg-slate-100/80"
+          alt="Descargar o imprimir lista"
+        />
       </div>
-      <div className="flex flex-wrap gap-5 pt-5">
+      <div className="flex flex-wrap gap-5 pt-5 print:px-4" ref={listRef}>
+        <PrintHeader title={`Coseguros año ${selectedYear}`} />
         {!isEmpty(cosegurosXPeriodo) ? (
           Object.values(cosegurosXPeriodo)
             .reverse()

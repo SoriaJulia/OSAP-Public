@@ -1,3 +1,4 @@
+import { capitalizeText } from '@lib/utils';
 import _ from 'lodash';
 import { CaretDown, CaretUp } from 'phosphor-react';
 import React, { useState } from 'react';
@@ -15,23 +16,23 @@ const CoseguroItem: React.FC<CoseguroItemProps> = ({ coseguro }) => {
         onClick={() => {
           setShowDetail(!showDetail);
         }}
-        className="mr-4 ml-1 grid grid-cols-coseguros items-center gap-1 text-left "
+        className="mr-4 ml-1 grid grid-cols-coseguros items-center gap-1 text-left print:grid-cols-coseguros-print"
       >
-        {/* <span className="text-lg">Fecha: {new Date(coseguro.Fecha).toLocaleDateString()}</span> */}
+        <span className="text-lg text-blue-600">Día: {new Date(coseguro.fecha).getDate()}</span>
         <span>{_.capitalize(coseguro.detalle)}</span>
-        <span className="mr-1  text-lg text-teal-500">$ {coseguro.importe}</span>
-        {showDetail ? <CaretUp /> : <CaretDown />}
+        <span className="mr-1 text-right text-lg text-teal-500 print:text-xl">$ {coseguro.importe}</span>
+        {showDetail ? <CaretUp className="print:hidden" /> : <CaretDown className="print:hidden" />}
       </button>
       <div
-        className={`ml-2 mt-1 flex-col gap-1 ${
+        className={`ml-2 flex-col gap-2 print:ml-0 print:flex print:opacity-100 ${
           showDetail ? 'flex opacity-100' : 'hidden bg-white opacity-0 transition-opacity duration-700'
         }`}
       >
         <span>
-          <span className="text-lg text-orange-800">Concepto:</span> {_.capitalize(coseguro.concepto)}
+          <span className="text-orange-800">Concepto:</span> {_.capitalize(coseguro.concepto)}
         </span>
         <span>
-          <span className="text-lg text-orange-800">Prestador:</span> {_.capitalize(coseguro.prestador)}
+          <span className="text-orange-800">Prestador:</span> {capitalizeText(coseguro.prestador)}
         </span>
       </div>
     </div>
