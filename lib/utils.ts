@@ -1,4 +1,4 @@
-import { InputChangeHandler } from '@appTypes/reactCommon';
+import { InputChangeHandler, TextAreaChangeHandler } from '@appTypes/reactCommon';
 import { XMLParser } from 'fast-xml-parser';
 import _ from 'lodash';
 import { GECROSBaseResponse } from '@appTypes/gecros';
@@ -69,6 +69,12 @@ export const parseJSONResponse = <T>(xml: string, { actionName }: { actionName: 
 
 export const changeTextInput =
   (setterFn: React.Dispatch<React.SetStateAction<string>>): InputChangeHandler =>
+  (e) => {
+    setterFn(e.target.value);
+  };
+
+export const changeTextArea =
+  (setterFn: React.Dispatch<React.SetStateAction<string>>): TextAreaChangeHandler =>
   (e) => {
     setterFn(e.target.value);
   };

@@ -3,7 +3,7 @@ import Field from 'components/Base/Field';
 import PageTitle from 'components/Base/PageTitle';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { changeFileInput, changeNumberInput, changeTextInput } from '@lib/utils';
+import { changeFileInput, changeNumberInput, changeTextArea, changeTextInput } from '@lib/utils';
 import React, { useRef, useState } from 'react';
 import { getSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
@@ -12,11 +12,13 @@ import { SERVER_ERROR } from '@lib/constants';
 import { useMutation } from 'react-query';
 import axios from 'axios';
 import { NEXT_URL } from 'config';
+import TextArea from '@components/Base/TextArea';
 
 const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
   const [facturas, setFacturas] = useState('');
   const [importe, setImporte] = useState<number | ''>('');
   const [comprobante, setComprobante] = useState<File[]>([]);
+  const [comentario, setComentario] = useState('');
   const inputFileRef = useRef<HTMLInputElement | null>(null);
 
   const { isLoading, mutate } = useMutation(
@@ -42,6 +44,7 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
       onSettled: () => {
         setFacturas('');
         setImporte('');
+        setComentario('');
         setComprobante([]);
         if (inputFileRef.current) inputFileRef.current.value = '';
       },
@@ -54,6 +57,7 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
     if (comprobante) formdata.append('comprobante', comprobante[0]);
     formdata.append('facturas', facturas);
     if (importe) formdata.append('importe', importe.toString());
+    formdata.append('comentario', comentario);
     mutate(formdata);
   };
 
@@ -73,7 +77,7 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
             <li>Si el pago es correcto actualizamos el estado de tus facturas</li>
           </ol>
           <p className="mt-4 text-sm">
-            *El número de factura podes encontrarlo en{' '}
+            *El número de factura podés encontrarlo en{' '}
             <a className="text-teal-600 underline" href="/afiliados/facturacion">
               Pagos y facturación
             </a>
@@ -84,11 +88,13 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
           <div className="-mt-2 flex flex-wrap gap-6 lg:gap-16 ">
             <Field
               label="Factura/s"
-              helpText="Numeros de facturas correspondientes al pago, separados por una coma (,)"
+              helpText="Números de facturas correspondientes al pago, separados por una coma (,)"
               placeholder="1-45455, 1-302545"
               onChange={changeTextInput(setFacturas)}
               value={facturas}
               inputWidth="w-full"
+              className="w-7/12"
+              required
             />
             <Field
               label="Importe"
@@ -98,8 +104,17 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
               onChange={changeNumberInput(setImporte)}
               value={importe}
               inputWidth="w-full"
+              className="w-3/12"
+              required
             />
           </div>
+          <TextArea
+            onChange={changeTextArea(setComentario)}
+            value={comentario}
+            label="Mensaje"
+            inputWidth="w-11/12"
+            helpText="Si lo necesitas podés dejarnos un comentario sobre el pago"
+          />
           <Field
             label="Comprobante"
             type="file"
@@ -107,7 +122,8 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
             onChange={changeFileInput(setComprobante)}
             ref={inputFileRef}
             helpText="Imagen o .pdf del comprobante de deposito o transferencia"
-            inputWidth="w-5/6"
+            inputWidth="w-11/12"
+            required
           />
           <Button
             className="self-end"

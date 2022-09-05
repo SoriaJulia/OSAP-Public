@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
 import * as React from 'react';
 
 const LabelPosition = {
@@ -6,34 +6,22 @@ const LabelPosition = {
   left: 'gap-2 items-center',
 };
 
-type FieldProps = {
+type Props = {
   label: string;
   helpText?: string;
   error?: any;
   errorText?: string;
   labelPosition?: 'top' | 'left';
   inputWidth?: string;
-} & InputHTMLAttributes<HTMLInputElement>;
+} & TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-const Field = React.forwardRef<HTMLInputElement, FieldProps>(
+const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
   (
-    {
-      label,
-      name,
-      helpText,
-      error,
-      errorText,
-      type = 'text',
-      labelPosition = 'top',
-      inputWidth,
-      className,
-      required,
-      ...props
-    },
+    { label, name, helpText, error, errorText, labelPosition = 'top', required, inputWidth, cols, rows, ...props },
     ref
   ) => {
     return (
-      <div className={`${className} flex ${LabelPosition[labelPosition]}`}>
+      <div className={`flex ${LabelPosition[labelPosition]}`}>
         <label className="text-left text-xl text-blue-700" htmlFor={name}>
           {label}
           {required && (
@@ -43,12 +31,13 @@ const Field = React.forwardRef<HTMLInputElement, FieldProps>(
             </span>
           )}
         </label>
-        <input
+        <textarea
           aria-label={label}
-          type={type}
+          cols={cols || 50}
+          rows={rows || 2}
           ref={ref}
           {...props}
-          className={`${inputWidth || 'w-full md:w-72'} input  peer`}
+          className={`${inputWidth || 'w-full md:w-72'} input peer `}
         />
         <span className="my-1 text-left text-sm font-light">{helpText}</span>
         <span className="my-1 hidden text-left text-sm font-light text-pink-800 peer-invalid:block">{errorText}</span>
@@ -57,4 +46,4 @@ const Field = React.forwardRef<HTMLInputElement, FieldProps>(
   }
 );
 
-export default Field;
+export default TextArea;

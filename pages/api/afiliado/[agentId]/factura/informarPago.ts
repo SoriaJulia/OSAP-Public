@@ -36,9 +36,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     to: process.env.MAIL_INFORMAR_PAGO,
     subject: `Informe de pago - ${session?.user?.name} `,
     html: `
-    <p>Agente: ${session?.user?.agentId}, DNI: ${session?.user?.dni}</p>
+    <p>Agente de cuenta: ${session?.user?.agentId}, DNI: ${session?.user?.dni}</p>
     <p>Facturas: ${fData.fields.facturas}</p>
-    <p>Importe: ${fData.fields.importe}</p>`,
+    <p>Importe: ${fData.fields.importe}</p>
+    <p>Comentario: ${fData.fields.comentario}`,
     attachments: [{ filename: file.originalFilename, content: fileContent }],
   };
 
