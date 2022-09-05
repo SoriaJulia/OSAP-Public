@@ -5,14 +5,14 @@ import { useQuery } from 'react-query';
 export const GET_CREDENCIALES_QUERY_KEY = 'credenciales';
 
 const useCredenciales = (agentId: string) => {
-  const { data, error, isRefetching } = useQuery(
+  const { data, error, isFetching } = useQuery(
     [GET_CREDENCIALES_QUERY_KEY, agentId],
     queryService(getCredencialesGrupo, agentId)
   );
 
   return {
     credenciales: data || [],
-    isLoading: isRefetching,
+    isLoading: isFetching,
     error,
   };
 };

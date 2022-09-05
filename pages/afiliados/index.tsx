@@ -105,13 +105,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   const queryClient = new QueryClient({ defaultOptions: { queries: defaultQueryOptions } });
 
-  await queryClient.prefetchQuery([GET_CREDENCIALES_QUERY_KEY, agentId], queryService(getCredencialesGrupo, agentId));
-  await queryClient.prefetchQuery([GET_COSEGUROS_QUERY_KEY, agentId], queryService(getCosegurosAfiliado, agentId));
-  await queryClient.prefetchQuery([GET_FACTURAS_QUERY_KEY, agentId], queryService(getFacturasAfiliado, agentId));
-  await queryClient.prefetchQuery(
-    [GET_AUTORIZACIONES_QUERY_KEY, agentId],
-    queryService(getAutorizacionesAfiliado, agentId)
-  );
+  queryClient.prefetchQuery([GET_CREDENCIALES_QUERY_KEY, agentId], queryService(getCredencialesGrupo, agentId));
+  queryClient.prefetchQuery([GET_COSEGUROS_QUERY_KEY, agentId], queryService(getCosegurosAfiliado, agentId));
+  queryClient.prefetchQuery([GET_FACTURAS_QUERY_KEY, agentId], queryService(getFacturasAfiliado, agentId));
+  queryClient.prefetchQuery([GET_AUTORIZACIONES_QUERY_KEY, agentId], queryService(getAutorizacionesAfiliado, agentId));
 
   return {
     props: {

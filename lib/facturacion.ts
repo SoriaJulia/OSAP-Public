@@ -1,4 +1,3 @@
-import { AgenteCta } from '@appTypes/agenteCta';
 import { Autorizacion, AutXPeriodo } from '@appTypes/autorizacion';
 import { Coseguro, CosegXPeriodo } from '@appTypes/coseguro';
 import { Factura, FacXPeriodo } from '@appTypes/factura';

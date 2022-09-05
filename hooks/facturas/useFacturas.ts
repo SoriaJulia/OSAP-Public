@@ -5,14 +5,14 @@ import { useQuery } from 'react-query';
 export const GET_FACTURAS_QUERY_KEY = 'facturas';
 
 const useFacturas = (agentId: string) => {
-  const { data, error, isRefetching } = useQuery(
+  const { data, error, isFetching } = useQuery(
     [GET_FACTURAS_QUERY_KEY, agentId],
     queryService(getFacturasAfiliado, agentId)
   );
 
   return {
     facturas: data || [],
-    isLoading: isRefetching,
+    isLoading: isFetching,
     error,
   };
 };

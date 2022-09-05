@@ -1,4 +1,3 @@
-import { parseJSONResponse } from '@lib/utils';
 import { OSAP_API_URL } from 'config';
 import { AgenteCta } from '@appTypes/agenteCta';
 import axiosClient from '@lib/axios';
@@ -10,176 +9,84 @@ import { Credencial } from '@appTypes/credencial';
 import { Factura } from '@appTypes/factura';
 import { Coseguro } from '@appTypes/coseguro';
 
-const getAgenteCta = (dni: string) => {
-  return `<?xml version="1.0" encoding="utf-8"?>
-    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
-     <soapenv:Header/>
-     <soapenv:Body>
-        <tem:GetAgenteCta>
-           <!--Optional:-->
-           <tem:DNI>${dni}</tem:DNI>
-        </tem:GetAgenteCta>
-     </soapenv:Body>
-  </soapenv:Envelope>`;
-};
-
-const AGENT_RESULT_NAME = 'GetAgenteCta';
-const NO_AGENT_MESSAGE = 'No se encontro ningun agente con este codigo';
+const NO_AGENT_MESSAGE = 'No se encontro ningun agente con este DNI';
 
 export const getAgente = async (dni: string): Promise<ServiceResponse<AgenteCta>> => {
   try {
-    const resp = await axiosClient.post(OSAP_API_URL, getAgenteCta(dni), {
-      headers: { 'Content-Type': 'text/xml;charset=UTF-8', 'SOAPAction': 'http://tempuri.org/IService1/GetAgenteCta' },
-    });
-    const parsedResp = parseJSONResponse<AgenteCta>(resp.data, { actionName: AGENT_RESULT_NAME });
+    const response = await axiosClient.get<{ AgentesCta: AgenteCta[] }>(`${OSAP_API_URL}/getAgenteCta?Dni=${dni}`);
 
-    if (isEmpty(parsedResp.AgentesCta)) {
+    if (isEmpty(response.data.AgentesCta)) {
       return { data: null, message: NO_AGENT_MESSAGE };
     }
 
-    return { data: parsedResp.AgentesCta[0], message: '' };
+    return { data: response.data.AgentesCta[0], message: '' };
   } catch (err) {
     console.error(err);
     return { data: null, message: SERVER_ERROR };
   }
 };
 
-const getAutorizaciones = (agectaId: string) => {
-  return `<?xml version="1.0" encoding="utf-8"?>
-  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
-  <soapenv:Header/>
-  <soapenv:Body>
-     <tem:GetAutorizaciones>
-        <tem:AgeCta_id>${agectaId}</tem:AgeCta_id>
-     </tem:GetAutorizaciones>
-  </soapenv:Body>
-  </soapenv:Envelope>`;
-};
-
-const AUTORIZACIONES_RESULT_NAME = 'GetAutorizaciones';
 const NO_AUTORIZACIONES_MESSAGE = 'No se encontro ninguna autorizacion con este codigo';
 
 export const getAutorizacionesAfiliado = async (agectaId: string): Promise<ServiceResponse<Autorizacion[]>> => {
   try {
-    const resp = await axiosClient.post(OSAP_API_URL, getAutorizaciones(agectaId), {
-      headers: {
-        'Content-Type': 'text/xml;charset=UTF-8',
-        'SOAPAction': 'http://tempuri.org/IService1/GetAutorizaciones',
-      },
-    });
-    const parsedResp = parseJSONResponse<Autorizacion>(resp.data, {
-      actionName: AUTORIZACIONES_RESULT_NAME,
-    });
-
-    if (isEmpty(parsedResp.Autorizaciones)) {
+    const resp = await axiosClient.get<{ Autorizaciones: Autorizacion[] }>(
+      `${OSAP_API_URL}/getAutorizaciones?AgeCtaId=${agectaId}`
+    );
+    if (isEmpty(resp.data.Autorizaciones)) {
       return { data: null, message: NO_AUTORIZACIONES_MESSAGE };
     }
 
-    return { data: parsedResp.Autorizaciones, message: '' };
+    return { data: resp.data.Autorizaciones, message: '' };
   } catch (err) {
     console.error(err);
     return { data: null, message: SERVER_ERROR };
   }
 };
 
-const getGrupo = (agectaId: string) => {
-  return `<?xml version="1.0" encoding="utf-8"?>
-  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
-  <soapenv:Header/>
-  <soapenv:Body>
-     <tem:GetGrupo>
-        <!--Optional:-->
-        <tem:AgeCta_id>${agectaId}</tem:AgeCta_id>
-     </tem:GetGrupo>
-  </soapenv:Body>
-</soapenv:Envelope>`;
-};
-
-const GRUPO_RESULT_NAME = 'GetGrupo';
 const NO_GRUPO_MESSAGE = 'No se encontro ninguna credencial con este codigo';
 
 export const getCredencialesGrupo = async (agectaId: string): Promise<ServiceResponse<Credencial[]>> => {
   try {
-    const resp = await axiosClient.post(OSAP_API_URL, getGrupo(agectaId), {
-      headers: { 'Content-Type': 'text/xml;charset=UTF-8', 'SOAPAction': 'http://tempuri.org/IService1/GetGrupo' },
-    });
-    const parsedResp = parseJSONResponse<Credencial>(resp.data, { actionName: GRUPO_RESULT_NAME });
+    const resp = await axiosClient.get<{ Grupo: Credencial[] }>(`${OSAP_API_URL}/getGrupo?AgeCtaId=${agectaId}`);
 
-    if (isEmpty(parsedResp.Grupo)) {
+    if (isEmpty(resp.data.Grupo)) {
       return { data: null, message: NO_GRUPO_MESSAGE };
     }
 
-    return { data: parsedResp.Grupo, message: '' };
+    return { data: resp.data.Grupo, message: '' };
   } catch (err) {
     console.error(err);
     return { data: null, message: SERVER_ERROR };
   }
 };
 
-// TODO move this to better place
-export type ServiceFunction<T, U> = (...params: U[]) => Promise<ServiceResponse<T>>;
-
-const getFacturas = (agectaId: string) => {
-  return `<?xml version="1.0" encoding="utf-8"?>
-  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
-  <soapenv:Header/>
-  <soapenv:Body>
-     <tem:GetFacturas>
-        <tem:AgeCta_id>${agectaId}</tem:AgeCta_id>
-     </tem:GetFacturas>
-  </soapenv:Body>
-  </soapenv:Envelope>`;
-};
-
-const FACTURA_RESULT_NAME = 'GetFacturas';
 const NO_FACTURA_MESSAGE = 'No se encontro ninguna factura con este codigo';
 
 export const getFacturasAfiliado = async (agectaId: string): Promise<ServiceResponse<Factura[]>> => {
   try {
-    const resp = await axiosClient.post(OSAP_API_URL, getFacturas(agectaId), {
-      headers: { 'Content-Type': 'text/xml;charset=UTF-8', 'SOAPAction': 'http://tempuri.org/IService1/GetFacturas' },
-    });
-    const parsedResp = parseJSONResponse<Factura>(resp.data, { actionName: FACTURA_RESULT_NAME });
+    const resp = await axiosClient.get<{ Facturas: Factura[] }>(`${OSAP_API_URL}/getFacturas?AgeCtaId=${agectaId}`);
 
-    if (isEmpty(parsedResp.Facturas)) {
+    if (isEmpty(resp.data.Facturas)) {
       return { data: null, message: NO_FACTURA_MESSAGE };
     }
-    return { data: parsedResp.Facturas, message: '' };
+    return { data: resp.data.Facturas, message: '' };
   } catch (err) {
     console.error(err);
     return { data: null, message: SERVER_ERROR };
   }
 };
 
-const getCoseguros = (agectaId: string) => {
-  return `<?xml version="1.0" encoding="utf-8"?>
-  <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
-  <soapenv:Header/>
-  <soapenv:Body>
-     <tem:GetCoseguros>
-        <tem:AgeCta_id>${agectaId}</tem:AgeCta_id>
-     </tem:GetCoseguros>
-  </soapenv:Body>
-  </soapenv:Envelope>`;
-};
-
-const COSEGUROS_RESULT_NAME = 'GetCoseguros';
 const NO_COSEGURO_MESSAGE = 'No se encontro ningun coseguro con este codigo';
 
 export const getCosegurosAfiliado = async (agectaId: string): Promise<ServiceResponse<Coseguro[]>> => {
   try {
-    const resp = await axiosClient.post(OSAP_API_URL, getCoseguros(agectaId), {
-      headers: {
-        'Content-Type': 'text/xml;charset=UTF-8',
-        'SOAPAction': 'http://tempuri.org/IService1/GetCoseguros',
-      },
-    });
-    const parsedResp = parseJSONResponse<Coseguro>(resp.data, { actionName: COSEGUROS_RESULT_NAME });
+    const resp = await axiosClient.get<{ Coseguros: Coseguro[] }>(`${OSAP_API_URL}/getCoseguros?AgeCtaId=${agectaId}`);
 
-    if (isEmpty(parsedResp.Coseguros)) {
+    if (isEmpty(resp.data.Coseguros)) {
       return { data: null, message: NO_COSEGURO_MESSAGE };
     }
-    return { data: parsedResp.Coseguros, message: '' };
+    return { data: resp.data.Coseguros, message: '' };
   } catch (err) {
     console.error(err);
     return { data: null, message: SERVER_ERROR };

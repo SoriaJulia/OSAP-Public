@@ -1,12 +1,9 @@
-import User from '@appTypes/user';
 import { downloadBase64File } from '@lib/utils';
 import axios from 'axios';
 import { NEXT_URL } from 'config';
 import { useSession } from 'next-auth/react';
-import { DownloadSimple } from 'phosphor-react';
 import React from 'react';
 import { useMutation } from 'react-query';
-import { Color, State } from '../../types/enums/facturas';
 import { Factura } from '../../types/factura';
 import { FacturasItem } from './FacturasItem';
 

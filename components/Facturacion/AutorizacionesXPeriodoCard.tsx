@@ -3,9 +3,9 @@ import { formatPeriodo } from '@lib/facturacion';
 import React from 'react';
 import AutorizacionItem from './AutorizacionItem';
 
-type Props = { autorizaciones: Autorizacion[]; periodo: string; isLoading: boolean };
+type Props = { autorizaciones: Autorizacion[]; periodo: string };
 
-const AutorizacionesXPeriodoCard = ({ autorizaciones, periodo, isLoading }: Props) => {
+const AutorizacionesXPeriodoCard = ({ autorizaciones, periodo }: Props) => {
   return (
     <div className="flex flex-col gap-2 rounded py-2 px-3 text-left ring-1 ring-orange-100/50 ring-offset-2 ring-offset-yellow-50/80 sm:w-[48%]">
       <h3 className="font-display text-xl font-semibold tracking-wide text-blue-600">
@@ -13,7 +13,7 @@ const AutorizacionesXPeriodoCard = ({ autorizaciones, periodo, isLoading }: Prop
       </h3>
       <div>
         {autorizaciones.map((autorizacion: Autorizacion) => {
-          return <AutorizacionItem isLoading={isLoading} autorizacion={autorizacion} key={autorizacion.nro_ord} />;
+          return <AutorizacionItem autorizacion={autorizacion} key={autorizacion.nro_ord} />;
         })}
       </div>
     </div>

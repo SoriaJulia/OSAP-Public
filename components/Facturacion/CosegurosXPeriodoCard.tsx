@@ -5,13 +5,9 @@ import CoseguroItem from './CoseguroItem';
 
 type Props = {
   coseguros: Coseguro[];
-  isLoading: boolean;
 };
 
-const CosegurosXPeriodoCard = ({ coseguros, isLoading }: Props) => {
-  if (isLoading) {
-    return <div> show coseguro card skeleton</div>;
-  }
+const CosegurosXPeriodoCard = ({ coseguros }: Props) => {
   return (
     <div className="card flex w-full flex-col gap-2 text-left print:w-full lg:w-[48%]">
       <h3 className="font-display text-2xl tracking-wide text-blue-600">

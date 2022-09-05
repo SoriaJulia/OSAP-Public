@@ -1,4 +1,3 @@
-import { Receipt } from 'phosphor-react';
 import React, { ReactNode } from 'react';
 
 const PageTitle: React.FC<{ title: string; icon?: ReactNode }> = ({ title, icon }) => {

@@ -1,4 +1,3 @@
-import { Autorizacion } from '@appTypes/autorizacion';
 import { State } from '@appTypes/enums/autorizaciones';
 import { getAfiliados, getFilteredAutorizacionesXPeriodo } from '@lib/facturacion';
 import { changeNumberInput, currentYear } from '@lib/utils';

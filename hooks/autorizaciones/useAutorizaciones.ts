@@ -5,14 +5,14 @@ import { useQuery } from 'react-query';
 export const GET_AUTORIZACIONES_QUERY_KEY = 'autorizaciones';
 
 const useAutorizaciones = (agentId: string) => {
-  const { data, isRefetching, error } = useQuery(
+  const { data, isFetching, error } = useQuery(
     [GET_AUTORIZACIONES_QUERY_KEY, agentId],
     queryService(getAutorizacionesAfiliado, agentId)
   );
 
   return {
     autorizaciones: data || [],
-    isLoading: isRefetching,
+    isLoading: isFetching,
     error,
   };
 };

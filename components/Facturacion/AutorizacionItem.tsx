@@ -5,13 +5,10 @@ import _ from 'lodash';
 import { CaretDown, CaretUp } from 'phosphor-react';
 import React, { useState } from 'react';
 
-type Props = { autorizacion: Autorizacion; isLoading: boolean };
+type Props = { autorizacion: Autorizacion };
 
-const AutorizacionItem = ({ autorizacion, isLoading }: Props) => {
+const AutorizacionItem = ({ autorizacion }: Props) => {
   const [showDetail, setShowDetail] = useState(false);
-  if (isLoading) {
-    return <p>autorizaciones card skeleton</p>;
-  }
   return (
     <div className="group flex w-full flex-col gap-1 py-3 hover:bg-slate-50">
       <button

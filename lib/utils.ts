@@ -1,8 +1,7 @@
 import { InputChangeHandler, TextAreaChangeHandler } from '@appTypes/reactCommon';
 import { XMLParser } from 'fast-xml-parser';
 import _ from 'lodash';
-import { GECROSBaseResponse } from '@appTypes/gecros';
-import { ServiceFunction } from '@services/agente';
+import { GECROSBaseResponse, ServiceResponse } from '@appTypes/gecros';
 import { QueryObserverOptions } from 'react-query';
 import { DEFAULT_CACHE_TIME, DEFAULT_STALE_TIME } from './constants';
 
@@ -57,16 +56,6 @@ export type OSAPResponse<T> = {
   [k: string]: T[];
 };
 
-export const parseJSONResponse = <T>(xml: string, { actionName }: { actionName: string }): OSAPResponse<T> => {
-  const parser = new XMLParser();
-  const jsonObj = parser.parse(xml);
-  const result = jsonObj?.['s:Envelope']?.['s:Body']?.[`${actionName}Response`]?.[`${actionName}Result`];
-  if (!result) {
-    throw new Error(`Malformed XML for ${actionName}\n ${xml}`);
-  }
-  return JSON.parse(result);
-};
-
 export const changeTextInput =
   (setterFn: React.Dispatch<React.SetStateAction<string>>): InputChangeHandler =>
   (e) => {
@@ -108,7 +97,8 @@ export const capitalizeText = (text: string) => {
     .join(' ');
 };
 
-// TODO better place?
+// TODO move this to better place
+export type ServiceFunction<T, U> = (...params: U[]) => Promise<ServiceResponse<T>>;
 export function queryService<T, U>(serviceFn: ServiceFunction<T, U>, ...params: U[]) {
   return async () => {
     const { data, message } = await serviceFn(...params);

@@ -4,7 +4,7 @@ import Button from 'components/Base/Button';
 import Field from 'components/Base/Field';
 import { GetServerSideProps, NextPage } from 'next';
 import { RedirectableProviderType } from 'next-auth/providers';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 // eslint-disable-next-line camelcase
 import { unstable_getServerSession } from 'next-auth';
 import { useRouter } from 'next/router';

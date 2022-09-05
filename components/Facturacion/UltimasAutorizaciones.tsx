@@ -5,7 +5,6 @@ import { getFilteredAutorizacionesXPeriodo } from '@lib/facturacion';
 import useAutorizaciones from 'hooks/autorizaciones/useAutorizaciones';
 import AutorizacionesList from './AutorizacionesList';
 
-// TODO fix prop types
 const UltimasAutorizaciones = ({ agentId }: { agentId: string }) => {
   const router = useRouter();
   const { autorizaciones, isLoading } = useAutorizaciones(agentId);

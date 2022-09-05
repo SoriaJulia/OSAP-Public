@@ -1,6 +1,5 @@
 import { transporter } from '@lib/mailer';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
 import { IncomingForm } from 'formidable';
 import { readFileSync } from 'fs';
 import { SERVER_ERROR } from '@lib/constants';

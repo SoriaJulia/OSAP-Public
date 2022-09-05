@@ -19,9 +19,7 @@ const UltimasFacturas = ({ agentId }: Props) => {
         <h4 className=" text-lg text-orange-600">Ultimas Facturas</h4>
         <Button label="Ver todas" variant="blueText" onClick={() => router.push('/afiliados/facturacion')} />
       </div>
-      <div className="flex gap-4">
-        <FacturasList isLoading={isLoading} periodos={facturasPorPeriodo} periodosToShow={3} />
-      </div>
+      <FacturasList isLoading={isLoading} periodos={facturasPorPeriodo} periodosToShow={3} />
     </article>
   );
 };
