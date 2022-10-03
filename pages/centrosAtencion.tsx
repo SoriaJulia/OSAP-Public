@@ -3,15 +3,7 @@ import React from 'react';
 import Head from 'next/head';
 import PageTitle from '../components/Base/PageTitle';
 import CentroAtencion from '../components/CentroAtencion';
-// {
-//     title: '',
-//     address: { href: '', label: '' },
-//     phones: [
-//       { href: '', label: '' },
-//       { href: '', label: '' },
-//     ],
-//     wsp: [{ href: '', label: '' }],
-//   },
+
 const listCentros = [
   {
     title: 'Sede Central',
@@ -94,6 +86,7 @@ const CentrosAtencion: NextPage = () => {
     <div className="flex">
       <Head>
         <title>Centros de atención - OSAP</title>
+        <meta name="description" content="Nuestros centros de atención, con sus respectivas direcciones y telefonos" />
       </Head>
       <section className="text-left lg:w-3/5">
         <PageTitle title="Centros de atención" />

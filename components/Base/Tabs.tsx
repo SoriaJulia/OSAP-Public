@@ -38,9 +38,8 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
         {tabs.map((tab) => (
           <button
             className={classNames({
-              '-mb-0.5 mt-2 flex items-end gap-1 whitespace-nowrap rounded-t-lg border-x-2 border-t-2 py-2 px-7 text-lg text-orange-600 md:py-4  md:text-xl':
-                true,
-              'mb-0 bg-white/50': selectedTab !== tab.index,
+              'tab-button': true,
+              '-mb-1': selectedTab === tab.index,
               'border-b-2  border-orange-600 border-b-white bg-white': selectedTab === tab.index,
             })}
             onClick={() => onClick(tab.index)}
@@ -53,7 +52,7 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
             id={`btn-${tab.index}`}
           >
             <tab.Icon weight={selectedTab === tab.index ? 'fill' : 'regular'} size="1.2em" />
-            {tab.label}
+            <h2>{tab.label}</h2>
           </button>
         ))}
       </div>

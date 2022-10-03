@@ -21,7 +21,10 @@ const UserNavbar: React.FC = ({ children }) => {
         <>
           <div className="md:hidden">
             <Link href="/afiliados" passHref>
-              <button className=" z-20 flex items-center gap-1 rounded-bl-full border-b-2 border-l-2 border-blue-600 bg-blue-700 pt-3 pb-3 pl-8 pr-4 font-display text-lg text-blue-100 transition-all hover:bg-blue-800 hover:text-blue-100">
+              <button
+                aria-label="Tramites y constultas Afiliado"
+                className=" z-20 flex items-center gap-1 rounded-bl-full border-b-2 border-l-2 border-blue-600 bg-blue-700 pt-3 pb-3 pl-8 pr-4 font-display text-lg text-blue-100 transition-all hover:bg-blue-800 hover:text-blue-100"
+              >
                 <House weight="duotone" size={32} />
               </button>
             </Link>

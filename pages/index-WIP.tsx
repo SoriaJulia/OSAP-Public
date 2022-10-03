@@ -27,7 +27,7 @@ const Home: NextPage = () => {
       <section className="mb-4 w-10/12 py-4">
         <div className="flex justify-between">
           <h3 className="font-display text-4xl text-grey-500/80">Nuestras últimas novedades</h3>
-          <Button label="Ver todas" variant="outlined" />
+          <Button label="Ver todas" variant="yellowFill" />
         </div>
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <CardNovedad display="card" />

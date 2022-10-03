@@ -37,7 +37,7 @@ export const Afiliados = ({ user }: Props) => {
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
       <Head>
-        <title>OSAP - Tramites y consultas online</title>
+        <title>Tramites y consultas online - OSAP</title>
       </Head>
       <AfiliadosSectionsNav />
       <Credenciales agentId={user.agentId} />
@@ -47,19 +47,19 @@ export const Afiliados = ({ user }: Props) => {
         <div className="flex w-full justify-end gap-1 px-2 pb-4 sm:gap-4 sm:px-6 xs:gap-2">
           <Button
             label="Medios de pago"
-            variant="yellowOutlined"
+            variant="yellowFill"
             leadingIcon={<Bank size={24} />}
             onClick={() => router.push('/afiliados/mediosPago')}
           />
           <Button
             label="Pago online"
-            variant="yellowOutlined"
+            variant="yellowFill"
             leadingIcon={<CreditCard size={24} />}
             onClick={() => window.open(linkPago, '_blank')}
           />
           <Button
             label="Informar pago"
-            variant="yellowOutlined"
+            variant="yellowFill"
             leadingIcon={<CurrencyCircleDollar size={24} />}
             onClick={() => router.push('/afiliados/informarPago')}
           />

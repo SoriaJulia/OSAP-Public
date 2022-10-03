@@ -49,7 +49,7 @@ export const Footer = () => {
           <Link href="http://www.osapsalud.com.ar/normas-generales/">Preguntas frecuentes</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
-          <Link href="http://www.osapsalud.com.ar/telefonos-utiles/">Telefonos útiles</Link>
+          <Link href="/telefonosUtiles">Telefonos útiles</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
           <Link href="/centrosAtencion">Centros de atención</Link>

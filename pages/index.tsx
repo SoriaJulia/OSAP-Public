@@ -48,67 +48,69 @@ const Login: NextPage = () => {
       </Head>
 
       <div className="flex h-full flex-col items-center justify-evenly bg-gradient-to-br from-orange-600/60 to-yellow-500/50">
-        <form className="my-6 flex max-w-md flex-col items-center justify-around rounded-xl bg-slate-50 py-6 px-6 drop-shadow-2xl lg:w-2/6 ">
+        <div className="flex max-w-md flex-col items-center rounded-xl bg-slate-50 py-6 px-6 drop-shadow-2xl lg:w-2/6">
           <Link passHref href="http://www.osapsalud.com.ar/">
-            <button className=" mt-4 flex items-center gap-2 md:mr-0">
+            <button aria-label="Volver a Osap Salud" tabIndex={-1} className="mt-6 flex items-center gap-2 md:mr-0">
               <Logo width="120" height="52" className="fill-orange-500" />
               <Slogan width="180" height="52" className=" fill-grey-400 " />
             </button>
           </Link>
-          <div className="mt-20 flex flex-col gap-6 ">
-            <h1 className=" text-3xl text-orange-600">Ingresá </h1>
-            <Field
-              type="text"
-              label="DNI"
-              name="user"
-              placeholder="30256544"
-              helpText="Sin espacios ni caracteres especiales"
-              value={username}
-              onChange={changeTextInput(setUsername)}
-              inputWidth="w-auto"
-            />
-            <Field
-              type="password"
-              label="Contraseña"
-              name="pass"
-              placeholder="••••••••"
-              helpText="Si no tenes contraseña repetí tu DNI"
-              value={password}
-              onChange={changeTextInput(setPassword)}
-              inputWidth="w-auto"
-            />
-            <div className="h-12 w-80 overflow-hidden text-rose-500">
-              {error ? (
-                <>
-                  <WarningCircle className="mr-1 mb-1 inline" size={18} weight="bold" />
-                  {error}
-                </>
-              ) : (
-                ''
-              )}
+          <form>
+            <div className="mt-12 flex flex-col gap-4">
+              <h1 className="mb-2 text-3xl text-orange-600">Ingresá </h1>
+              <Field
+                type="text"
+                label="DNI"
+                name="user"
+                placeholder="30256544"
+                helpText="Sin espacios ni caracteres especiales"
+                value={username}
+                onChange={changeTextInput(setUsername)}
+                inputWidth="w-auto"
+              />
+              <Field
+                type="password"
+                label="Contraseña"
+                name="pass"
+                placeholder="••••••••"
+                helpText="Si no tenes contraseña repetí tu DNI"
+                value={password}
+                onChange={changeTextInput(setPassword)}
+                inputWidth="w-auto"
+              />
+              <div className="mb-4 min-h-[24px] w-80 overflow-hidden text-rose-500">
+                {error ? (
+                  <>
+                    <WarningCircle className="mr-1 mb-1 inline" size={18} weight="bold" />
+                    {error}
+                  </>
+                ) : (
+                  ''
+                )}
+              </div>
             </div>
-          </div>
-          <div className="flex flex-row-reverse gap-2 pt-10 md:pt-0 ">
-            <Button
-              label={loginIn ? 'Ingresando...' : 'Ingresar'}
-              variant="fill"
-              trailingIcon={<SignIn weight="bold" size={20} />}
-              type="submit"
-              disabled={!username || !password}
-              onClick={handleLogin}
-              showIconOnMobile
-            />
-            <Button
-              label="Cancelar"
-              variant="outlined"
-              type="button"
-              onClick={() => {
-                setError(null);
-                window.open('http://www.osapsalud.com.ar/', '_self');
-              }}
-            />
-          </div>
-        </form>
+            <div className="flex flex-row-reverse gap-2 pt-10 md:pt-0 ">
+              <Button
+                label={loginIn ? 'Ingresando...' : 'Ingresar'}
+                variant="fill"
+                trailingIcon={<SignIn weight="bold" size={20} />}
+                type="submit"
+                disabled={!username || !password}
+                onClick={handleLogin}
+                showIconOnMobile
+              />
+              <Button
+                label="Cancelar"
+                variant="yellowFill"
+                type="button"
+                onClick={() => {
+                  setError(null);
+                  window.open('http://www.google.com.ar/', '_self');
+                }}
+              />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

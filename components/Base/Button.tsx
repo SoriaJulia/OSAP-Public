@@ -3,11 +3,11 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 const buttonVariants = {
-  fill: 'bg-orange-500 text-grey-50 hover:bg-orange-400 focus:bg-yellow-500 disabled:bg-gray-500',
+  fill: 'bg-orange-100 text-grey-500 hover:bg-orange-50 focus:bg-yellow-300 disabled:bg-gray-300',
   outlined:
-    'ring-2 ring-inset font-normal ring-orange-500 text-orange-600 hover:bg-white focus:ring-yellow-500 focus:text-yellow-700',
-  yellowFill: 'bg-yellow-500 text-white hover:bg-yellow-400',
-  yellowOutlined: 'ring-2 ring-inset  ring-yellow-500 text-yellow-700 bg-white/50 hover:bg-white',
+    'ring-2 ring-inset font-normal ring-orange-500 text-orange-700 hover:bg-yellow-50 focus:ring-yellow-500 focus:text-yellow-700',
+  yellowFill: 'bg-yellow-100 text-grey-500 hover:bg-yellow-50',
+  yellowOutlined: 'ring-2 ring-inset ring-yellow-500 text-yellow-800 bg-white hover:bg-white',
   text: 'underline decoration-orange-300/80 font-normal text-orange-500 hover:bg-white underline-offset-1',
   blueText: 'underline decoration-blue-400/80 font-normal text-blue-600 hover:bg-white underline-offset-1',
   blueFill: 'bg-blue-500 text-gray-50 hover:bg-blue-400',

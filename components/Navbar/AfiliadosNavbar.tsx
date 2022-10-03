@@ -22,7 +22,7 @@ const AfiliadosNavbar: React.FC<{ closeDrawer?: () => void }> = ({ closeDrawer }
       <NavbarItem
         onNavbar
         href="/centrosAtencion"
-        title="Centros de atencion"
+        title="Centros de atención"
         variant="secondary"
         icon={<Buildings />}
         hideFromDrawer

@@ -8,7 +8,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="es">
         <Head>
           <meta name="author" content="Julia Soria & Gaspar Arimany" />
           <link rel="icon" href="/favicon.ico" sizes="any" />

@@ -62,7 +62,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
           <div className="m-4 flex justify-end gap-2 place-self-end pt-10 md:pt-6 ">
             <Button
               label="Cancelar"
-              variant="outlined"
+              variant="yellowFill"
               type="button"
               onClick={() => {
                 setError(null);

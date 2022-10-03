@@ -13,12 +13,7 @@ const AfiliadosSectionsNav = () => {
         variant="blue"
       />
       {/* <SectionButton href="cobertura" label="Cobertura" icon={FirstAidKit} variant="blue" /> */}
-      <SectionButton
-        href="http://www.osapsalud.com.ar/telefonos-utiles/"
-        label="Teléfonos útiles"
-        icon={Phone}
-        variant="blue"
-      />
+      <SectionButton href="/telefonosUtiles" label="Teléfonos útiles" icon={Phone} variant="blue" />
       <SectionButton href="/asistenciaAlViajero" label="Asistencia al viajero" icon={Car} variant="blue" />
     </nav>
   );

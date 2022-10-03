@@ -1,8 +1,6 @@
 import React from 'react';
-import { Phone } from 'phosphor-react';
+import { Phone, UserFocus, WhatsappLogo } from 'phosphor-react';
 import ContactLink from './Base/ContactLink';
-
-// TODO implement getStaticProps
 
 const places = [
   {
@@ -24,6 +22,14 @@ const places = [
         label: '4450099',
         href: 'tel:+543364450099',
       },
+    ],
+    wsp: [{ href: 'https://wa.me/+5491154529960', label: '+54 9 11 5452-9960' }],
+  },
+  {
+    name: 'Centro de Medicina Preventiva',
+    phones: [
+      { label: '(0336) 4450966', href: 'tel:+5493364450966' },
+      { label: '(0336) 4450977', href: 'tel:+5493364450977' },
     ],
   },
   {
@@ -60,6 +66,7 @@ const places = [
         href: 'tel:+5401149983336',
       },
     ],
+    wsp: [{ href: 'https://wa.me/+5491149983336', label: '+54 9 11 49983336' }],
   },
   {
     name: 'Buenos Aires',
@@ -88,23 +95,62 @@ const places = [
       },
     ],
   },
+  {
+    name: 'Farmacia Don Bosco OSAP',
+    phones: [
+      {
+        label: '(0336) 4427042',
+        href: 'tel:+543364427042',
+      },
+      {
+        label: '(0336) 4420700',
+        href: 'tel:+543364420700',
+      },
+    ],
+    wsp: [{ href: 'https://wa.me/+5493364008162', label: '+54 9 336 4008162' }],
+  },
+  {
+    name: 'Farmacia Planta Savio',
+    phones: [
+      {
+        label: '(336) 4438930',
+        href: 'tel:+543364427042',
+      },
+      {
+        label: 'Interno: 38936',
+        href: 'tel:38930',
+      },
+    ],
+    wsp: [{ href: 'https://wa.me/+5493364102003', label: '+54 9 336 4102003' }],
+  },
+  { name: 'OSDEPYM', phones: [{ label: '0800 288 7963', href: 'tel:08002887963' }] },
 ];
 
 const TelefonosAtencion = () => {
   return (
-    <article className="flex flex-col rounded bg-white p-4">
-      <h2 className="mb-4 font-display text-5xl text-yellow-500">Atención al afiliado</h2>
-      {places.map((place) => {
-        return (
-          <div className="flex flex-wrap items-center gap-2 px-4 py-2" key={place.name}>
-            {place.name}
-            <Phone className="text-yellow-500" key={place.name} weight="duotone" size={24} />
-            {place.phones.map((phone) => {
-              return <ContactLink key={phone.href} href={phone.href} variant="blue" label={phone.label} />;
-            })}
-          </div>
-        );
-      })}
+    <article className="mt-6 flex flex-col rounded bg-white p-4 md:mt-0 md:break-before-column">
+      <h2 className="mb-4 flex justify-center gap-2 font-display text-3xl text-yellow-800 sm:gap-3 sm:text-4xl">
+        <UserFocus className="mt-1" /> Atención al afiliado
+      </h2>
+      <div className="divide-y divide-dotted divide-slate-200">
+        {places.map((place) => {
+          return (
+            <div className="flex flex-wrap items-center gap-2 p-4 " key={place.name}>
+              {place.name}
+              <Phone className="text-yellow-500" weight="duotone" size={24} />
+              {place.phones.map((phone) => {
+                return <ContactLink key={phone.href} href={phone.href} variant="blue" label={phone.label} />;
+              })}
+              {place.wsp && <WhatsappLogo className="text-yellow-500" weight="duotone" size={24} />}
+              {place.wsp?.map((phone) => {
+                return (
+                  <ContactLink key={phone.href} href={phone.href} target="_blank" variant="blue" label={phone.label} />
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
     </article>
   );
 };

@@ -16,7 +16,7 @@ const UltimosCoseguros = ({ agentId }: Props) => {
   return (
     <article className="flex w-full flex-col overflow-x-auto bg-white py-4 px-6 text-left md:m-2 lg:my-2">
       <div className="mb-4 flex  gap-4 sm:justify-between ">
-        <h4 className=" text-lg text-orange-600">Ultimos Coseguros</h4>
+        <h4 className=" text-xl text-orange-700">Ultimos Coseguros</h4>
         <Button label="Ver todos" variant="blueText" onClick={() => router.push('/afiliados/facturacion')} />
       </div>
       <CosegurosList isLoading={isLoading} periodos={cosegurosXPeriodo} periodosToShow={2} />

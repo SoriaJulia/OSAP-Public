@@ -52,12 +52,7 @@ const PublicNavbar: React.FC<{ closeDrawer: () => void }> = ({ closeDrawer }) =>
         icon={<Question />}
         closeDrawer={closeDrawer}
       />
-      <NavbarItem
-        href="http://www.osapsalud.com.ar/telefonos-utiles/"
-        title="Telefonos Utiles"
-        icon={<Phone />}
-        closeDrawer={closeDrawer}
-      />
+      <NavbarItem href="/telefonosUtiles" title="Telefonos Utiles" icon={<Phone />} closeDrawer={closeDrawer} />
       <NavbarItem href="/centrosAtencion" title="Centros de atencion" icon={<Buildings />} closeDrawer={closeDrawer} />
     </>
   );

@@ -25,7 +25,7 @@ const Farmacia: NextPage = () => {
                 )
               }
               trailingIcon={<DownloadSimple weight="bold" />}
-              variant="outlined"
+              variant="yellowFill"
             />
             <Button
               label="Pedidos Online"

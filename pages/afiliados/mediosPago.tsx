@@ -107,7 +107,7 @@ const MediosPago: NextPage<{ agentId: string }> = ({ agentId }) => {
       <PageTitle title="Medios de Pago" />
       <div className="flex flex-wrap gap-8">
         <article className="pb-10">
-          <h3 className="mb-3  text-2xl text-orange-700">Pago Online</h3>
+          <h2 className="mb-3  text-2xl text-orange-700">Pago Online</h2>
           <div className="mb-10 flex items-center gap-4 text-lg">
             <div className=" flex w-8/12 flex-col">
               Ingrese a nuestro sistema de pago y pague con cualquier Tarjeta de Debito
@@ -129,7 +129,7 @@ const MediosPago: NextPage<{ agentId: string }> = ({ agentId }) => {
             </div>
             <Button
               label="Ingresar"
-              variant="yellowOutlined"
+              variant="yellowFill"
               onClick={() =>
                 window.open(`https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${agentId}`, '_blank')
               }
@@ -137,7 +137,7 @@ const MediosPago: NextPage<{ agentId: string }> = ({ agentId }) => {
           </div>
         </article>
         <article className="pb-10">
-          <h3 className="mb-3 text-2xl text-orange-700">Debito Automatico</h3>
+          <h2 className="mb-3 text-2xl text-orange-700">Debito Automatico</h2>
           Para adherirse descargue el siguiente formulario:
           <button
             onClick={() => {
@@ -169,7 +169,7 @@ const MediosPago: NextPage<{ agentId: string }> = ({ agentId }) => {
         </article>
       </div>
       <article>
-        <h3 className="mb-4 text-2xl text-orange-700">Otros medios de pago</h3>
+        <h2 className="mb-4 text-2xl text-orange-700">Otros medios de pago</h2>
         <div className="flex flex-wrap gap-3">
           {mediosDePago.map((medio) => {
             return (
@@ -181,7 +181,7 @@ const MediosPago: NextPage<{ agentId: string }> = ({ agentId }) => {
                   className="mr-3 mb-2 flex flex-shrink-0 flex-col items-center gap-2 p-1 text-sm text-slate-600 underline sm:mb-0"
                   onClick={medio.OnClick}
                 >
-                  <Image src={medio.Image} className="object-scale-down" width={200} height={120} />
+                  <Image src={medio.Image} alt={medio.Name} className="object-scale-down" width={200} height={120} />
                   {medio.ActionText}
                 </button>
                 {medio.Content}

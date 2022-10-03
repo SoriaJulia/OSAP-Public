@@ -19,7 +19,7 @@ const AsistenciaAlViajero: NextPage = () => {
           <p>
             La cobertura tiene alcance en <span className="font-semibold">todo el territorio nacional.</span>
           </p>
-          <p className="text-orange-600">
+          <p className="text-orange-700">
             <strong>
               En caso de necesitar atención médica deberán comunicarse al{' '}
               <a href="tel:08004442774" className="underline decoration-orange-100">

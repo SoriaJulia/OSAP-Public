@@ -6,6 +6,6 @@ export enum State {
 
 export enum Color {
   E = 'text-yellow-500',
-  N = 'text-teal-500',
+  N = 'text-teal-600',
   C = 'text-teal-700',
 }
