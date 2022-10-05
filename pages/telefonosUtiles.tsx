@@ -18,7 +18,6 @@ const TelefonosUtiles: NextPage = () => {
         />
       </Head>
       <PageTitle title="Teléfonos útiles" />
-      {/* <div className="flex flex-wrap justify-between gap-y-6"> */}
       <div className="columns-1 gap-6 md:columns-2">
         <TelefonosEmergencias />
         <article className="mt-6 flex flex-col gap-2 rounded bg-white p-4  text-left">
@@ -26,7 +25,7 @@ const TelefonosUtiles: NextPage = () => {
             <FirstAid className="mt-1" /> Assist Travel <Car className="mt-1" />
           </h2>
           <p className="text-xl">En caso de necesitar atención médica desde cualquier otro lugar del pais:</p>
-          <div className="flex gap-2 py-2">
+          <div className="flex flex-wrap gap-2 py-2">
             <Phone className="text-orange-500" weight="duotone" size={24} />
             <ContactLink href="tel:08004442774" variant="blue" label="0800-4442774" />
 

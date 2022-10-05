@@ -132,7 +132,7 @@ const TelefonosAtencion = () => {
       <h2 className="mb-4 flex justify-center gap-2 font-display text-3xl text-yellow-800 sm:gap-3 sm:text-4xl">
         <UserFocus className="mt-1" /> Atención al afiliado
       </h2>
-      <div className="divide-y divide-dotted divide-slate-200">
+      <div className="flex flex-col flex-wrap divide-y divide-dotted divide-slate-200">
         {places.map((place) => {
           return (
             <div className="flex flex-wrap items-center gap-2 p-4 " key={place.name}>
