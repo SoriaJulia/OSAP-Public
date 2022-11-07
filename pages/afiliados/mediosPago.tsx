@@ -14,7 +14,6 @@ import ProntoPago from '../../public/img/ProntoPago.png';
 import ProvinciaNet from '../../public/img/ProvinciaNet.png';
 import ProvinciaPagos from '../../public/img/ProvinciaPagos.svg';
 import RapiPago from '../../public/img/RapiPago.png';
-import VisaHome from '../../public/img/VisaHome.jpg';
 
 const mediosDePago = [
   {
@@ -76,15 +75,6 @@ const mediosDePago = [
       window.open('https://pagosnet.provincianet.com.ar/pagosnet/public/application/index/landing', '_blank');
     },
     ActionText: 'Ir a PagosNet',
-  },
-  {
-    Name: 'Visa Home',
-    Image: VisaHome,
-    Content: 'En la factura puede encontrar el código para hacer el pago respectivo.',
-    OnClick: () => {
-      window.open('https://visahome.prismamediosdepago.com/socios/login?windowId=d4f', '_blank');
-    },
-    ActionText: 'Ir a Visa Home',
   },
   {
     Name: 'Federacion de Comercio e Industria San Nicolas',
