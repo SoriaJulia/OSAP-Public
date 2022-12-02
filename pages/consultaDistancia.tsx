@@ -56,11 +56,7 @@ const ConsultaDistancia: NextPage = () => {
           </p>
         </div>
       </article>
-      <img
-        src="./img/undraw_chatting.svg"
-        alt="Ilustración de personas chateando"
-        className="mt-8 hidden w-2/5 p-4 pr-8 lg:block"
-      />
+      <img src="./img/undraw_chatting.svg" alt="" className="mt-8 hidden w-2/5 p-4 pr-8 lg:block" />
     </section>
   );
 };

@@ -22,11 +22,7 @@ const ConoceOsap: NextPage = () => {
           todos los días del año.
         </p>
       </article>
-      <img
-        className="hidden w-2/5 p-4 pt-16 pr-8 md:block"
-        src="./img/undraw_qa_engineers.svg"
-        alt="Ilustración de ingeniero mirando una libreta"
-      />
+      <img className="hidden w-2/5 p-4 pt-16 pr-8 md:block" src="./img/undraw_qa_engineers.svg" alt="" />
     </section>
   );
 };

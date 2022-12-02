@@ -10,8 +10,14 @@
   .card-loading {
     @apply flex  flex-col gap-4 rounded-md bg-gradient-to-br from-gray-200 to-gray-100 p-6;
   }
-  .card-item-loading {
-    @apply animate-pulse rounded bg-gradient-to-tr from-slate-400 to-slate-300;
+  .card-loading .card-item-loading {
+    @apply animate-pulse rounded bg-gradient-to-r from-slate-400/60 to-slate-300/80;
+  }
+  .card-loading-orange {
+    @apply card-loading from-orange-300 to-orange-100;
+  }
+  .card-loading-orange .card-item-loading {
+    @apply from-slate-50/60 to-slate-200/50;
   }
   .input {
     @apply rounded-sm border-2 border-grey-400 bg-white p-2 caret-blue-500 transition placeholder:text-grey-300 hover:border-blue-500 focus:border-teal-500 focus:outline-none focus:invalid:border-pink-700 disabled:border-grey-400 disabled:bg-grey-100;
@@ -21,6 +27,33 @@
   }
   .tab-panel {
     @apply rounded border-2 border-orange-500 bg-white p-3;
+  }
+  .pill {
+    @apply w-fit rounded-xl bg-gray-200 py-0.5 px-3 text-center text-gray-700;
+  }
+  .pill-success {
+    @apply pill bg-emerald-300/40;
+  }
+  .pill-warning {
+    @apply pill bg-yellow-400/30;
+  }
+  .pill-error {
+    @apply pill bg-orange-300/40;
+  }
+  .btn {
+    @apply flex h-fit w-fit items-center justify-center gap-2 rounded-md px-2 py-2 tracking-wide transition ease-in-out hover:scale-105 focus:scale-105 disabled:cursor-not-allowed;
+  }
+  .btn-orange {
+    @apply bg-orange-100 text-grey-500 hover:bg-orange-50 focus:bg-yellow-300 disabled:bg-gray-300;
+  }
+  .btn-yellow {
+    @apply bg-yellow-100 text-grey-500 hover:bg-yellow-50;
+  }
+  .btn-text-blue {
+    @apply font-normal text-blue-600 underline decoration-blue-400/80 underline-offset-1 hover:bg-white;
+  }
+  .btn-text-slate {
+    @apply font-normal text-slate-700 underline decoration-slate-600/80 underline-offset-1 hover:text-slate-800;
   }
 }
 

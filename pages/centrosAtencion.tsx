@@ -104,11 +104,7 @@ const CentrosAtencion: NextPage = () => {
           })}
         </article>
       </section>
-      <img
-        className="hidden w-2/5 p-4 pt-16 pr-8 lg:block"
-        src="./img/undraw_interview.svg"
-        alt="Ilustración de ingeniero mirando una libreta"
-      />
+      <img className="hidden w-2/5 p-4 pt-16 pr-8 lg:block" src="./img/undraw_interview.svg" alt="" />
     </div>
   );
 };

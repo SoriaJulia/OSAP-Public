@@ -20,7 +20,7 @@ const CoseguroItem: React.FC<CoseguroItemProps> = ({ coseguro }) => {
       >
         <span className="text-lg text-blue-600">Día: {new Date(coseguro.fecha).getDate()}</span>
         <span>{_.capitalize(coseguro.detalle)}</span>
-        <span className="mr-1 text-right text-lg text-teal-500 print:text-xl">$ {coseguro.importe}</span>
+        <span className="mr-1 text-right text-lg text-teal-700 print:text-xl">$ {coseguro.importe}</span>
         {showDetail ? <CaretUp className="print:hidden" /> : <CaretDown className="print:hidden" />}
       </button>
       <div

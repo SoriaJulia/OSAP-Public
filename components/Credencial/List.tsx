@@ -11,7 +11,7 @@ const Credenciales = ({ agentId }: Props) => {
   const { credenciales, isLoading } = useCredenciales(agentId);
   const skeletonsList = [];
   for (let index = 0; index < 2; index += 1) {
-    skeletonsList.push(<CardSkeleton width="w-96" styles="from-orange-300 to-orange-100" key={index} />);
+    skeletonsList.push(<CardSkeleton variant="orange" width="w-96" key={index} />);
   }
   if (isLoading) return <div className="flex w-full gap-3 py-6">{skeletonsList}</div>;
   return (

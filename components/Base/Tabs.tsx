@@ -51,7 +51,7 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
             tabIndex={selectedTab === tab.index ? 0 : -1}
             id={`btn-${tab.index}`}
           >
-            <tab.Icon weight={selectedTab === tab.index ? 'fill' : 'regular'} size="1.2em" />
+            <tab.Icon weight={selectedTab === tab.index ? 'bold' : 'light'} size="1.2em" />
             <h2>{tab.label}</h2>
           </button>
         ))}

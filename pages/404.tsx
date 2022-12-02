@@ -21,7 +21,7 @@ const Page404: NextPage = () => {
         />
       </div>
       <div className="hidden w-5/12 py-8 lg:flex">
-        <Image src={lost} layout="intrinsic" />
+        <Image src={lost} role="presentation" layout="intrinsic" />
       </div>
     </div>
   );

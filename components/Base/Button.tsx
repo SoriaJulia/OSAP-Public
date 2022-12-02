@@ -3,15 +3,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 const buttonVariants = {
-  fill: 'bg-orange-100 text-grey-500 hover:bg-orange-50 focus:bg-yellow-300 disabled:bg-gray-300',
-  outlined:
-    'ring-2 ring-inset font-normal ring-orange-500 text-orange-700 hover:bg-yellow-50 focus:ring-yellow-500 focus:text-yellow-700',
-  yellowFill: 'bg-yellow-100 text-grey-500 hover:bg-yellow-50',
-  yellowOutlined: 'ring-2 ring-inset ring-yellow-500 text-yellow-800 bg-white hover:bg-white',
-  text: 'underline decoration-orange-300/80 font-normal text-orange-500 hover:bg-white underline-offset-1',
-  blueText: 'underline decoration-blue-400/80 font-normal text-blue-600 hover:bg-white underline-offset-1',
-  blueFill: 'bg-blue-500 text-gray-50 hover:bg-blue-400',
-  slateText: 'underline decoration-slate-600/80 font-normal text-slate-700 hover:text-slate-800 underline-offset-1',
+  fill: 'btn-orange',
+  yellowFill: 'btn-yellow',
+  blueText: 'btn-text-blue',
+  slateText: 'btn-text-slate',
 };
 type Variants = keyof typeof buttonVariants;
 type ButtonProps = {
@@ -35,9 +30,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={classNames(className, {
-        'flex h-fit w-fit items-center justify-center gap-2 rounded-md px-2 py-2 tracking-wide transition ease-in-out hover:scale-105 focus:scale-105 disabled:cursor-not-allowed':
-          true,
+      className={classNames(className, 'btn', {
         [`${buttonVariants[variant]}`]: true,
       })}
       onClick={onClick}

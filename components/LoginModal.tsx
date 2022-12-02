@@ -44,7 +44,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               label="Contraseña"
               name="pass"
               placeholder="••••••••"
-              helpText="Si no tenes contraseña repetí tu DNI"
+              helpText=""
               value={password}
               onChange={changeTextInput(setPassword)}
             />

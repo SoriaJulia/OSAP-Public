@@ -1,6 +1,7 @@
 import { Autorizacion } from '@appTypes/autorizacion';
-import { Color, State } from '@appTypes/enums/autorizaciones';
+import { State } from '@appTypes/enums/autorizaciones';
 import { capitalizeText } from '@lib/utils';
+import classNames from 'classnames';
 import _ from 'lodash';
 import { CaretDown, CaretUp } from 'phosphor-react';
 import React, { useState } from 'react';
@@ -20,7 +21,15 @@ const AutorizacionItem = ({ autorizacion }: Props) => {
       >
         <span>Día: {new Date(autorizacion.fecha).getDate()}</span>
         <span>{_.capitalize(autorizacion.ori_nom)}</span>
-        <span className={`${Color[autorizacion.aut_estado]}`}>{State[autorizacion.aut_estado]}</span>
+        <span
+          className={classNames({
+            'pill-success': true,
+            'pill-warning': autorizacion.aut_estado === 'P' || autorizacion.aut_estado === 'T',
+            'pill-error': autorizacion.aut_estado === 'R' || autorizacion.aut_estado === 'U',
+          })}
+        >
+          {State[autorizacion.aut_estado]}
+        </span>
         {showDetail ? <CaretUp /> : <CaretDown />}
       </button>
       <div

@@ -38,11 +38,7 @@ const AsistenciaAlViajero: NextPage = () => {
           </p>
         </div>
       </article>
-      <img
-        src="./img/undraw_travelers.svg"
-        alt="Ilustración de viajeros hablando"
-        className="mt-8 hidden w-2/5 p-4 pr-8 lg:block"
-      />
+      <img src="./img/undraw_travelers.svg" alt="" className="mt-8 hidden w-2/5 p-4 pr-8 lg:block" />
     </section>
   );
 };

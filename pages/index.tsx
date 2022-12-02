@@ -8,7 +8,7 @@ import { signIn } from 'next-auth/react';
 // eslint-disable-next-line camelcase
 import { unstable_getServerSession } from 'next-auth';
 import { useRouter } from 'next/router';
-import { WarningCircle, SignIn } from 'phosphor-react';
+import { WarningCircle, SignIn, Spinner } from 'phosphor-react';
 import Head from 'next/head';
 import React, { useState } from 'react';
 import Logo from 'components/SVG/Logo';
@@ -73,7 +73,7 @@ const Login: NextPage = () => {
                 label="Contraseña"
                 name="pass"
                 placeholder="••••••••"
-                helpText="Si no tenes contraseña repetí tu DNI"
+                helpText=""
                 value={password}
                 onChange={changeTextInput(setPassword)}
                 inputWidth="w-auto"
@@ -93,7 +93,9 @@ const Login: NextPage = () => {
               <Button
                 label={loginIn ? 'Ingresando...' : 'Ingresar'}
                 variant="fill"
-                trailingIcon={<SignIn weight="bold" size={20} />}
+                trailingIcon={
+                  loginIn ? <Spinner size={20} className="animate-spin" /> : <SignIn weight="bold" size={20} />
+                }
                 type="submit"
                 disabled={!username || !password}
                 onClick={handleLogin}
@@ -105,7 +107,7 @@ const Login: NextPage = () => {
                 type="button"
                 onClick={() => {
                   setError(null);
-                  window.open('http://www.google.com.ar/', '_self');
+                  window.open('http://www.osapsalud.com.ar//', '_self');
                 }}
               />
             </div>
