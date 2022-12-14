@@ -40,7 +40,7 @@ export const Footer = () => {
 
       <ul className="mt-8 hidden flex-col justify-center gap-2 text-blue-400 md:flex lg:mt-0">
         <li className="transition hover:text-blue-300 hover:underline">
-          <Link href="http://www.osapsalud.com.ar/contacto/">Contactanos</Link>
+          <Link href="/contacto">Contactános</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
           <Link href="http://www.osapsalud.com.ar/quiero-ser-prestador-osap/">Trabajá con nosotros</Link>

@@ -20,12 +20,7 @@ const PublicNavbar: React.FC<{ closeDrawer: () => void }> = ({ closeDrawer }) =>
         icon={<Suitcase />}
         closeDrawer={closeDrawer}
       />
-      <NavbarItem
-        href="http://www.osapsalud.com.ar/contacto/"
-        title="Contactanos"
-        icon={<Envelope />}
-        closeDrawer={closeDrawer}
-      />
+      <NavbarItem href="/contacto" title="Contactános" icon={<Envelope />} closeDrawer={closeDrawer} />
       <NavbarItem onNavbar href="/conoceOSAP" title="Conocé OSAP" icon={<House />} closeDrawer={closeDrawer} />
       <NavbarItem
         onNavbar
