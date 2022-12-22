@@ -21,7 +21,7 @@ import { SERVER_ERROR } from '@lib/constants';
 
 const Certificados: NextPage<{ user: User }> = ({ user }) => {
   const { credenciales, isLoading: isLoadingCredenciales } = useCredenciales(user.agentId);
-  const [dni, setDNI] = useState(credenciales[0].Documento);
+  const [dni, setDNI] = useState('');
   const [certificado, setCertificado] = useState<File[]>([]);
   const [mensaje, setMensaje] = useState('');
   const inputFileRef = useRef<HTMLInputElement | null>(null);
@@ -77,24 +77,32 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
         subtitle="Extendé la cobertura de un integrante de tu familia hasta el dia que cumpla 26 años"
       />
       <form className="flex flex-col gap-4 rounded bg-white/50 p-8 shadow-sm lg:mr-80 lg:px-12">
-        <SelectField
-          id="Afiliado"
-          onChange={(e) => setDNI(e.target.value)}
-          value={dni}
-          helpText="Seleccioná el afiliado al que corresponde el certificado"
-          label="Afiliado"
-          required
-        >
-          {isLoadingCredenciales ? (
+        {isLoadingCredenciales ? (
+          <SelectField
+            id="Afiliado"
+            helpText="Seleccioná el afiliado al que corresponde el certificado"
+            label="Afiliado"
+            required
+            disabled
+          >
             <option>Cargando...</option>
-          ) : (
-            credenciales.map((credencial) => (
+          </SelectField>
+        ) : (
+          <SelectField
+            id="Afiliado"
+            onChange={(e) => setDNI(e.target.value)}
+            value={dni}
+            helpText="Seleccioná el afiliado al que corresponde el certificado"
+            label="Afiliado"
+            required
+          >
+            {credenciales.map((credencial) => (
               <option value={credencial.Documento} key={credencial.Documento}>
                 {capitalizeText(credencial.Afiliado)}
               </option>
-            ))
-          )}
-        </SelectField>
+            ))}
+          </SelectField>
+        )}
         <InputField
           id="Certificado"
           label="Certificado de Estudio"
