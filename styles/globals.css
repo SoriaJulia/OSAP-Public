@@ -19,8 +19,17 @@
   .card-loading-orange .card-item-loading {
     @apply from-slate-50/60 to-slate-200/50;
   }
-  .input {
-    @apply rounded-sm border-2 border-grey-400 bg-white p-2 caret-blue-500 transition placeholder:text-grey-300 hover:border-blue-500 focus:border-teal-500 focus:outline-none focus:invalid:border-pink-700 disabled:border-grey-400 disabled:bg-grey-100;
+  .field {
+    @apply flex w-full sm:w-auto;
+  }
+  .field-control {
+    @apply w-full rounded-sm border-2 border-grey-400 bg-white p-2 caret-blue-500 transition placeholder:text-grey-300 hover:border-blue-500 focus:border-teal-500 focus:outline-none focus:invalid:border-pink-700 disabled:border-grey-400 disabled:bg-grey-100;
+  }
+  .field-error-text {
+    @apply my-1 hidden text-left text-sm font-light text-pink-800 peer-invalid:block;
+  }
+  .field-help-text {
+    @apply my-1 text-left text-sm font-light;
   }
   .tab-button {
     @apply mb-0 mt-2 flex items-end gap-1 whitespace-nowrap rounded-t-lg border-x-2 border-t-2 bg-white/50 py-2 px-7 text-lg text-orange-700 md:py-4 md:text-xl;

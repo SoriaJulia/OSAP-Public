@@ -1,8 +1,8 @@
 import { State } from '@appTypes/enums/autorizaciones';
 import { getAfiliados, getFilteredAutorizacionesXPeriodo } from '@lib/facturacion';
 import { changeNumberInput, currentYear } from '@lib/utils';
-import Field from 'components/Base/Field';
-import Select from 'components/Base/Select';
+import InputField from '@components/Base/Fields/Input';
+import SelectField from '@components/Base/Fields/Select';
 import useAutorizaciones from 'hooks/autorizaciones/useAutorizaciones';
 import React, { useState } from 'react';
 import AutorizacionesList from './AutorizacionesList';
@@ -22,7 +22,8 @@ const AutorizacionesTab = ({ agentId }: { agentId: string }) => {
   return (
     <>
       <div className="my-2 flex flex-wrap items-center justify-end gap-4">
-        <Field
+        <InputField
+          id="anio"
           label="Año"
           type="number"
           labelPosition="left"
@@ -30,7 +31,8 @@ const AutorizacionesTab = ({ agentId }: { agentId: string }) => {
           onChange={changeNumberInput(setSelectedYear)}
           max={currentYear}
         />
-        <Select
+        <SelectField
+          id="estado"
           label="Estado"
           labelPosition="left"
           value={selectedState}
@@ -44,8 +46,9 @@ const AutorizacionesTab = ({ agentId }: { agentId: string }) => {
               </option>
             );
           })}
-        </Select>
-        <Select
+        </SelectField>
+        <SelectField
+          id="afiliado"
           label="Afiliado"
           labelPosition="left"
           value={selectedAfiliado}
@@ -59,7 +62,7 @@ const AutorizacionesTab = ({ agentId }: { agentId: string }) => {
               </option>
             );
           })}
-        </Select>
+        </SelectField>
       </div>
       <AutorizacionesList isLoading={isLoading} periodos={autorizacionesPorPeriodo} />
     </>

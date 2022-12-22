@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { changeNumberInput, currentYear } from '@lib/utils';
 import { getFilteredFacturasXPeriodo } from '@lib/facturacion';
+import InputField from '@components/Base/Fields/Input';
 import useFacturas from 'hooks/facturas/useFacturas';
-import Field from '../Base/Field';
-import Select from '../Base/Select';
+import SelectField from '../Base/Fields/Select';
 import FacturasList from './FacturasList';
 import { State } from '../../types/enums/facturas';
 
@@ -16,7 +16,8 @@ const FacturasTab = ({ agentId }: { agentId: string }) => {
   return (
     <>
       <div className="my-2 flex flex-wrap items-center justify-end gap-4">
-        <Field
+        <InputField
+          id="anio"
           label="Año"
           type="number"
           labelPosition="left"
@@ -24,7 +25,9 @@ const FacturasTab = ({ agentId }: { agentId: string }) => {
           onChange={changeNumberInput(setSelectedYear)}
           max={currentYear}
         />
-        <Select
+        <SelectField
+          inputWidth="lg:w-72"
+          id="estado"
           label="Estado"
           labelPosition="left"
           value={selectedState}
@@ -38,7 +41,7 @@ const FacturasTab = ({ agentId }: { agentId: string }) => {
               </option>
             );
           })}
-        </Select>
+        </SelectField>
       </div>
       <FacturasList isLoading={isLoading} periodos={facturasPorPeriodo} />
     </>

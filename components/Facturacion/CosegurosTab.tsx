@@ -1,3 +1,4 @@
+import InputField from '@components/Base/Fields/Input';
 import PrintHeader from '@components/Base/PrintHeader';
 import { getFilteredCosegurosXPeriodo } from '@lib/facturacion';
 import { changeNumberInput, currentYear } from '@lib/utils';
@@ -5,7 +6,6 @@ import useCoseguros from 'hooks/coseguros/useCoseguros';
 import { Download } from 'phosphor-react';
 import React, { useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
-import Field from '../Base/Field';
 import CosegurosList from './CosegurosList';
 
 type Props = {
@@ -25,7 +25,8 @@ const CosegurosTab = ({ agentId }: Props) => {
   return (
     <div>
       <div className="my-2 flex flex-wrap items-center justify-end gap-4">
-        <Field
+        <InputField
+          id="anio"
           label="Año"
           type="number"
           labelPosition="left"

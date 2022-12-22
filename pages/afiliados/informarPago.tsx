@@ -1,5 +1,4 @@
 import Button from 'components/Base/Button';
-import Field from 'components/Base/Field';
 import PageTitle from 'components/Base/PageTitle';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
@@ -12,7 +11,8 @@ import { SERVER_ERROR } from '@lib/constants';
 import { useMutation } from 'react-query';
 import axios from 'axios';
 import { NEXT_URL } from 'config';
-import TextArea from '@components/Base/TextArea';
+import TextAreaField from '@components/Base/Fields/TextArea';
+import InputField from '@components/Base/Fields/Input';
 
 const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
   const [facturas, setFacturas] = useState('');
@@ -86,7 +86,7 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
 
         <div className="flex flex-col gap-4 rounded bg-white p-6">
           <div className="-mt-2 flex flex-wrap gap-6 lg:gap-16 ">
-            <Field
+            <InputField
               label="Factura/s"
               helpText="Números de facturas correspondientes al pago, separados por una coma (,)"
               placeholder="1-45455, 1-302545"
@@ -94,9 +94,10 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
               value={facturas}
               inputWidth="w-full"
               className="w-7/12"
+              id="Facturas"
               required
             />
-            <Field
+            <InputField
               label="Importe"
               helpText="Importe depositado o transferido"
               placeholder="12000"
@@ -105,17 +106,20 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
               value={importe}
               inputWidth="w-full"
               className="w-3/12"
+              id="Importe"
               required
             />
           </div>
-          <TextArea
+          <TextAreaField
+            id="Mensaje"
             onChange={changeTextArea(setComentario)}
             value={comentario}
             label="Mensaje"
             inputWidth="w-11/12"
             helpText="Si lo necesitas podés dejarnos un comentario sobre el pago"
           />
-          <Field
+          <InputField
+            id="Comprobante"
             label="Comprobante"
             type="file"
             accept="image/*,.pdf"

@@ -1,9 +1,8 @@
 import Button from '@components/Base/Button';
 import ContactLink from '@components/Base/ContactLink';
-import Field from '@components/Base/Field';
 import PageTitle from '@components/Base/PageTitle';
-import Select from '@components/Base/Select';
-import TextArea from '@components/Base/TextArea';
+import SelectField from '@components/Base/Fields/Select';
+import TextAreaField from '@components/Base/Fields/TextArea';
 import { SERVER_ERROR } from '@lib/constants';
 import { changeTextArea, changeTextInput } from '@lib/utils';
 import axios from 'axios';
@@ -11,9 +10,10 @@ import { NEXT_URL } from 'config';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { SpinnerGap, PaperPlaneRight, MapPin, Phone, WhatsappLogo, Envelope, Calendar } from 'phosphor-react';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
+import InputField from '@components/Base/Fields/Input';
 
 const Contacto: NextPage = () => {
   const [nombre, setNombre] = useState('');
@@ -72,7 +72,8 @@ const Contacto: NextPage = () => {
       <div className="grid gap-8 lg:grid-cols-2 ">
         <form className="flex flex-wrap gap-4 rounded bg-white/50 p-8 shadow-sm ">
           <h2 className="mb-2 w-full text-left text-2xl text-blue-700">Dejanos tu mensaje</h2>
-          <Field
+          <InputField
+            id="NyA"
             inputWidth="w-full"
             className="lg:w-full"
             label="Nombre y Apellido"
@@ -81,7 +82,8 @@ const Contacto: NextPage = () => {
             onChange={changeTextInput(setNombre)}
             value={nombre}
           />
-          <Field
+          <InputField
+            id="Email"
             label="Email"
             inputWidth="w-full"
             className="lg:w-full"
@@ -92,7 +94,8 @@ const Contacto: NextPage = () => {
             onChange={changeTextInput(setEmail)}
             value={email}
           />
-          <Select
+          <SelectField
+            id="Asunto"
             label="Asunto"
             className="lg:w-full"
             inputWidth="w-full"
@@ -111,8 +114,9 @@ const Contacto: NextPage = () => {
             <option>Reintegros</option>
             <option>Sugerencias</option>
             <option>Otros</option>
-          </Select>
-          <TextArea
+          </SelectField>
+          <TextAreaField
+            id="Mensaje"
             label="Mensaje"
             inputWidth="w-full"
             className="w-full"

@@ -1,7 +1,6 @@
 import { UserRoles } from '@appTypes/enums';
 import { changeTextInput } from '@lib/utils';
 import Button from 'components/Base/Button';
-import Field from 'components/Base/Field';
 import { GetServerSideProps, NextPage } from 'next';
 import { RedirectableProviderType } from 'next-auth/providers';
 import { signIn } from 'next-auth/react';
@@ -13,6 +12,7 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 import Logo from 'components/SVG/Logo';
 import Slogan from 'components/SVG/Slogan';
+import InputField from '@components/Base/Fields/Input';
 import Link from 'next/link';
 import { nextAuthOptions } from './api/auth/[...nextauth]';
 
@@ -58,22 +58,21 @@ const Login: NextPage = () => {
           <form>
             <div className="mt-12 flex flex-col gap-4">
               <h1 className="mb-2 text-3xl text-orange-600">Ingresá </h1>
-              <Field
+              <InputField
+                id="user"
                 type="text"
                 label="DNI"
-                name="user"
                 placeholder="30256544"
                 helpText="Sin espacios ni caracteres especiales"
                 value={username}
                 onChange={changeTextInput(setUsername)}
                 inputWidth="w-auto"
               />
-              <Field
+              <InputField
+                id="password"
                 type="password"
                 label="Contraseña"
-                name="pass"
                 placeholder="••••••••"
-                helpText=""
                 value={password}
                 onChange={changeTextInput(setPassword)}
                 inputWidth="w-auto"
