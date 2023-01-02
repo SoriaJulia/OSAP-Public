@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const mailData = {
     from: 'contacto@osap.com.ar',
-    to: process.env.MAIL_INFORMAR_PAGO,
+    to: process.env.MAIL_CERTIFICADOS,
     subject: `Certificado de estudio - ${session?.user?.name} `,
     html: `
     <p>Agente de cuenta: ${session?.user?.agentId}</p>
