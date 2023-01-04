@@ -43,7 +43,7 @@ export const Footer = () => {
           <Link href="/contacto">Contactános</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
-          <Link href="http://www.osapsalud.com.ar/quiero-ser-prestador-osap/">Trabajá con nosotros</Link>
+          <Link href="/trabajaConNosotros">Trabajá con nosotros</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
           <Link href="http://www.osapsalud.com.ar/normas-generales/">Preguntas frecuentes</Link>

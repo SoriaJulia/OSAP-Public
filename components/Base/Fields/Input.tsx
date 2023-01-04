@@ -5,18 +5,19 @@ import FieldLabel from './FieldLabel';
 const LabelPosition = {
   top: 'flex-col mb-2',
   left: 'gap-2 items-center',
+  right: 'gap-2 flex flex-row-reverse justify-end',
 };
 
-type FieldProps = {
+export type InputFieldProps = {
   label: string;
   helpText?: string;
   errorText?: string;
-  labelPosition?: 'top' | 'left';
+  labelPosition?: keyof typeof LabelPosition;
   inputWidth?: string;
   id: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-const InputField = React.forwardRef<HTMLInputElement, FieldProps>(
+const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
   (
     {
       label,

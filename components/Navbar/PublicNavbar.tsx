@@ -15,7 +15,7 @@ const PublicNavbar: React.FC<{ closeDrawer: () => void }> = ({ closeDrawer }) =>
   return (
     <>
       <NavbarItem
-        href="http://www.osapsalud.com.ar/quiero-ser-prestador-osap/"
+        href="/trabajaConNosotros"
         title="Trabaja con nosotros"
         icon={<Suitcase />}
         closeDrawer={closeDrawer}
