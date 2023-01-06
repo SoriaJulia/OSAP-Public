@@ -1,4 +1,4 @@
-import { ChatsCircle, Calendar, UserList, FirstAidKit, Phone, Car } from 'phosphor-react';
+import { ChatsCircle, Calendar, UserList, FirstAidKit, Phone, Car, Heartbeat } from 'phosphor-react';
 import SectionButton from './Base/SectionButton';
 
 const AfiliadosSectionsNav = () => {
@@ -15,6 +15,7 @@ const AfiliadosSectionsNav = () => {
       {/* <SectionButton href="cobertura" label="Cobertura" icon={FirstAidKit} variant="blue" /> */}
       <SectionButton href="/telefonosUtiles" label="Teléfonos útiles" icon={Phone} variant="blue" />
       <SectionButton href="/asistenciaAlViajero" label="Asistencia al viajero" icon={Car} variant="blue" />
+      <SectionButton href="/medicinaPreventiva" label="Medicina preventiva" icon={Heartbeat} variant="blue" />
     </nav>
   );
 };

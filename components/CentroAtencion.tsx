@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { MapPin, Phone, WhatsappLogo } from 'phosphor-react';
 import React from 'react';
 import ContactLink from './Base/ContactLink';
@@ -7,12 +8,21 @@ type CentroAtencionProps = {
   address: { href: string; label: string };
   phones: { href: string; label: string }[];
   wsps?: { href: string; label: string }[];
+  titleHref?: string;
 };
 
-const CentroAtencion: React.FC<CentroAtencionProps> = ({ title, address, phones, wsps }) => {
+const CentroAtencion = ({ title, address, phones, wsps, titleHref }: CentroAtencionProps) => {
   return (
     <>
-      <h2 className="mb-4 text-2xl text-grey-500">{title}</h2>
+      <h2
+        className={`mb-4 text-2xl text-slate-700 ${
+          titleHref
+            ? 'underline decoration-slate-300/40 underline-offset-2 hover:text-slate-600 hover:decoration-slate-500/50'
+            : ''
+        }`}
+      >
+        {titleHref ? <Link href={titleHref}>{title}</Link> : title}
+      </h2>
       <div className="mb-8 flex flex-wrap items-center gap-3">
         <ContactLink
           href={address.href}

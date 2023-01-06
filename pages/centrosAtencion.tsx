@@ -18,6 +18,7 @@ const listCentros = [
   },
   {
     title: 'Centro de Medicina Preventiva OSAP',
+    titleHref: '/medicinaPreventiva',
     address: { href: 'https://goo.gl/maps/i4F37QpXTJU79GaPA', label: 'Maipú 36 (San Nicolás)' },
     phones: [
       { href: 'tel:03364450966', label: '(0336)4450966' },
@@ -63,6 +64,7 @@ const listCentros = [
   },
   {
     title: 'Farmacia Don Bosco OSAP',
+    titleHref: '/farmacia',
     address: { href: 'https://goo.gl/maps/AouyNt9fCuRXk4x1A', label: 'Savio y San José (San Nicolás)' },
     phones: [
       { href: 'tel:03364427042', label: '(0336)4427042' },
@@ -72,6 +74,7 @@ const listCentros = [
   },
   {
     title: 'Farmacia Planta Savio',
+    titleHref: '/farmaciaSavio',
     address: { href: 'https://goo.gl/maps/XBo8yrespoj6bQ2VA', label: 'Planta General Savio (Ramallo)' },
     phones: [
       { href: 'tel:0336438930', label: '(0336)438930' },
@@ -99,6 +102,7 @@ const CentrosAtencion: NextPage = () => {
                 address={centro.address}
                 phones={centro.phones}
                 wsps={centro.wsp}
+                titleHref={centro.titleHref}
               />
             );
           })}
