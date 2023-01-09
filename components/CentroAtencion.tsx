@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Link from 'next/link';
 import { MapPin, Phone, WhatsappLogo } from 'phosphor-react';
 import React from 'react';
@@ -9,20 +10,19 @@ type CentroAtencionProps = {
   phones: { href: string; label: string }[];
   wsps?: { href: string; label: string }[];
   titleHref?: string;
+  smallTitle?: boolean;
 };
 
-const CentroAtencion = ({ title, address, phones, wsps, titleHref }: CentroAtencionProps) => {
+const CentroAtencion = ({ title, address, phones, wsps, titleHref, smallTitle }: CentroAtencionProps) => {
+  const titleClass = classNames({
+    'mb-4 text-2xl text-slate-700': true,
+    'underline decoration-slate-300/40 underline-offset-2 hover:text-slate-600 hover:decoration-slate-500/50':
+      titleHref,
+    'text-lg': smallTitle,
+  });
   return (
     <>
-      <h2
-        className={`mb-4 text-2xl text-slate-700 ${
-          titleHref
-            ? 'underline decoration-slate-300/40 underline-offset-2 hover:text-slate-600 hover:decoration-slate-500/50'
-            : ''
-        }`}
-      >
-        {titleHref ? <Link href={titleHref}>{title}</Link> : title}
-      </h2>
+      <h2 className={titleClass}>{titleHref ? <Link href={titleHref}>{title}</Link> : title}</h2>
       <div className="mb-8 flex flex-wrap items-center gap-3">
         <ContactLink
           href={address.href}

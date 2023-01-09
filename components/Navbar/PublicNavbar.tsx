@@ -8,6 +8,8 @@ import {
   Buildings,
   Suitcase,
   FirstAidKit,
+  FirstAid,
+  Pill,
 } from 'phosphor-react';
 import NavbarItem from './NavbarItem';
 
@@ -36,7 +38,14 @@ const PublicNavbar: React.FC<{ closeDrawer: () => void }> = ({ closeDrawer }) =>
         icon={<UsersThree />}
         closeDrawer={closeDrawer}
       />
-      <NavbarItem onNavbar title="Farmacias" list icon={<FirstAidKit />} closeDrawer={closeDrawer}>
+      <NavbarItem
+        onNavbar
+        title="Emergencias"
+        href="/centrosEmergencias"
+        icon={<FirstAid />}
+        closeDrawer={closeDrawer}
+      />
+      <NavbarItem onNavbar title="Farmacias" list icon={<Pill />} closeDrawer={closeDrawer}>
         <NavbarItem onNavbar title="Don Bosco" href="/farmacia" closeDrawer={closeDrawer} />
         <NavbarItem onNavbar title="Planta Savio" href="/farmaciaSavio" closeDrawer={closeDrawer} />
       </NavbarItem>
