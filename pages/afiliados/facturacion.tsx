@@ -66,7 +66,7 @@ const Facturacion: NextPage<FacturacionProps> = ({ user }) => {
       </Head>
       <div className="flex flex-wrap items-center justify-between">
         <PageTitle title="Pagos y facturación" />
-        <div className="flex gap-3">
+        <div className="mt-8 flex gap-3">
           <Button
             label="Medios de pago"
             trailingIcon={<Bank size={22} />}

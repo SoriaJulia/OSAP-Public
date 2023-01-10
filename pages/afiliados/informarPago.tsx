@@ -19,6 +19,7 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
   const [importe, setImporte] = useState<number | ''>('');
   const [comprobante, setComprobante] = useState<File[]>([]);
   const [comentario, setComentario] = useState('');
+  const [email, setEmail] = useState('');
   const inputFileRef = useRef<HTMLInputElement | null>(null);
 
   const { isLoading, mutate } = useMutation(
@@ -46,6 +47,7 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
         setImporte('');
         setComentario('');
         setComprobante([]);
+        setEmail('');
         if (inputFileRef.current) inputFileRef.current.value = '';
       },
     }
@@ -58,6 +60,7 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
     formdata.append('facturas', facturas);
     if (importe) formdata.append('importe', importe.toString());
     formdata.append('comentario', comentario);
+    formdata.append('mail', email);
     mutate(formdata);
   };
 
@@ -84,39 +87,39 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-4 rounded bg-white p-6">
-          <div className="-mt-2 flex flex-wrap gap-6 lg:gap-16 ">
-            <InputField
-              label="Factura/s"
-              helpText="Números de facturas correspondientes al pago, separados por una coma (,)"
-              placeholder="1-45455, 1-302545"
-              onChange={changeTextInput(setFacturas)}
-              value={facturas}
-              inputWidth="w-full"
-              className="w-7/12"
-              id="Facturas"
-              required
-            />
-            <InputField
-              label="Importe"
-              helpText="Importe depositado o transferido"
-              placeholder="12000"
-              type="number"
-              onChange={changeNumberInput(setImporte)}
-              value={importe}
-              inputWidth="w-full"
-              className="w-3/12"
-              id="Importe"
-              required
-            />
-          </div>
-          <TextAreaField
-            id="Mensaje"
-            onChange={changeTextArea(setComentario)}
-            value={comentario}
-            label="Mensaje"
-            inputWidth="w-11/12"
-            helpText="Si lo necesitas podés dejarnos un comentario sobre el pago"
+        <div className="flex flex-wrap gap-4 gap-x-8 rounded bg-white p-6">
+          <InputField
+            label="Factura/s"
+            helpText="Números de facturas correspondientes al pago, separados por una coma (,)"
+            placeholder="1-45455, 1-302545"
+            onChange={changeTextInput(setFacturas)}
+            value={facturas}
+            className="lg:w-7/12"
+            id="Facturas"
+            required
+          />
+          <InputField
+            label="Importe"
+            helpText="Importe depositado o transferido"
+            placeholder="12000"
+            type="number"
+            onChange={changeNumberInput(setImporte)}
+            value={importe}
+            inputWidth="w-full"
+            className="lg:w-4/12"
+            id="Importe"
+            required
+          />
+          <InputField
+            label="Email"
+            helpText="Dejanos tu email para poder contactarnos y responder tu solicitud"
+            placeholder="juan@gmail.com"
+            type="email"
+            id="Email"
+            onChange={changeTextInput(setEmail)}
+            value={email}
+            required
+            className="lg:w-5/12"
           />
           <InputField
             id="Comprobante"
@@ -126,20 +129,29 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
             onChange={changeFileInput(setComprobante)}
             ref={inputFileRef}
             helpText="Imagen o .pdf del comprobante de deposito o transferencia"
-            inputWidth="w-11/12"
+            className="lg:w-6/12"
             required
           />
-          <Button
-            className="self-end"
-            label={isLoading ? `Enviando...` : 'Enviar'}
-            trailingIcon={
-              isLoading ? <SpinnerGap className="animate-spin" weight="bold" size={24} /> : <PaperPlaneRight />
-            }
-            type="submit"
-            onClick={handleSubmit}
-            disabled={!facturas || !importe || !comprobante[0]}
-            showIconOnMobile
+          <TextAreaField
+            id="Mensaje"
+            onChange={changeTextArea(setComentario)}
+            value={comentario}
+            label="Mensaje"
+            className="w-full"
+            helpText="Si lo necesitas podés dejarnos un comentario sobre el pago"
           />
+          <div className="flex w-full justify-end">
+            <Button
+              label={isLoading ? `Enviando...` : 'Enviar'}
+              trailingIcon={
+                isLoading ? <SpinnerGap className="animate-spin" weight="bold" size={24} /> : <PaperPlaneRight />
+              }
+              type="submit"
+              onClick={handleSubmit}
+              disabled={!facturas || !importe || !comprobante[0] || !email}
+              showIconOnMobile
+            />
+          </div>
         </div>
       </form>
     </div>

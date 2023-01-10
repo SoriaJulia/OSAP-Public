@@ -5,7 +5,14 @@ import InputField from '@components/Base/Fields/Input';
 import SelectField from '@components/Base/Fields/Select';
 import TextAreaField from '@components/Base/Fields/TextArea';
 import PageTitle from '@components/Base/PageTitle';
-import { capitalizeText, changeFileInput, changeTextArea, defaultQueryOptions, queryService } from '@lib/utils';
+import {
+  capitalizeText,
+  changeFileInput,
+  changeTextArea,
+  changeTextInput,
+  defaultQueryOptions,
+  queryService,
+} from '@lib/utils';
 import { getCredencialesGrupo } from '@services/agente';
 import { NEXT_URL } from 'config';
 import useCredenciales, { GET_CREDENCIALES_QUERY_KEY } from 'hooks/credenciales/useCredenciales';
@@ -24,6 +31,7 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
   const [dni, setDNI] = useState('');
   const [certificado, setCertificado] = useState<File[]>([]);
   const [mensaje, setMensaje] = useState('');
+  const [email, setEmail] = useState('');
   const inputFileRef = useRef<HTMLInputElement | null>(null);
 
   const { isLoading, mutate } = useMutation(
@@ -49,6 +57,7 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
       onSettled: () => {
         setDNI('');
         setMensaje('');
+        setEmail('');
         setCertificado([]);
         if (inputFileRef.current) inputFileRef.current.value = '';
       },
@@ -67,6 +76,7 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
       formdata.append('nroDoc', afiliado.Documento);
     }
     formdata.append('mensaje', mensaje);
+    formdata.append('email', email);
     mutate(formdata);
   };
 
@@ -76,7 +86,7 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
         title="Certificado de estudio"
         subtitle="Extendé la cobertura de un integrante de tu familia hasta el dia que cumpla 26 años"
       />
-      <form className="flex flex-col gap-4 rounded bg-white/50 p-8 shadow-sm lg:mr-80 lg:px-12">
+      <form className="flex flex-wrap gap-4 gap-x-8 rounded bg-white/50 p-8 shadow-sm lg:mr-40 lg:px-12">
         {isLoadingCredenciales ? (
           <SelectField
             id="Afiliado"
@@ -84,6 +94,7 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
             label="Afiliado"
             required
             disabled
+            className="lg:w-6/12"
           >
             <option>Cargando...</option>
           </SelectField>
@@ -95,6 +106,7 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
             helpText="Seleccioná el afiliado al que corresponde el certificado"
             label="Afiliado"
             required
+            className="lg:w-6/12"
           >
             {credenciales.map((credencial) => (
               <option value={credencial.Documento} key={credencial.Documento}>
@@ -104,6 +116,17 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
           </SelectField>
         )}
         <InputField
+          label="Email"
+          helpText="Dejanos tu email para poder contactarnos y responder tu solicitud"
+          placeholder="juan@gmail.com"
+          type="email"
+          id="Email"
+          onChange={changeTextInput(setEmail)}
+          value={email}
+          required
+          className="lg:w-5/12"
+        />
+        <InputField
           id="Certificado"
           label="Certificado de Estudio"
           type="file"
@@ -111,6 +134,7 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
           onChange={changeFileInput(setCertificado)}
           ref={inputFileRef}
           helpText="Imagen o .pdf del certificado"
+          className="lg:w-5/12"
           required
         />
         <TextAreaField
@@ -119,6 +143,7 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
           onChange={changeTextArea(setMensaje)}
           value={mensaje}
           placeholder="¿Necesitas aclarandos algo? dejanos tu mensaje acá"
+          className="lg:w-6/12"
         />
         <div className="mt-2 flex w-full justify-end md:pr-10">
           <Button
@@ -128,7 +153,7 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
             }
             type="submit"
             onClick={handleSubmit}
-            disabled={!certificado[0]}
+            disabled={!certificado[0] || !email}
             showIconOnMobile
           />
         </div>
