@@ -101,11 +101,12 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
           <InputField
             label="Importe"
             helpText="Importe depositado o transferido"
-            placeholder="12000"
+            placeholder="12000.50"
             type="number"
             onChange={changeNumberInput(setImporte)}
             value={importe}
             inputWidth="w-full"
+            step=".01"
             className="lg:w-4/12"
             id="Importe"
             required

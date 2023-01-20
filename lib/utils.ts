@@ -71,7 +71,7 @@ export const changeTextArea =
 export const changeNumberInput =
   (setterFn: React.Dispatch<React.SetStateAction<number | ''>>): InputChangeHandler =>
   (e) => {
-    setterFn(parseInt(e.target.value, 10));
+    setterFn(parseFloat(e.target.value));
   };
 
 export const changeFileInput =
