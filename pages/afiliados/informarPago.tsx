@@ -60,7 +60,7 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
     formdata.append('facturas', facturas);
     if (importe) formdata.append('importe', importe.toString());
     formdata.append('comentario', comentario);
-    formdata.append('mail', email);
+    formdata.append('email', email);
     mutate(formdata);
   };
 

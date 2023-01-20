@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const file = fData.files?.certificado;
   const fileContent = readFileSync(file.filepath);
-  const { nombre, nroAfiliado, nroDoc, mensaje } = fData.fields;
+  const { nombre, nroAfiliado, nroDoc, mensaje, email } = fData.fields;
 
   const mailData = {
     from: 'contacto@osap.com.ar',
@@ -39,6 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     html: `
     <p>Agente de cuenta: ${session?.user?.agentId}</p>
     </br>
+    <p>${email}</p>
     <p>Certificado de: ${nombre}, Documento: ${nroDoc}, Numero de Afiliado: ${nroAfiliado}</p>
     ${mensaje ? `<i>Mensaje: ${mensaje}</i>` : ''}`,
     attachments: [{ filename: file.originalFilename, content: fileContent }],

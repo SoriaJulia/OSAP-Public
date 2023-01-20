@@ -30,15 +30,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const file = fData.files?.comprobante;
   const fileContent = readFileSync(file.filepath);
+  const { email, comentario, facturas, importe } = fData.fields;
   const mailData = {
     from: 'contacto@osap.com.ar',
     to: process.env.MAIL_INFORMAR_PAGO,
     subject: `Informe de pago - ${session?.user?.name} `,
     html: `
     <p>Agente de cuenta: ${session?.user?.agentId}, DNI: ${session?.user?.dni}</p>
-    <p>Facturas: ${fData.fields.facturas}</p>
-    <p>Importe: ${fData.fields.importe}</p>
-    <p>Comentario: ${fData.fields.comentario}`,
+    <p>Email: ${email} <p/>
+    <p>Facturas: ${facturas}</p>
+    <p>Importe: ${importe}</p>
+    <p>Comentario: ${comentario}`,
     attachments: [{ filename: file.originalFilename, content: fileContent }],
   };
 
