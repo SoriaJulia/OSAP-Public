@@ -171,7 +171,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const agentId = session.user?.agentId;
-
+  if (agentId === '0') {
+    return { redirect: { destination: '/prestadores', permanent: false } };
+  }
   return {
     props: { agentId },
   };

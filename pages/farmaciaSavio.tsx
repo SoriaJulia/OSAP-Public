@@ -7,13 +7,13 @@ import PageTitle from '../components/Base/PageTitle';
 
 const FarmaciaSavio: NextPage = () => {
   return (
-    <section className="flex gap-2 text-left ">
+    <section className="flex gap-2">
       <Head>
         <title>Farmacia Planta Savio - OSAP</title>
       </Head>
       <div>
         <PageTitle title="Farmacia Planta Savio" />
-        <article className="flex flex-col gap-3 text-lg lg:mr-12 2xl:mr-20">
+        <article className="flex flex-col gap-3 text-lg lg:mr-12 xl:w-3/5 2xl:mr-20">
           <span className="mb-4 block text-2xl font-thin text-blue-800">
             OSAP tiene la primer farmacia en una Planta Industrial de la Argentina
           </span>

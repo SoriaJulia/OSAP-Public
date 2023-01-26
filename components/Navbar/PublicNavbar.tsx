@@ -45,10 +45,17 @@ const PublicNavbar: React.FC<{ closeDrawer: () => void }> = ({ closeDrawer }) =>
         icon={<FirstAid />}
         closeDrawer={closeDrawer}
       />
-      <NavbarItem onNavbar title="Farmacias" list icon={<Pill />} closeDrawer={closeDrawer}>
+      <NavbarItem onNavbar title="Farmacias" list icon={<Pill />} href="" closeDrawer={closeDrawer}>
         <NavbarItem onNavbar title="Don Bosco" href="/farmacia" closeDrawer={closeDrawer} />
         <NavbarItem onNavbar title="Planta Savio" href="/farmaciaSavio" closeDrawer={closeDrawer} />
       </NavbarItem>
+      <NavbarItem
+        href="/centrosAtencion"
+        onNavbar
+        title="Centros de atencion"
+        icon={<Buildings />}
+        closeDrawer={closeDrawer}
+      />
       <NavbarItem
         onNavbar
         href="http://www.osapsalud.com.ar/normas-generales/"
@@ -57,7 +64,6 @@ const PublicNavbar: React.FC<{ closeDrawer: () => void }> = ({ closeDrawer }) =>
         closeDrawer={closeDrawer}
       />
       <NavbarItem href="/telefonosUtiles" title="Telefonos Utiles" icon={<Phone />} closeDrawer={closeDrawer} />
-      <NavbarItem href="/centrosAtencion" title="Centros de atencion" icon={<Buildings />} closeDrawer={closeDrawer} />
     </>
   );
 };

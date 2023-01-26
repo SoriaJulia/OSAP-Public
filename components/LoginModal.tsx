@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import * as React from 'react';
-import { SignIn, WarningCircle } from 'phosphor-react';
+import { SignIn, Spinner, WarningCircle } from 'phosphor-react';
 import { RedirectableProviderType } from 'next-auth/providers';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
@@ -11,16 +11,36 @@ import Modal, { ModalProps } from './Base/Modal';
 import loginImg from '../public/img/login.svg';
 import { UserRoles } from '../types/enums';
 import InputField from './Base/Fields/Input';
+import Password from './Base/Fields/Password';
+import RadioGroup from './Base/Fields/RadioGroup';
+import RadioButton from './Base/Fields/RadioButton';
 
-type LoginModalProps = {
-  userRole: UserRoles;
-} & ModalProps;
-
-const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRole }) => {
+const LoginModal: React.FC<ModalProps> = ({ onDismiss, show, title }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const [loginIn, setLoginIn] = useState(false);
+  const [role, setRole] = useState(UserRoles.AFILIADO);
+
+  const handleLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setLoginIn(true);
+    e.preventDefault();
+    const redirectUrl = role === UserRoles.AFILIADO ? '/afiliados' : '/prestadores';
+    signIn<RedirectableProviderType>('credentials', {
+      username,
+      password,
+      role,
+      redirect: false,
+    }).then((value) => {
+      if (value?.error) {
+        setLoginIn(false);
+        setError(value.error);
+      } else {
+        router.push(redirectUrl);
+      }
+    });
+  };
 
   return (
     <Modal onDismiss={onDismiss} show={show} title={title}>
@@ -33,21 +53,17 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
             <InputField
               id="user"
               type="text"
-              label="DNI"
+              label="Usuario"
               placeholder="30256544"
               helpText="Sin espacios ni caracteres especiales"
               value={username}
               onChange={changeTextInput(setUsername)}
             />
-            <InputField
-              id="password"
-              type="password"
-              label="Contraseña"
-              placeholder="••••••••"
-              helpText=""
-              value={password}
-              onChange={changeTextInput(setPassword)}
-            />
+            <Password password={password} setPassword={setPassword} />
+            <RadioGroup legend="Tipo de usuario" stateSetter={setRole} defaultValue={UserRoles.AFILIADO}>
+              <RadioButton id={UserRoles.AFILIADO} label="Afiliado" />
+              <RadioButton id={UserRoles.PRESTADOR} label="Prestador" />
+            </RadioGroup>
             <div className="h-12 w-80 overflow-hidden text-rose-500">
               {error ? (
                 <>
@@ -59,7 +75,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               )}
             </div>
           </div>
-          <div className="m-4 flex justify-end gap-2 place-self-end pt-10 md:pt-6 ">
+          <div className="m-4 flex justify-end gap-2 place-self-end pt-0 md:pt-6 ">
             <Button
               label="Cancelar"
               variant="yellowFill"
@@ -70,25 +86,15 @@ const LoginModal: React.FC<LoginModalProps> = ({ onDismiss, show, title, userRol
               }}
             />
             <Button
-              label="Ingresar"
+              label={loginIn ? 'Ingresando...' : 'Ingresar'}
               variant="fill"
-              trailingIcon={<SignIn weight="bold" size={20} />}
+              trailingIcon={
+                loginIn ? <Spinner size={20} className="animate-spin" /> : <SignIn weight="bold" size={20} />
+              }
               type="submit"
-              onClick={(e) => {
-                e.preventDefault();
-                signIn<RedirectableProviderType>('credentials', {
-                  username,
-                  password,
-                  role: userRole || UserRoles.AFILIADO,
-                  redirect: false,
-                }).then((value) => {
-                  if (value?.error) {
-                    setError(value.error);
-                  } else {
-                    router.push('/afiliados');
-                  }
-                });
-              }}
+              disabled={!username || !password}
+              onClick={handleLogin}
+              showIconOnMobile
             />
           </div>
         </form>

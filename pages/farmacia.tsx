@@ -12,7 +12,7 @@ const Farmacia: NextPage = () => {
       <Head>
         <title>Farmacia Don Bosco - OSAP</title>
       </Head>
-      <div className="flex flex-col justify-around text-left xl:w-3/5">
+      <div className="flex flex-col justify-around lg:mr-12 xl:w-3/5 2xl:mr-20">
         <div className="flex flex-wrap items-center justify-between">
           <PageTitle title="Farmacia Don Bosco" />
           <div className="mb-8 flex items-end gap-2 md:mb-0">

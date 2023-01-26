@@ -3,7 +3,8 @@ import FieldLabel from './FieldLabel';
 
 const LabelPosition = {
   top: 'flex-col mb-2',
-  left: 'gap-2 items-center',
+  left: 'gap-2 items-center md:whitespace-nowrap',
+  right: 'gap-2 flex flex-row-reverse justify-end',
 };
 
 type FieldProps = {

@@ -22,6 +22,7 @@ const RESULT_NAME = 'ConsultarUsuario';
 interface ConsultarUsuarioResponse extends GECROSBaseResponse {
   Nombre: string;
   agecta_id: string;
+  Prov_Cod: string;
 }
 
 export const getUser = async ({
@@ -47,5 +48,3 @@ export const getUser = async ({
     return { data: null, message: 'Error interno del servidor' };
   }
 };
-
-// TODO move to afiliado service

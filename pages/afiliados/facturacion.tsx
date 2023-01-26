@@ -58,7 +58,7 @@ type FacturacionProps = {
 const Facturacion: NextPage<FacturacionProps> = ({ user }) => {
   const [selectedTab, setSelectedTab] = useState<number>(tabs[0].index);
   const router = useRouter();
-  const linkPago = getLinkPago(user.agentId, user.convenio);
+  const linkPago = user.convenio && getLinkPago(user.agentId, user.convenio);
   return (
     <div>
       <Head>
@@ -123,6 +123,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     };
   }
   const { agentId } = session.user;
+  if (agentId === '0') {
+    return { redirect: { destination: '/prestadores', permanent: false } };
+  }
 
   const queryClient = new QueryClient({ defaultOptions: { queries: defaultQueryOptions } });
 

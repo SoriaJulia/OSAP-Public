@@ -32,7 +32,7 @@ type Props = {
 
 export const Afiliados = ({ user }: Props) => {
   const router = useRouter();
-  const linkPago = getLinkPago(user.agentId, user.convenio);
+  const linkPago = user.convenio && getLinkPago(user.agentId, user.convenio);
 
   return (
     <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
@@ -102,6 +102,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   }
 
   const { agentId } = session.user;
+  if (agentId === '0') {
+    return { redirect: { destination: '/prestadores', permanent: false } };
+  }
 
   const queryClient = new QueryClient({ defaultOptions: { queries: defaultQueryOptions } });
 

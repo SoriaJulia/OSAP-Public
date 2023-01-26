@@ -3,13 +3,15 @@ import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { House, SignOut } from 'phosphor-react';
 import React from 'react';
-import LoginMenu from './Menu/LoginMenu';
+import LoginMenu from './LoginMenu';
 import NavbarItem from './NavbarItem';
 
 const UserNavbar: React.FC = ({ children }) => {
   const session = useSession();
   const loggedUser = session.data?.user;
   const userName = session.data?.user ? capitalizeText(session.data?.user?.name) : '';
+  const agentId = session.data?.user.agentId;
+  const homeLink = agentId !== '0' ? '/afiliados' : '/prestadores';
 
   return (
     <nav
@@ -19,25 +21,32 @@ const UserNavbar: React.FC = ({ children }) => {
     >
       {loggedUser ? (
         <>
-          <div className="md:hidden">
-            <Link href="/afiliados" passHref>
-              <button
-                aria-label="Tramites y constultas Afiliado"
-                className=" z-20 flex items-center gap-1 rounded-bl-full border-b-2 border-l-2 border-blue-600 bg-blue-700 pt-3 pb-3 pl-8 pr-4 font-display text-lg text-blue-100 transition-all hover:bg-blue-800 hover:text-blue-100"
-              >
+          <div className="user-menu-mobile md:hidden">
+            <Link href={homeLink} passHref>
+              <button aria-label="Tramites y constultas Afiliado" className=" ">
                 <House weight="duotone" size={32} />
               </button>
             </Link>
+            <button
+              onClick={() => {
+                signOut();
+              }}
+              aria-label="Cerrar sesion"
+              className=" "
+            >
+              <SignOut weight="duotone" size={32} />
+            </button>
           </div>
-          <div className=" hidden w-screen justify-between bg-blue-800 md:flex">
+          <div className=" hidden w-screen items-center justify-between bg-blue-800 md:flex">
             <ul className="flex items-center gap-1 lg:ml-6">
+              <span className="mr-3 flex text-blue-200">¡Hola! {userName}</span>
               <NavbarItem
-                title={`¡Hola! ${userName}`}
+                title="Inicio"
                 variant="secondary"
                 showIcon
                 onNavbar
                 icon={<House className="" weight="duotone" size={24} />}
-                href="/afiliados"
+                href={homeLink}
               />
               {children}
             </ul>
@@ -56,6 +65,7 @@ const UserNavbar: React.FC = ({ children }) => {
                 onClick={() => {
                   signOut();
                 }}
+                href=""
                 onNavbar
                 title="Cerrar sesion"
                 icon={<SignOut weight="light" size={24} />}

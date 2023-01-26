@@ -111,6 +111,26 @@ export function queryService<T, U>(serviceFn: ServiceFunction<T, U>, ...params: 
 
 export const currentYear = new Date().getFullYear();
 
+export const convertToLocaleDateString = (date: string) => {
+  return new Date(date).toLocaleDateString('ES');
+};
+
+export const getAge = (dateString: string) => {
+  const today = new Date();
+  const birthDate = new Date(dateString);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  let months;
+  if (Math.sign(m) >= 0) {
+    months = m;
+  } else {
+    age -= 1;
+    months = 12 + m;
+  }
+
+  return `${age} años ${months > 0 ? `${months} meses` : ''}`;
+};
+
 export const defaultQueryOptions: QueryObserverOptions = {
   cacheTime: DEFAULT_CACHE_TIME,
   staleTime: DEFAULT_STALE_TIME,

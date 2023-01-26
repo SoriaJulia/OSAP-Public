@@ -13,7 +13,10 @@ import React, { useState } from 'react';
 import Logo from 'components/SVG/Logo';
 import Slogan from 'components/SVG/Slogan';
 import InputField from '@components/Base/Fields/Input';
+import RadioButton from '@components/Base/Fields/RadioButton';
+import RadioGroup from '@components/Base/Fields/RadioGroup';
 import Link from 'next/link';
+import Password from '@components/Base/Fields/Password';
 import { nextAuthOptions } from './api/auth/[...nextauth]';
 
 const Login: NextPage = () => {
@@ -22,21 +25,23 @@ const Login: NextPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loginIn, setLoginIn] = useState(false);
+  const [role, setRole] = useState(UserRoles.AFILIADO);
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setLoginIn(true);
     e.preventDefault();
+    const redirectUrl = role === UserRoles.AFILIADO ? '/afiliados' : '/prestadores';
     signIn<RedirectableProviderType>('credentials', {
       username,
       password,
-      role: UserRoles.AFILIADO,
+      role,
       redirect: false,
     }).then((value) => {
       if (value?.error) {
         setLoginIn(false);
         setError(value.error);
       } else {
-        router.push('/afiliados');
+        router.push(redirectUrl);
       }
     });
   };
@@ -61,22 +66,18 @@ const Login: NextPage = () => {
               <InputField
                 id="user"
                 type="text"
-                label="DNI"
+                label="Usuario"
                 placeholder="30256544"
                 helpText="Sin espacios ni caracteres especiales"
                 value={username}
                 onChange={changeTextInput(setUsername)}
-                inputWidth="w-auto"
               />
-              <InputField
-                id="password"
-                type="password"
-                label="Contraseña"
-                placeholder="••••••••"
-                value={password}
-                onChange={changeTextInput(setPassword)}
-                inputWidth="w-auto"
-              />
+              <Password password={password} setPassword={setPassword} />
+              <RadioGroup legend="Tipo de usuario" stateSetter={setRole} defaultValue={UserRoles.AFILIADO}>
+                <RadioButton id={UserRoles.AFILIADO} label="Afiliado" />
+                <RadioButton id={UserRoles.PRESTADOR} label="Prestador" />
+              </RadioGroup>
+
               <div className="mb-4 min-h-[24px] w-80 overflow-hidden text-rose-500">
                 {error ? (
                   <>
@@ -121,9 +122,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await unstable_getServerSession(req, res, nextAuthOptions);
 
   if (session && session.user) {
+    const destination = session?.user.agentId === '0' ? '/prestadores' : '/afiliados';
     return {
       redirect: {
-        destination: '/afiliados',
+        destination,
         permanent: true,
       },
     };

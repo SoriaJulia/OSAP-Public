@@ -41,7 +41,7 @@ const RadioGroup = ({ children, stateSetter, defaultValue, legend, className, ..
         className={`${className} mb-3 flex flex-wrap gap-10 rounded-sm border-2 p-4 px-10 text-left`}
         {...props}
       >
-        <legend className="text-xl">{legend}</legend>
+        <legend className="text-gray-600">{legend}</legend>
         {children}
       </fieldset>
     </RadioGroupContext.Provider>

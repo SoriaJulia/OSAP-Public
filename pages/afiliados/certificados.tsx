@@ -25,6 +25,7 @@ import React, { useRef, useState } from 'react';
 import { dehydrate, QueryClient, useMutation } from 'react-query';
 import toast from 'react-hot-toast';
 import { SERVER_ERROR } from '@lib/constants';
+import { redirect } from 'next/dist/server/api-utils';
 
 const Certificados: NextPage<{ user: User }> = ({ user }) => {
   const { credenciales, isLoading: isLoadingCredenciales } = useCredenciales(user.agentId);
@@ -173,8 +174,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       },
     };
   }
-
   const { agentId } = session.user;
+  if (agentId === '0') {
+    return { redirect: { destination: '/prestadores', permanent: false } };
+  }
 
   const queryClient = new QueryClient({ defaultOptions: { queries: defaultQueryOptions } });
 

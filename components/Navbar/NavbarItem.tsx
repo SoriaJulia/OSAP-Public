@@ -20,10 +20,9 @@ const labelStyle = {
   secondary: 'md:text-blue-100 md:text-base md:font-sans md:hover:text-blue-100 ',
 };
 
-type Variants = keyof typeof variants;
+export type Variants = keyof typeof variants;
 
 export type NavbarItemProps = {
-  href?: string;
   title: string;
   icon?: ReactNode;
   onNavbar?: boolean;
@@ -34,6 +33,8 @@ export type NavbarItemProps = {
   iconEnd?: boolean;
   hideFromDrawer?: boolean;
   closeDrawer?: () => void;
+  href: string;
+  onNewTab?: boolean;
 };
 
 const NavbarItem: React.FC<NavbarItemProps> = ({
@@ -42,13 +43,14 @@ const NavbarItem: React.FC<NavbarItemProps> = ({
   onNavbar,
   list,
   children,
-  href = '',
+  href,
   variant = 'primary',
   onClick,
   showIcon,
   iconEnd,
   hideFromDrawer,
   closeDrawer,
+  onNewTab,
 }) => {
   const router = useRouter();
   const currentPage = router.pathname;
@@ -56,10 +58,20 @@ const NavbarItem: React.FC<NavbarItemProps> = ({
   const caret = list ? (
     <>
       <Plus className="group-hover:hidden md:hidden" />
-      <Minus className="hidden group-hover:block md:group-hover:hidden " />
+      <Minus className="hidden group-hover:block md:group-hover:hidden" />
     </>
   ) : (
     <CaretRight className="md:hidden" />
+  );
+  const label = (
+    <>
+      <div className="navbar-item-link-label ">
+        <div className={`${showIcon && !iconEnd ? '' : 'md:hidden'}`}>{icon}</div>
+        {title}
+        <div className={`${iconEnd ? 'hidden md:block' : 'hidden'}`}>{icon}</div>
+      </div>
+      {caret}
+    </>
   );
 
   const handleClick = () => {
@@ -71,17 +83,6 @@ const NavbarItem: React.FC<NavbarItemProps> = ({
     }
   };
 
-  const label = (
-    <button onClick={handleClick} className={`flex w-full items-center justify-between p-4 ${labelStyle[variant]}`}>
-      <div className="flex items-center gap-3 ">
-        <div className={`${showIcon && !iconEnd ? '' : 'md:hidden'}`}>{icon}</div>
-        {title}
-        <div className={`${iconEnd ? 'hidden md:block' : 'hidden'}`}>{icon}</div>
-      </div>
-      {caret}
-    </button>
-  );
-
   return (
     <motion.li
       initial={{ opacity: 0 }}
@@ -89,23 +90,26 @@ const NavbarItem: React.FC<NavbarItemProps> = ({
       transition={{ delay: 0.4 }}
       className={`${onNavbar ? '' : 'md:hidden'} ${hideFromDrawer && 'hidden md:flex'} ${variants[variant]}  ${
         currentPage === href ? selected[variant] : ''
-      } group relative rounded-sm font-display text-xl text-blue-900 transition hover:bg-blue-100  
-       `}
+      }navbar-item-li group`}
     >
       {list ? (
         <>
-          {label}
-          <ul
-            className={`${
-              isListOpen ? 'flex' : 'hidden'
-            } top-14 z-20 w-full flex-col pt-2 group-hover:flex md:absolute md:w-max md:bg-white md:py-0`}
-          >
-            {children}
-          </ul>
+          <button onClick={handleClick} className={`navbar-item-link ${labelStyle[variant]}`}>
+            {label}
+          </button>
+          <ul className={`${isListOpen ? 'flex' : 'hidden'} navbar-item-list-ul group-hover:flex`}>{children}</ul>
         </>
       ) : (
-        <Link passHref href={href}>
-          {label}
+        <Link href={href} passHref>
+          {onNewTab ? (
+            <a target="_blank" href={href} className={`navbar-item-link ${labelStyle[variant]}`}>
+              {label}
+            </a>
+          ) : (
+            <button onClick={handleClick} className={`navbar-item-link ${labelStyle[variant]}`}>
+              {label}
+            </button>
+          )}
         </Link>
       )}
     </motion.li>

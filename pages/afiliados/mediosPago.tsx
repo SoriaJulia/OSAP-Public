@@ -5,7 +5,9 @@ import Image from 'next/image';
 import ContactLink from 'components/Base/ContactLink';
 import React from 'react';
 import { getSession } from 'next-auth/react';
+import User from '@appTypes/user';
 import { Buildings, CopySimple, Envelope, FileArrowDown } from 'phosphor-react';
+import { getLinkPago } from '@lib/facturacion';
 import Button from 'components/Base/Button';
 import Federacion from '../../public/img/Federacion.png';
 import Link from '../../public/img/RedLink.png';
@@ -88,7 +90,9 @@ const mediosDePago = [
   },
 ];
 
-const MediosPago: NextPage<{ agentId: string }> = ({ agentId }) => {
+const MediosPago: NextPage<{ user: User }> = ({ user }) => {
+  const { convenio, agentId } = user;
+  const linkPago = convenio && getLinkPago(agentId, convenio);
   return (
     <div className="text-left">
       <Head>
@@ -117,13 +121,7 @@ const MediosPago: NextPage<{ agentId: string }> = ({ agentId }) => {
                 </button>
               </span>
             </div>
-            <Button
-              label="Ingresar"
-              variant="yellowFill"
-              onClick={() =>
-                window.open(`https://osapjubilados.prontopago.com.ar:4545/?serviceid=17944&Param1=${agentId}`, '_blank')
-              }
-            />
+            <Button label="Ingresar" variant="yellowFill" onClick={() => window.open(linkPago, '_blank')} />
           </div>
         </article>
         <article className="pb-10">
@@ -196,9 +194,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   }
 
   const agentId = session.user?.agentId;
-
+  if (agentId === '0') {
+    return { redirect: { destination: '/prestadores', permanent: false } };
+  }
   return {
-    props: { agentId },
+    props: { user: session.user },
   };
 };
 export default MediosPago;
