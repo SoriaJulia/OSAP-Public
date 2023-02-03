@@ -138,10 +138,10 @@
     @apply hover:text-teal-200;
   }
   .info-banner {
-    @apply sticky bottom-0 z-20 flex w-screen items-center justify-between bg-slate-900 py-3 px-10 text-teal-400;
+    @apply sticky bottom-0 z-20 flex w-screen items-center justify-between bg-slate-900 py-3 px-6 text-teal-400 md:px-10;
   }
   .info-banner-content {
-    @apply flex items-center gap-2;
+    @apply flex flex-wrap items-center gap-2;
   }
 }
 

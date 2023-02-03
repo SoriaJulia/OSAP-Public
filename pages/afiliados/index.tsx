@@ -105,7 +105,7 @@ export const Afiliados = ({ user }: Props) => {
             viajar tranquilo.
           </a>
 
-          <X onClick={dismissTravelBanner} />
+          <X onClick={dismissTravelBanner} size={32} className="ml-2 flex-shrink-0 p-2" />
         </div>
       )}
     </div>
