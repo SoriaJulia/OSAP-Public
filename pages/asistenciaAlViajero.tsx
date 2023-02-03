@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
+import { Info, Warning, WarningCircle } from 'phosphor-react';
 import React from 'react';
 import PageTitle from '../components/Base/PageTitle';
 
@@ -11,13 +12,20 @@ const AsistenciaAlViajero: NextPage = () => {
       </Head>
       <article>
         <PageTitle title="Asistencia al viajero" />
-        <div className="flex flex-col gap-4 rounded bg-white p-4 text-lg lg:mr-4 2xl:mr-12">
+        <div className="flex flex-col gap-6 rounded bg-white p-4 text-lg lg:mr-4 2xl:mr-12">
           <p>
             OSAP ha suscripto un convenio de asistencia en tránsito para todos sus beneficiarios que se encuentren a{' '}
             <span className="font-semibold">mas de 100 km</span> de su domicilio.
+            <p>
+              La cobertura tiene alcance en <span className="font-semibold">todo el territorio nacional.</span>
+            </p>
           </p>
-          <p>
-            La cobertura tiene alcance en <span className="font-semibold">todo el territorio nacional.</span>
+          <p className="flex items-center gap-1 text-teal-500">
+            <WarningCircle size={22} weight="bold" />
+            Antes de viajar es necesario completar el siguiente formulario:{' '}
+            <a href="https://assistravel.info/registro" className="underline" target="_blank">
+              Registro de viaje
+            </a>{' '}
           </p>
           <p className="text-orange-700">
             <strong>
@@ -27,8 +35,8 @@ const AsistenciaAlViajero: NextPage = () => {
               </a>
             </strong>
             , además consideramos importante agenden el número de WhatsApp de Assist Travel{' '}
-            <a href="https://wa.me/+5491135869793" className="underline decoration-orange-100">
-              +54 9 11 35869793
+            <a href="https://wa.me/+541152638406" className="underline decoration-orange-100">
+              +54 11 52638406
             </a>{' '}
             para tener una comunicación mas rápida y eficiente.
           </p>

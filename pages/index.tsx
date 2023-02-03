@@ -41,6 +41,8 @@ const Login: NextPage = () => {
         setLoginIn(false);
         setError(value.error);
       } else {
+        if (!localStorage.getItem('showTravelBanner') && role === UserRoles.AFILIADO)
+          localStorage.setItem('showTravelBanner', 'true');
         router.push(redirectUrl);
       }
     });

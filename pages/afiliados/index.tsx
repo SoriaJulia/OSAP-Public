@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { GetServerSideProps } from 'next';
-import { Bank, CreditCard, CurrencyCircleDollar, Download } from 'phosphor-react';
+import { Bank, Bell, CreditCard, CurrencyCircleDollar, Download, Info, X } from 'phosphor-react';
 import Head from 'next/head';
 import { defaultQueryOptions, queryService } from '@lib/utils';
 import Credenciales from 'components/Credencial/List';
@@ -25,6 +25,8 @@ import { GET_AUTORIZACIONES_QUERY_KEY } from 'hooks/autorizaciones/useAutorizaci
 import { GET_FACTURAS_QUERY_KEY } from 'hooks/facturas/useFacturas';
 import { GET_CREDENCIALES_QUERY_KEY } from 'hooks/credenciales/useCredenciales';
 import { GET_COSEGUROS_QUERY_KEY } from 'hooks/coseguros/useCoseguros';
+import toast from 'react-hot-toast';
+import { useEffect, useState } from 'react';
 
 type Props = {
   user: User;
@@ -33,15 +35,24 @@ type Props = {
 export const Afiliados = ({ user }: Props) => {
   const router = useRouter();
   const linkPago = user.convenio && getLinkPago(user.agentId, user.convenio);
+  const [showTravelBanner, setShowTravelBanner] = useState('false');
+  useEffect(() => {
+    const storageItem = localStorage.getItem('showTravelBanner');
+    if (storageItem) setShowTravelBanner(storageItem);
+  }, []);
+
+  const dismissTravelBanner = () => {
+    setShowTravelBanner('false');
+    localStorage.setItem('showTravelBanner', 'false');
+  };
 
   return (
-    <div className="flex flex-col items-center gap-3 divide-y-2 divide-white text-left">
+    <div className="flex flex-col items-center gap-3 divide-y-2 divide-white pt-8 text-left">
       <Head>
         <title>Tramites y consultas online - OSAP</title>
       </Head>
       <AfiliadosSectionsNav />
       <Credenciales agentId={user.agentId} />
-
       <section className="flex w-full flex-col items-start pt-8">
         <h3 className="mb-6 text-3xl text-blue-800 md:mb-0">Pagos y facturación</h3>
         <div className="flex w-full justify-end gap-1 px-2 pb-4 sm:gap-4 sm:px-6 xs:gap-2">
@@ -85,6 +96,18 @@ export const Afiliados = ({ user }: Props) => {
           </a>
         </article>
       </section>
+      {showTravelBanner === 'true' && (
+        <div className="info-banner">
+          <a href="https://assistravel.info/registro" target="_blank" className="info-banner-content">
+            <Bell weight="duotone" className="animate-sideBounce" size={24} />
+            <span className="font-bold">¿Estas por viajar dentro del país?</span> Recordá completar el
+            <span className="underline">registro de viaje de Assist Travel</span>para poder contar con covertura y
+            viajar tranquilo.
+          </a>
+
+          <X onClick={dismissTravelBanner} />
+        </div>
+      )}
     </div>
   );
 };

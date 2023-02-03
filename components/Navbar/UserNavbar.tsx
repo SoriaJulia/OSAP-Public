@@ -12,6 +12,10 @@ const UserNavbar: React.FC = ({ children }) => {
   const userName = session.data?.user ? capitalizeText(session.data?.user?.name) : '';
   const agentId = session.data?.user.agentId;
   const homeLink = agentId !== '0' ? '/afiliados' : '/prestadores';
+  const handleSignOut = () => {
+    localStorage.removeItem('showTravelBanner');
+    signOut();
+  };
 
   return (
     <nav
@@ -27,13 +31,7 @@ const UserNavbar: React.FC = ({ children }) => {
                 <House weight="duotone" size={32} />
               </button>
             </Link>
-            <button
-              onClick={() => {
-                signOut();
-              }}
-              aria-label="Cerrar sesion"
-              className=" "
-            >
+            <button onClick={handleSignOut} aria-label="Cerrar sesion" className=" ">
               <SignOut weight="duotone" size={32} />
             </button>
           </div>
@@ -62,9 +60,7 @@ const UserNavbar: React.FC = ({ children }) => {
                 showIcon
               /> */}
               <NavbarItem
-                onClick={() => {
-                  signOut();
-                }}
+                onClick={handleSignOut}
                 href=""
                 onNavbar
                 title="Cerrar sesion"

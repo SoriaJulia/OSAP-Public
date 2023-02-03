@@ -75,6 +75,34 @@ module.exports = {
       width: {
         screen: 'calc(100vw - 8px)',
       },
+      animation: {
+        sideBounce: 'sideBounce 2s linear 300ms 4',
+      },
+      keyframes: {
+        sideBounce: {
+          '0%': {
+            transform: 'translate(0,0)',
+          },
+          '20%': {
+            transform: 'translate(0,-3px) rotate(16deg) scale(1.25)',
+          },
+          '35%': {
+            transform: 'translate(0,-1px) scale(1.25) ',
+          },
+          '50%': {
+            transform: 'translate(0,-3px) rotate(-16deg) scale(1.25)',
+          },
+          '65%': {
+            transform: 'translate(0,-1px) scale(1.25) ',
+          },
+          '80%': {
+            transform: 'translate(0,-3px) rotate(16deg) scale(1.25)',
+          },
+          '100%': {
+            transform: 'translate(0,0)',
+          },
+        },
+      },
     },
   },
   plugins: [],

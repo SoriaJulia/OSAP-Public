@@ -26,6 +26,7 @@ import { dehydrate, QueryClient, useMutation } from 'react-query';
 import toast from 'react-hot-toast';
 import { SERVER_ERROR } from '@lib/constants';
 import { redirect } from 'next/dist/server/api-utils';
+import Head from 'next/head';
 
 const Certificados: NextPage<{ user: User }> = ({ user }) => {
   const { credenciales, isLoading: isLoadingCredenciales } = useCredenciales(user.agentId);
@@ -83,6 +84,9 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
 
   return (
     <div>
+      <Head>
+        <title>Certificado de estudio - OSAP</title>
+      </Head>
       <PageTitle
         title="Certificado de estudio"
         subtitle="Extendé la cobertura de un integrante de tu familia hasta el dia que cumpla 26 años"
