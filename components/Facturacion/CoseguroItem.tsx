@@ -16,7 +16,7 @@ const CoseguroItem: React.FC<CoseguroItemProps> = ({ coseguro }) => {
         onClick={() => {
           setShowDetail(!showDetail);
         }}
-        className="mr-4 ml-1 grid grid-cols-coseguros items-center gap-1 text-left print:grid-cols-coseguros-print"
+        className="ml-1 mr-4 grid grid-cols-coseguros items-center gap-1 text-left print:grid-cols-coseguros-print"
       >
         <span className="text-lg text-blue-600">Día: {new Date(coseguro.fecha).getDate()}</span>
         <span>{_.capitalize(coseguro.detalle)}</span>

@@ -16,7 +16,7 @@ export const Header: React.FC = ({ children }) => {
   };
   return (
     <div className="sticky top-0 z-10">
-      <nav className="flex items-center justify-between bg-white py-2 px-4 lg:px-9">
+      <nav className="flex items-center justify-between bg-white px-4 py-2 lg:px-9">
         <List
           className="mr-3 text-orange-700 md:hidden"
           onClick={() => {
@@ -28,14 +28,14 @@ export const Header: React.FC = ({ children }) => {
             setShowDrawer(true);
           }}
         />
-        <Link passHref href="http://www.osapsalud.com.ar/">
+        <Link passHref href="/">
           <button aria-label="Inicio" className="mr-10 flex items-center gap-2 md:mr-0">
             <Logo width="90" height="42" className="fill-orange-500" />
             <Slogan width="120" height="42" className="hidden fill-grey-400  lg:block" />
           </button>
         </Link>
         <div className="flex items-center">
-          <ul className="hidden justify-end md:flex">
+          <ul className="mr-12 hidden justify-end md:flex">
             <PublicNavbar closeDrawer={closeDrawer} />
           </ul>
         </div>

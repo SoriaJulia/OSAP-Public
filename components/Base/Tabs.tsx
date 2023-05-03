@@ -13,8 +13,7 @@ type TabsProps = {
   tabs: TabsType;
   selectedTab: number;
   onClick: (index: number) => void;
-  orientation?: 'horizontal' | 'vertical';
-  agentId: string;
+  agentId?: string;
 };
 
 /**
@@ -23,9 +22,8 @@ type TabsProps = {
  * @param tab Array of object
  * @param selectedTab number
  * @param onClick Function to set the active tab
- * @param orientation Tab orientation Vertical | Horizontal
  */
-const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation = 'horizontal', agentId }) => {
+const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, agentId }) => {
   const Panel = tabs && tabs.find((tab) => tab.index === selectedTab);
 
   return (
@@ -33,14 +31,12 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
       <div
         role="tablist"
         className="hiddenScrollbar z-10 flex gap-2 overflow-x-scroll md:overflow-x-visible"
-        aria-orientation={orientation}
+        aria-orientation="horizontal"
       >
         {tabs.map((tab) => (
           <button
-            className={classNames({
-              'tab-button': true,
-              '-mb-1': selectedTab === tab.index,
-              'border-b-2  border-orange-600 border-b-white bg-white': selectedTab === tab.index,
+            className={classNames('tab-button', {
+              '-mb-0.5 border-b-2 border-orange-600 border-b-white bg-white font-semibold': selectedTab === tab.index,
             })}
             onClick={() => onClick(tab.index)}
             key={tab.index}
@@ -52,16 +48,11 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, orientation 
             id={`btn-${tab.index}`}
           >
             <tab.Icon weight={selectedTab === tab.index ? 'bold' : 'light'} size="1.2em" />
-            <h2>{tab.label}</h2>
+            {tab.label}
           </button>
         ))}
       </div>
-      <div
-        role="tabpanel"
-        className="rounded border-2 border-orange-500 bg-white p-3"
-        aria-labelledby={`btn-${selectedTab}`}
-        id={`tabpanel-${selectedTab}`}
-      >
+      <div role="tabpanel" className="tab-panel" aria-labelledby={`btn-${selectedTab}`} id={`tabpanel-${selectedTab}`}>
         {Panel && <Panel.Component index={selectedTab} agentId={agentId} />}
       </div>
     </div>

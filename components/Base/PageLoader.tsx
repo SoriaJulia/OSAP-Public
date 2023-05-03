@@ -12,9 +12,9 @@ const PageLoader = () => {
       transition={{ duration: 1 }}
       id="loader"
       className={`
-            fixed top-1/2 left-1/2 z-30 `}
+            fixed left-1/2 top-1/2 z-30 `}
     >
-      <SpinnerGap size={80} className="fixed top-1/2 left-1/2 z-30 animate-spin text-orange-400/80" weight="bold" />
+      <SpinnerGap size={80} className="fixed left-1/2 top-1/2 z-30 animate-spin text-orange-400/80" weight="bold" />
     </motion.div>
   );
 };

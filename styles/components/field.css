@@ -1,0 +1,54 @@
+@tailwind components;
+@layer components {
+  .field {
+    @apply flex w-full sm:w-auto;
+  }
+
+  .field-control {
+    @apply w-full appearance-none rounded-sm border-2 border-grey-400 bg-white p-2 caret-blue-500 transition placeholder:text-grey-300 hover:border-blue-500 focus:border-teal-500 focus:outline-none focus:invalid:border-pink-700 disabled:border-grey-400 disabled:bg-grey-100;
+  }
+
+  .field-container {
+    @apply flex w-full;
+  }
+
+  .field-trailing-icon {
+    @apply flex items-center border-2 border-l-0 border-grey-400 bg-white p-2 px-3 text-lg text-blue-400 peer-hover:border-blue-500 peer-focus:border-teal-500 peer-disabled:border-grey-400 peer-disabled:bg-grey-100;
+  }
+
+  .field-container:has(.field-trailing-icon) .field-control {
+    @apply border-r-0;
+  }
+
+  .field-container:has(.field-control[type='radio']) {
+    @apply w-auto;
+  }
+
+  .field-error-text {
+    @apply my-1 hidden text-left text-sm font-light text-pink-800 peer-invalid:block;
+  }
+
+  .field-help-text {
+    @apply my-1 text-left text-sm font-light;
+  }
+
+  .field-control[type='radio'] {
+    @apply mb-1 mt-2 h-4 w-4 rounded-full border-slate-50 p-1.5 text-base outline outline-2 outline-offset-2 outline-slate-600 duration-300;
+  }
+
+  .field-control[type='radio']:checked {
+    @apply border-teal-50 bg-teal-300/30 outline-teal-400;
+  }
+
+  .field-control[type='checkbox'] {
+    @apply mb-1 mt-2 h-4 w-4 rounded-sm border-slate-50 p-1.5 text-base outline outline-2 outline-offset-2 outline-slate-600 duration-300;
+  }
+
+  .field-control[type='checkbox']:checked {
+    @apply border-teal-50 bg-teal-300/30 outline-teal-400;
+  }
+
+  .field-container:has(.field-control[type='checkbox']) {
+    @apply w-auto;
+  }
+}

@@ -37,12 +37,12 @@ const Modal: React.FC<ModalProps> = ({ show, onDismiss, showX = true, title, chi
             transition={{ ease: 'anticipate', duration: 1 }}
             id="modal"
             className={`${variants[variant]}
-            fixed top-1/2 left-1/2 z-30 flex h-screen w-screen transform flex-col items-center justify-start rounded  pt-9 md:h-fit  md:max-h-screen md:w-fit md:justify-between md:pt-0
+            fixed left-1/2 top-1/2 z-30 flex h-screen w-screen transform flex-col items-center justify-start rounded  pt-9 md:h-fit  md:max-h-screen md:w-fit md:justify-between md:pt-0
             `}
           >
             {showX && (
               <>
-                <button className="absolute top-10 left-2 md:hidden" onClick={onDismiss}>
+                <button className="absolute left-2 top-10 md:hidden" onClick={onDismiss}>
                   <ArrowLeft weight="bold" className="text-grey-300" size={36} />
                 </button>
                 <button className="absolute right-2 top-2 hidden md:flex" onClick={onDismiss}>
@@ -53,7 +53,7 @@ const Modal: React.FC<ModalProps> = ({ show, onDismiss, showX = true, title, chi
 
             <h1
               className={` ${titleVariant[variant]}
-            mr-4 ml-12 mt-2 flex text-center font-display text-2xl  md:mx-2 md:-mb-4 md:mt-4 md:text-4xl
+            ml-12 mr-4 mt-2 flex text-center font-display text-2xl  md:mx-2 md:-mb-4 md:mt-4 md:text-4xl
             `}
             >
               {title}

@@ -1,139 +1,98 @@
-import { UserRoles } from '@appTypes/enums';
-import { changeTextInput } from '@lib/utils';
-import Button from 'components/Base/Button';
-import { GetServerSideProps, NextPage } from 'next';
-import { RedirectableProviderType } from 'next-auth/providers';
-import { signIn } from 'next-auth/react';
-// eslint-disable-next-line camelcase
-import { unstable_getServerSession } from 'next-auth';
-import { useRouter } from 'next/router';
-import { WarningCircle, SignIn, Spinner } from 'phosphor-react';
+import { defaultQueryOptions, queryService } from '@lib/utils';
+import { getUltimasNovedades } from '@services/novedades';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
+import useNovedades, { GET_NOVEDADES_QUERY_KEY } from 'hooks/novedades/useNovedades';
+import useScrollListener from 'hooks/useScrollListener';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import React, { useState } from 'react';
-import Logo from 'components/SVG/Logo';
-import Slogan from 'components/SVG/Slogan';
-import InputField from '@components/Base/Fields/Input';
-import RadioButton from '@components/Base/Fields/RadioButton';
-import RadioGroup from '@components/Base/Fields/RadioGroup';
-import Link from 'next/link';
-import Password from '@components/Base/Fields/Password';
-import { nextAuthOptions } from './api/auth/[...nextauth]';
+import { SpinnerGap } from 'phosphor-react';
+import { useEffect, useState } from 'react';
+import Modal from '../components/Base/Modal';
+import Card from '../components/Novedades/Card';
+import PublicSectionsNav from '../components/PublicSectionsNav';
+import TelefonosAtencion from '../components/TelefonosAtencion';
+import TelefonosEmergencias from '../components/TelefonosEmergencias';
+import TerniumBanner from '../components/TerniumBanner';
 
-const Login: NextPage = () => {
-  const router = useRouter();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [loginIn, setLoginIn] = useState(false);
-  const [role, setRole] = useState(UserRoles.AFILIADO);
-
-  const handleLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setLoginIn(true);
-    e.preventDefault();
-    const redirectUrl = role === UserRoles.AFILIADO ? '/afiliados' : '/prestadores';
-    signIn<RedirectableProviderType>('credentials', {
-      username,
-      password,
-      role,
-      redirect: false,
-    }).then((value) => {
-      if (value?.error) {
-        setLoginIn(false);
-        setError(value.error);
-      } else {
-        if (!localStorage.getItem('showTravelBanner') && role === UserRoles.AFILIADO)
-          localStorage.setItem('showTravelBanner', 'true');
-        router.push(redirectUrl);
-      }
-    });
-  };
+const Home: NextPage = () => {
+  const { novedades, isLoading } = useNovedades();
+  const [showModal, setShowModal] = useState(false);
+  const [showTernium, setShowTernium] = useState(true);
+  const scroll = useScrollListener();
+  useEffect(() => {
+    if (scroll.y !== 0) setShowTernium(false);
+    if (scroll.y === 0) setShowTernium(true);
+  }, [scroll.y]);
 
   return (
-    <div className="flex h-screen w-full flex-col">
+    <div className="flex min-h-screen flex-col items-center pb-2">
       <Head>
-        <title>Iniciar Sesion - OSAP </title>
+        <title>OSAP - Obra Social Aceros Paraná</title>
+        <meta name="description" content="Obra social de los empleados de Ternium Argentina" />
       </Head>
-
-      <div className="flex h-full flex-col items-center justify-evenly bg-gradient-to-br from-orange-600/60 to-yellow-500/50">
-        <div className="flex max-w-md flex-col items-center rounded-xl bg-slate-50 py-6 px-6 drop-shadow-2xl lg:w-2/6">
-          <Link passHref href="http://www.osapsalud.com.ar/">
-            <button aria-label="Volver a Osap Salud" tabIndex={-1} className="mt-6 flex items-center gap-2 md:mr-0">
-              <Logo width="120" height="52" className="fill-orange-500" />
-              <Slogan width="180" height="52" className=" fill-grey-400 " />
-            </button>
-          </Link>
-          <form>
-            <div className="mt-12 flex flex-col gap-4">
-              <h1 className="mb-2 text-3xl text-orange-600">Ingresá </h1>
-              <InputField
-                id="user"
-                type="text"
-                label="Usuario"
-                placeholder="30256544"
-                helpText="Sin espacios ni caracteres especiales"
-                value={username}
-                onChange={changeTextInput(setUsername)}
-              />
-              <Password password={password} setPassword={setPassword} />
-              <RadioGroup legend="Tipo de usuario" stateSetter={setRole} defaultValue={UserRoles.AFILIADO}>
-                <RadioButton id={UserRoles.AFILIADO} label="Afiliado" />
-                <RadioButton id={UserRoles.PRESTADOR} label="Prestador" />
-              </RadioGroup>
-
-              <div className="mb-4 min-h-[24px] w-80 overflow-hidden text-rose-500">
-                {error ? (
-                  <>
-                    <WarningCircle className="mr-1 mb-1 inline" size={18} weight="bold" />
-                    {error}
-                  </>
-                ) : (
-                  ''
-                )}
-              </div>
-            </div>
-            <div className="flex flex-row-reverse gap-2 pt-10 md:pt-0 ">
-              <Button
-                label={loginIn ? 'Ingresando...' : 'Ingresar'}
-                variant="fill"
-                trailingIcon={
-                  loginIn ? <Spinner size={20} className="animate-spin" /> : <SignIn weight="bold" size={20} />
-                }
-                type="submit"
-                disabled={!username || !password}
-                onClick={handleLogin}
-                showIconOnMobile
-              />
-              <Button
-                label="Cancelar"
-                variant="yellowFill"
-                type="button"
-                onClick={() => {
-                  setError(null);
-                  window.open('http://www.osapsalud.com.ar//', '_self');
-                }}
-              />
-            </div>
-          </form>
+      <PublicSectionsNav />
+      <section className=" osap-container grid gap-12 bg-gradient-to-r from-white/20 via-white/90 to-white/20 lg:grid-cols-2">
+        <TelefonosEmergencias />
+        <TelefonosAtencion />
+      </section>
+      <section className="mt-24 flex items-center gap-3  bg-gradient-to-r from-yellow-200 to-orange-50 ">
+        <h2 className="flex items-center rounded-e-full bg-orange-600/70 p-12 font-display text-xl text-orange-25 lg:text-4xl xl:px-32">
+          Sobre Nosotros
+        </h2>
+        <p className="p-8 text-slate-700  lg:p-20 lg:text-2xl">
+          En OSAP administramos los fondos del personal de TERNIUM ARGENTINA para el cuidado de la salud, proyectándonos
+          hacia una atención rápida y con un mínimo de trámites administrativos para nuestros{' '}
+          <span className="font-bold"> más de 23.000 beneficiarios.</span>
+        </p>
+      </section>
+      <section className="flex items-center gap-3 bg-gradient-to-r from-yellow-200 to-orange-50 ">
+        <p className="p-8 text-slate-700  lg:p-20 lg:text-2xl">
+          Proveemos la mejor atención a través de nuestra red de servicios médicos asistenciales, con profesionales en
+          todas las especialidades médicas, diagnósticos y servicios complementarios y servicios de emergencia las 24hs
+          todos los días del año.
+        </p>
+        <h2 className="flex items-center rounded-s-full bg-orange-600/70 p-12 font-display text-xl text-orange-25 lg:text-4xl xl:px-32">
+          Nuestro Servicio
+        </h2>
+      </section>
+      <section className=" osap-container mb-4 mt-24 w-full">
+        <div className="flex justify-between">
+          <h2 className="font-display text-4xl text-grey-500/80">Nuestras últimas novedades</h2>
+          <a href="/novedades" className="btn-text-blue">
+            Ver todas
+          </a>
         </div>
-      </div>
+        <div className="mt-12 grid justify-evenly gap-11 auto-fit-fixed-[380px] xl:justify-between">
+          {isLoading && <SpinnerGap className="animate-spin" />}
+          {novedades.length > 0 &&
+            novedades.map((novedad) => {
+              return <Card novedad={novedad} key={novedad._id} />;
+            })}
+        </div>
+      </section>
+      <TerniumBanner classname={`${showTernium ? 'scale-y-100' : 'scale-y-0'}`} />
+
+      <Modal
+        show={showModal}
+        onDismiss={() => {
+          setShowModal(false);
+        }}
+        title=""
+      />
     </div>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await unstable_getServerSession(req, res, nextAuthOptions);
+  const queryClient = new QueryClient({ defaultOptions: { queries: defaultQueryOptions } });
 
-  if (session && session.user) {
-    const destination = session?.user.agentId === '0' ? '/prestadores' : '/afiliados';
-    return {
-      redirect: {
-        destination,
-        permanent: true,
-      },
-    };
-  }
+  queryClient.prefetchQuery([GET_NOVEDADES_QUERY_KEY], queryService(getUltimasNovedades));
 
-  return { props: {} };
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
-export default Login;
+export default Home;

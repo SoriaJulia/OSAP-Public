@@ -22,9 +22,9 @@ const Credenciales = ({ agentId }: Props) => {
   if (isLoading) return <div className="flex w-full gap-3 py-6">{skeletonsList}</div>;
 
   return (
-    <section className="my-2 flex w-full flex-col  py-6">
+    <section className=" osap-container my-2 flex w-full flex-col  py-6">
       <h3 className="mb-4 text-3xl text-blue-800">Credenciales</h3>
-      <div className="flex w-full justify-end gap-1 px-2 pb-4 sm:gap-4 sm:px-6 xs:gap-2">
+      <div className="flex w-full justify-end gap-1 px-2 pb-4 xs:gap-2 sm:gap-4 sm:px-6">
         <Button
           label="Certificado de Estudio"
           onClick={() => router.push('/afiliados/certificados')}

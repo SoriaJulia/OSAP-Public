@@ -1,3 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -54,7 +58,7 @@ module.exports = {
           600: '#1b212e',
           700: '#181e29',
           800: '#151a24',
-          900: '#12161f',
+          900: '#151616',
         },
       },
       gridTemplateColumns: {
@@ -105,5 +109,24 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          // Class name
+          'auto-fit': (value) => {
+            return {
+              gridTemplateColumns: 'repeat(auto-fit, minmax(value, 1fr))'.replace('value', value),
+            };
+          },
+          'auto-fit-fixed': (value) => {
+            return {
+              gridTemplateColumns: 'repeat(auto-fit, value)'.replace('value', value),
+            };
+          },
+        },
+        { values: theme('width') }
+      );
+    }),
+  ],
 };

@@ -14,7 +14,7 @@ import Head from 'next/head';
 import { SpinnerGap, PaperPlaneRight } from 'phosphor-react';
 import React, { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 
 const TrabajaConNosotros: NextPage = () => {
   const [nombre, setNombre] = useState('');
@@ -65,7 +65,7 @@ const TrabajaConNosotros: NextPage = () => {
     mutate(formdata);
   };
   return (
-    <div>
+    <div className=" osap-container">
       <Head>
         <title>Trabajá con Nosotros - OSAP</title>
         <meta name="description" content="Sumate a nuestro equipo como empleado o prestador" />

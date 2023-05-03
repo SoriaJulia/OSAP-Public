@@ -10,8 +10,9 @@ const FarmaciaSavio: NextPage = () => {
     <section className="flex gap-2">
       <Head>
         <title>Farmacia Planta Savio - OSAP</title>
+        <meta name="description" content="Farmacia en la planta industrial savio" />
       </Head>
-      <div>
+      <div className=" osap-container">
         <PageTitle title="Farmacia Planta Savio" />
         <article className="flex flex-col gap-3 text-lg lg:mr-12 xl:w-3/5 2xl:mr-20">
           <span className="mb-4 block text-2xl font-thin text-blue-800">
@@ -25,7 +26,7 @@ const FarmaciaSavio: NextPage = () => {
             Cuenta con dos bocas de atención, una de ellas por fuera del acceso a planta, lo que permite que los
             afiliados puedan acudir sin necesidad de ingresar a las instalaciones de la Planta.
           </p>
-          <div className="mt-4 grid gap-y-3 gap-x-0.5 lg:mt-8 lg:grid-cols-2">
+          <div className="mt-4 grid gap-x-0.5 gap-y-3 lg:mt-8 lg:grid-cols-2">
             <span className="flex items-center gap-2 text-lg">
               <ContactLink
                 target="_blank"

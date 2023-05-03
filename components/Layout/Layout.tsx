@@ -10,8 +10,8 @@ const Layout: React.FC = ({ children }) => {
 
   return (
     <div className="flex min-h-screen flex-col justify-between bg-grey-50 text-blue-900">
-      <Header>{user && <LoggedUserNavbar user={session?.data?.user} />}</Header>
-      <main className="flex w-full grow flex-col px-6 pt-8 lg:px-16 xl:px-20 2xl:px-32">{children}</main>
+      <Header>{user && <LoggedUserNavbar user={user} />}</Header>
+      <main className="flex w-full grow flex-col">{children}</main>
       <Footer />
     </div>
   );

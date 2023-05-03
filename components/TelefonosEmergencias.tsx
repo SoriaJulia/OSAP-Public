@@ -104,14 +104,14 @@ const places = [
 
 const TelefonosEmergencias = () => {
   return (
-    <article className="flex  break-before-column flex-col rounded bg-white p-4 ">
-      <h2 className="mb-4 flex justify-center gap-2 font-display text-3xl text-orange-600 sm:gap-3 sm:text-4xl">
+    <article className="flex break-before-column flex-col lg:px-6 ">
+      <h2 className="mb-4 flex gap-2 font-display text-xl text-orange-600 sm:gap-3 sm:text-3xl">
         <FirstAid className="mt-1" /> Emergencias
       </h2>
       <div className="flex flex-col flex-wrap divide-y divide-dotted divide-slate-200">
         {places.map((place) => {
           return (
-            <div key={place.name} className="flex flex-wrap items-center gap-2 p-4 text-left">
+            <div key={place.name} className="flex flex-wrap items-center gap-2 py-3 text-left">
               {place.name}
               <small>({place.provider})</small>
               <Phone className="text-orange-500" weight="duotone" size={24} />

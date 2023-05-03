@@ -9,7 +9,7 @@ import React from 'react';
 
 const TelefonosUtiles: NextPage = () => {
   return (
-    <div>
+    <div className=" osap-container">
       <Head>
         <title>Teléfonos útiles - OSAP</title>
         <meta
@@ -18,10 +18,10 @@ const TelefonosUtiles: NextPage = () => {
         />
       </Head>
       <PageTitle title="Teléfonos útiles" />
-      <div className="columns-1 gap-6 md:columns-2">
+      <div className="flex flex-col gap-6 rounded bg-white p-4 py-6 md:columns-2">
         <TelefonosEmergencias />
-        <article className="mt-6 flex flex-col gap-2 rounded bg-white p-4  text-left">
-          <h2 className="mb-4 flex justify-center gap-2 font-display text-3xl text-orange-600 sm:gap-3 sm:text-4xl">
+        <article className="mt-6 flex flex-col gap-2 rounded bg-white text-left">
+          <h2 className="mb-4 flex gap-2 font-display text-xl text-orange-600 sm:gap-3 sm:text-3xl">
             <FirstAid className="mt-1" /> Assist Travel <Car className="mt-1" />
           </h2>
           <p className="text-xl">En caso de necesitar atención médica desde cualquier otro lugar del pais:</p>

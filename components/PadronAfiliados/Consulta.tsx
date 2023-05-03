@@ -59,7 +59,7 @@ const PadronAfiliados = () => {
   };
   const headers = ['Número', 'Nombre y Apellido', 'Edad', 'Documento', 'Estado', '   ...'];
   return (
-    <>
+    <section className=" osap-container">
       <PageTitle title="Consultá el padrón de afiliados" />
       <div className="rounded bg-white/80 p-8">
         <form className="flex flex-wrap items-start gap-5">
@@ -119,7 +119,7 @@ const PadronAfiliados = () => {
             </p>
           ))}
       </div>
-    </>
+    </section>
   );
 };
 

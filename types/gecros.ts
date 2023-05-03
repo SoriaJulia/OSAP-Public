@@ -13,5 +13,5 @@ export type GECROSBasePayload = {
 
 export type ServiceResponse<T> = {
   data: T | null;
-  message: string;
+  message: string | null;
 };

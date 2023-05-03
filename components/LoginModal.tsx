@@ -67,7 +67,7 @@ const LoginModal: React.FC<ModalProps> = ({ onDismiss, show, title }) => {
             <div className="h-12 w-80 overflow-hidden text-rose-500">
               {error ? (
                 <>
-                  <WarningCircle className="mr-1 mb-1 inline" size={18} weight="bold" />
+                  <WarningCircle className="mb-1 mr-1 inline" size={18} weight="bold" />
                   {error}
                 </>
               ) : (
@@ -79,7 +79,6 @@ const LoginModal: React.FC<ModalProps> = ({ onDismiss, show, title }) => {
             <Button
               label="Cancelar"
               variant="yellowFill"
-              type="button"
               onClick={() => {
                 setError(null);
                 onDismiss();

@@ -2,7 +2,6 @@ import OSAPUser from '@appTypes/user';
 import { getUser } from '@services/user';
 import { ServiceResponse } from '@appTypes/gecros';
 import { Credentials } from 'pages/api/auth/[...nextauth]';
-import { UserRoles } from '@appTypes/enums';
 import { getAgente } from './agente';
 
 export const GECROSService = {
@@ -18,11 +17,13 @@ export const GECROSService = {
     }
 
     response.data = {
+      id: usuario.agecta_id,
       name: usuario.Nombre,
       agentId: usuario.agecta_id.toString(),
       role: credentials.role,
       dni: credentials.username,
       proveedorId: usuario.Prov_Cod,
+      message: usuario.Mensaje,
     };
 
     if (response.data.agentId !== '0') {

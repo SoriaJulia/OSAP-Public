@@ -94,7 +94,7 @@ const MediosPago: NextPage<{ user: User }> = ({ user }) => {
   const { convenio, agentId } = user;
   const linkPago = convenio && getLinkPago(agentId, convenio);
   return (
-    <div className="text-left">
+    <div className=" osap-container text-left">
       <Head>
         <title>Medios de Pago - OSAP</title>
       </Head>
@@ -166,7 +166,7 @@ const MediosPago: NextPage<{ user: User }> = ({ user }) => {
                 key={medio.Name}
               >
                 <button
-                  className="mr-3 mb-2 flex flex-shrink-0 flex-col items-center gap-2 p-1 text-sm text-slate-600 underline sm:mb-0"
+                  className="mb-2 mr-3 flex flex-shrink-0 flex-col items-center gap-2 p-1 text-sm text-slate-600 underline sm:mb-0"
                   onClick={medio.OnClick}
                 >
                   <Image src={medio.Image} alt={medio.Name} className="object-scale-down" width={200} height={120} />
@@ -184,7 +184,7 @@ const MediosPago: NextPage<{ user: User }> = ({ user }) => {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
-  if (!session || session.status === 'unauthenicated') {
+  if (!session || !session.user) {
     return {
       redirect: {
         destination: '/',

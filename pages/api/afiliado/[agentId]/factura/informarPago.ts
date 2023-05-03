@@ -3,8 +3,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { IncomingForm } from 'formidable';
 import { readFileSync } from 'fs';
 import { SERVER_ERROR } from '@lib/constants';
-// eslint-disable-next-line camelcase
-import { unstable_getServerSession } from 'next-auth';
+
+import { getServerSession } from 'next-auth';
 import { nextAuthOptions } from 'pages/api/auth/[...nextauth]';
 
 export const config = {
@@ -14,9 +14,9 @@ export const config = {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session = await unstable_getServerSession(req, res, nextAuthOptions);
+  const session = await getServerSession(req, res, nextAuthOptions);
   res.statusMessage = SERVER_ERROR;
-  const fData = await new Promise<{ fields: any; files: any }>((resolve, reject) => {
+  const fData = await new Promise<{ fields: any; files: any }>((resolve) => {
     const form = new IncomingForm({
       multiples: false,
     });

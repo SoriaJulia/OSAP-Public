@@ -1,147 +1,44 @@
 @import url('https://use.typekit.net/fjq7zjb.css');
+@import url(./components/button.css);
+@import url(./components/card.css);
+@import url(./components/field.css);
+@import url(./components/navbar.css);
+@import url(./components/pill.css);
+@import url(./components/table.css);
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
-  .card {
-    @apply rounded py-2 px-3 ring-1 ring-orange-100/50 ring-offset-2  ring-offset-yellow-50/80 print:ring-offset-orange-700/50;
-  }
-  .card-loading {
-    @apply flex  flex-col gap-4 rounded-md bg-gradient-to-br from-gray-200 to-gray-100 p-6;
-  }
-  .card-loading .card-item-loading {
-    @apply animate-pulse rounded bg-gradient-to-r from-slate-400/60 to-slate-300/80;
-  }
-  .card-loading-orange {
-    @apply card-loading from-orange-300 to-orange-100;
-  }
-  .card-loading-orange .card-item-loading {
-    @apply from-slate-50/60 to-slate-200/50;
-  }
-  .field {
-    @apply flex w-full sm:w-auto;
-  }
-  .field-control {
-    @apply w-full appearance-none rounded-sm border-2 border-grey-400 bg-white p-2 caret-blue-500 transition placeholder:text-grey-300 hover:border-blue-500 focus:border-teal-500 focus:outline-none focus:invalid:border-pink-700 disabled:border-grey-400 disabled:bg-grey-100;
-  }
-  .field-container {
-    @apply flex w-full;
-  }
-  .field-trailing-icon {
-    @apply flex items-center border-2 border-l-0 border-grey-400 bg-white p-2 px-3 text-lg text-blue-400 peer-hover:border-blue-500 peer-focus:border-teal-500 peer-disabled:border-grey-400 peer-disabled:bg-grey-100;
-  }
-  .field-container:has(.field-trailing-icon) .field-control {
-    @apply border-r-0;
-  }
-  .field-container:has(.field-control[type='radio']) {
-    @apply w-auto;
-  }
-  .field-error-text {
-    @apply my-1 hidden text-left text-sm font-light text-pink-800 peer-invalid:block;
-  }
-  .field-help-text {
-    @apply my-1 text-left text-sm font-light;
-  }
-  .field-control[type='radio'] {
-    @apply mt-2 mb-1 h-4 w-4 rounded-full border-slate-50 p-1.5 text-base outline outline-2 outline-offset-2 outline-slate-600 duration-300;
-  }
-  .field-control[type='radio']:checked {
-    @apply border-teal-50 bg-teal-300/30  outline-teal-400;
+  .osap-container {
+    @apply p-4 xl:px-24 2xl:px-32;
   }
   .tab-button {
-    @apply mb-0 mt-2 flex items-end gap-1 whitespace-nowrap rounded-t-lg border-x-2 border-t-2 bg-white/50 py-2 px-7 text-lg text-orange-700 md:py-4 md:text-xl;
+    @apply mb-0 mt-2 flex items-end gap-1 whitespace-nowrap rounded-t-lg border-x-2 border-t-2 bg-white/50 px-7 py-2 text-lg text-orange-700 md:py-4 md:text-xl;
   }
   .tab-panel {
     @apply rounded border-2 border-orange-500 bg-white p-3;
   }
-  .pill {
-    @apply w-fit rounded-xl bg-gray-200 py-0.5 px-3 text-center text-gray-700;
-  }
-  .pill-success {
-    @apply pill bg-emerald-300/40;
-  }
-  .pill-warning {
-    @apply pill bg-yellow-400/30;
-  }
-  .pill-error {
-    @apply pill bg-orange-300/40;
-  }
-  .btn {
-    @apply flex h-fit w-fit items-center justify-center gap-2 rounded-md px-2 py-2 tracking-wide transition ease-in-out hover:scale-105 focus:scale-105 disabled:cursor-not-allowed;
-  }
-  .btn-orange {
-    @apply bg-orange-100 text-grey-500 hover:bg-orange-50 focus:bg-yellow-300 disabled:bg-gray-300;
-  }
-  .btn-yellow {
-    @apply bg-yellow-100 text-grey-500 hover:bg-yellow-50;
-  }
-  .btn-text-blue {
-    @apply font-normal text-blue-600 underline decoration-blue-400/80 underline-offset-1 hover:bg-white;
-  }
-  .btn-text-slate {
-    @apply font-normal text-slate-700 underline decoration-slate-600/80 underline-offset-1 hover:text-slate-800;
-  }
-  .table {
-    @apply my-8 w-full;
-  }
-  .table-head {
-    @apply border-b-2 border-blue-500 text-lg text-blue-700;
-  }
-  .table-th-sortable {
-    @apply min-w-[150px] cursor-pointer select-none text-base lg:text-lg;
-  }
-  .table-head th {
-    @apply border-r-2 p-2 py-1 text-left font-normal;
-  }
-  .table-head th:last-of-type {
-    @apply border-none;
-  }
-  .table-body {
-    @apply divide-y-2;
-  }
-  .table-body tr {
-    @apply odd:bg-slate-50;
-  }
-  .table-body td {
-    @apply select-text border-r-2 p-2 text-sm lg:pl-6;
-  }
-  .table-body td:last-of-type {
-    @apply border-none pl-2;
-  }
-  .table-sorting-icon {
-    @apply mb-1 mr-0.5 inline rounded-md bg-teal-200/30 p-0.5 text-xl md:ml-2 xl:mr-4;
-  }
-  .table-loading td {
-    @apply h-10 animate-pulse rounded bg-gradient-to-r from-slate-400/60 to-slate-300/80 bg-clip-content p-1;
-  }
-  .table-loading tr {
-    @apply space-x-5;
-  }
 
-  .navbar-item-li {
-    @apply relative rounded-sm font-display text-xl text-blue-900 transition hover:bg-blue-100;
-  }
-  .navbar-item-list-ul {
-    @apply top-14 z-20 w-full flex-col pt-2  md:absolute md:w-max md:bg-white md:py-0;
-  }
-  .navbar-item-link {
-    @apply flex w-full items-center justify-between p-4;
-  }
-  .navbar-item-link-label {
-    @apply flex items-center gap-3;
-  }
-  .user-menu-mobile {
-    @apply z-20 flex items-center gap-7 rounded-bl-full border-b-2 border-l-2 border-blue-600 bg-blue-700 pt-3 pb-3 pl-10 pr-4 font-display text-lg text-blue-100 transition-all;
-  }
-  .user-menu-mobile button {
-    @apply hover:text-teal-200;
-  }
   .info-banner {
-    @apply sticky bottom-0 z-20 flex w-screen items-center justify-between bg-slate-900 py-3 px-6 text-teal-400 md:px-10;
+    @apply sticky bottom-0 z-20 flex w-screen items-center justify-between bg-slate-900 px-6 py-3 text-teal-400 md:px-10;
   }
   .info-banner-content {
     @apply flex flex-wrap items-center gap-2;
+  }
+
+  .novedad {
+    @apply text-slate-800;
+  }
+  .novedad ul {
+    @apply list-inside list-disc;
+  }
+  .novedad a {
+    @apply text-blue-400 underline;
+  }
+
+  .ternium-banner {
+    @apply sticky inset-y-0 bottom-0 flex w-screen items-center justify-center bg-gradient-to-tl from-orange-500/90 to-yellow-600/90 text-white transition-all;
   }
 }
 

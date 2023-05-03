@@ -17,12 +17,12 @@ import { getCredencialesGrupo } from '@services/agente';
 import { NEXT_URL } from 'config';
 import useCredenciales, { GET_CREDENCIALES_QUERY_KEY } from 'hooks/credenciales/useCredenciales';
 import { GetServerSideProps, NextPage } from 'next';
-// eslint-disable-next-line camelcase
-import { unstable_getServerSession } from 'next-auth';
+
+import { getServerSession } from 'next-auth';
 import { nextAuthOptions } from 'pages/api/auth/[...nextauth]';
 import { PaperPlaneRight, SpinnerGap } from 'phosphor-react';
 import React, { useRef, useState } from 'react';
-import { dehydrate, QueryClient, useMutation } from 'react-query';
+import { dehydrate, QueryClient, useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { SERVER_ERROR } from '@lib/constants';
 import { redirect } from 'next/dist/server/api-utils';
@@ -83,7 +83,7 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
   };
 
   return (
-    <div>
+    <div className=" osap-container">
       <Head>
         <title>Certificado de estudio - OSAP</title>
       </Head>
@@ -168,9 +168,9 @@ const Certificados: NextPage<{ user: User }> = ({ user }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await unstable_getServerSession(req, res, nextAuthOptions);
+  const session = await getServerSession(req, res, nextAuthOptions);
 
-  if (!session || session.status === 'unauthenicated' || !session.user) {
+  if (!session || !session.user) {
     return {
       redirect: {
         destination: '/',

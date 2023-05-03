@@ -10,7 +10,7 @@ type TerniumProps = {
 const TerniumSVG: React.FC<TerniumProps> = ({
   width = '124',
   height = '39',
-  className = 'fill-white',
+  className = 'fill-white scale-75',
   full = true,
 }) => {
   return (

@@ -18,7 +18,8 @@ export const nextAuthOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
         role: { label: 'role', type: 'text' },
       },
-      async authorize(credentials): Promise<OSAPUser | null> {
+
+      async authorize(credentials, req) {
         console.log(credentials);
         if (!credentials) {
           return null;

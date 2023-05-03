@@ -18,7 +18,7 @@ const CardAfiliado = ({ afiliado }: { afiliado: Afiliado }) => {
       }}
       show={showModal}
     >
-      <div className="flex w-full gap-6 px-8 pt-12 pb-4 text-slate-700">
+      <div className="flex w-full gap-6 px-8 pb-4 pt-12 text-slate-700">
         <UserCircle size={48} weight="duotone" className="text-yellow-800" />
         <div className="flex flex-col gap-3">
           <p className=" flex items-center gap-1 text-xl text-teal-600">

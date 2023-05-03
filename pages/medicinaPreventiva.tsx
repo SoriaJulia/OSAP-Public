@@ -1,20 +1,23 @@
-import Button from '@components/Base/Button';
 import ContactLink from '@components/Base/ContactLink';
 import PageTitle from '@components/Base/PageTitle';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Calendar, Envelope, MapPin, Phone } from 'phosphor-react';
+import { Envelope, MapPin, Phone } from 'phosphor-react';
 import React from 'react';
 
 const MedicinaPreventiva: NextPage = () => {
   const router = useRouter();
   return (
-    <div className="text-left">
+    <div className=" osap-container text-left">
       <Head>
         <title>Medicina Preventiva - OSAP</title>
+        <meta
+          name="description"
+          content="Centro de medicina preventiva OSAP. Es un centro Medico en San Nicolas disponible para todos los afiliados"
+        />
       </Head>
-      <div className="my-4 flex items-end justify-between lg:mr-8">
+      <div className="mb-4 flex items-end justify-between">
         <PageTitle title="Centro de Medicina Preventiva OSAP" />
         {/*  
          <Button

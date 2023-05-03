@@ -1,6 +1,8 @@
 import React, { ReactNode } from 'react';
 
-const PageTitle: React.FC<{ title: string; icon?: ReactNode; subtitle?: string }> = ({ title, icon, subtitle }) => {
+type PageTitleProps = { title: string; icon?: ReactNode; subtitle?: string };
+
+export const PageTitle = ({ title, icon, subtitle }: PageTitleProps) => {
   return (
     <>
       <h1 className="flex items-end gap-2 pt-6 font-display text-4xl text-orange-600">

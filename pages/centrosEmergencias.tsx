@@ -68,14 +68,14 @@ const centros = [
 
 const CentrosEmergencias: NextPage = () => {
   return (
-    <div>
+    <div className=" osap-container">
       <Head>
         <title>Emergencias - OSAP</title>
         <meta name="description" content="Servicios de atencion ante emergencias disponibles en cada localidad" />
       </Head>
-      <PageTitle title="Atención ante emergencias" />
 
-      <section className="rounded-sm bg-slate-50 p-4 text-left lg:columns-2">
+      <PageTitle title="Atención ante emergencias" />
+      <section className="rounded-sm  bg-slate-50 p-4 text-left lg:columns-2">
         {centros.map((centro) => {
           return (
             <div className="break-inside-avoid-column">
@@ -85,7 +85,7 @@ const CentrosEmergencias: NextPage = () => {
           );
         })}
       </section>
-      <p className="mt-12 mb-3 text-left text-lg text-slate-600 lg:w-4/5">
+      <p className="mb-3 mt-12 text-left text-lg text-slate-600 lg:w-4/5">
         • Se denomina emergencia a toda situación crítica en que la vida, los órganos y/o funciones vitales del paciente
         puedan quedar comprometidos de no mediar una rápida y adecuada asistencia profesional.
       </p>

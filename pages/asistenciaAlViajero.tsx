@@ -1,14 +1,18 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import { Info, Warning, WarningCircle } from 'phosphor-react';
+import { WarningCircle } from 'phosphor-react';
 import React from 'react';
 import PageTitle from '../components/Base/PageTitle';
 
 const AsistenciaAlViajero: NextPage = () => {
   return (
-    <section className="flex text-left">
+    <section className=" osap-container flex text-left">
       <Head>
         <title>Assist Travel - OSAP</title>
+        <meta
+          name="description"
+          content="Convenio con Assist Travel para proveer cobertura para viajes dentro de Argentina."
+        />
       </Head>
       <article>
         <PageTitle title="Asistencia al viajero" />

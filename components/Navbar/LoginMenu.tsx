@@ -1,4 +1,4 @@
-import { UserCircle } from 'phosphor-react';
+import { SignIn, UserCircle } from 'phosphor-react';
 import { useState } from 'react';
 import LoginModal from '../LoginModal';
 import Portal from '../Layout/Portal';
@@ -11,11 +11,10 @@ const LoginMenu = () => {
   };
   return (
     <>
-      <div className="user-menu-mobile">
-        <button aria-label="Ingresar" onClick={handleClick}>
-          <UserCircle weight="duotone" size={32} />
-        </button>
-      </div>
+      <button aria-label="Ingresar" className="user-menu" onClick={handleClick}>
+        <UserCircle weight="duotone" size={24} />
+        Ingresar
+      </button>
 
       <Portal>
         <LoginModal

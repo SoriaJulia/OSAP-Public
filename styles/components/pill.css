@@ -1,0 +1,16 @@
+@tailwind components;
+
+@layer components {
+  .pill {
+    @apply w-fit rounded-xl bg-gray-200 px-3 py-0.5 text-center text-gray-700;
+  }
+  .pill-success {
+    @apply pill bg-emerald-300/40;
+  }
+  .pill-warning {
+    @apply pill bg-yellow-400/30;
+  }
+  .pill-error {
+    @apply pill bg-orange-300/40;
+  }
+}

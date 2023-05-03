@@ -11,8 +11,12 @@ const Farmacia: NextPage = () => {
     <section className="mt-2 flex">
       <Head>
         <title>Farmacia Don Bosco - OSAP</title>
+        <meta
+          name="description"
+          content="Farmacia para los clientes de OSAP. Ofrece pedidos web y envios a algunas localidades"
+        />
       </Head>
-      <div className="flex flex-col justify-around lg:mr-12 xl:w-3/5 2xl:mr-20">
+      <div className=" osap-container flex flex-col justify-around lg:mr-12 xl:w-3/5 2xl:mr-20">
         <div className="flex flex-wrap items-center justify-between">
           <PageTitle title="Farmacia Don Bosco" />
           <div className="mb-8 flex items-end gap-2 md:mb-0">
@@ -54,7 +58,7 @@ const Farmacia: NextPage = () => {
               <li>Elementos de ostomía sin costo </li>
             </ul>
           </div>
-          <div className="mt-8 grid gap-y-2 gap-x-0.5 lg:grid-cols-2">
+          <div className="mt-8 grid gap-x-0.5 gap-y-2 lg:grid-cols-2">
             <span className="flex items-center gap-2 text-lg">
               <ContactLink
                 target="_blank"
@@ -92,10 +96,10 @@ const Farmacia: NextPage = () => {
           </h2>
           <p className="my-3 text-lg">Por cadeteria a las siguientes localidades:</p>
           <div className="flex flex-wrap gap-2">
-            <span className="rounded bg-white py-1 px-2 text-blue-600">San Nicolás</span>
-            <span className="rounded bg-white py-1 px-2 text-blue-600">La Emilia</span>
-            <span className="rounded bg-white py-1 px-2 text-blue-600">Ramallo y Villa Ramallo</span>
-            <span className="flex gap-2 rounded bg-white py-1 px-2 text-blue-600">
+            <span className="rounded bg-white px-2 py-1 text-blue-600">San Nicolás</span>
+            <span className="rounded bg-white px-2 py-1 text-blue-600">La Emilia</span>
+            <span className="rounded bg-white px-2 py-1 text-blue-600">Ramallo y Villa Ramallo</span>
+            <span className="flex gap-2 rounded bg-white px-2 py-1 text-blue-600">
               Villa Constitucion y Empalme:
               <ContactLink label="Jose Barretto (3400)444023" href="tel:3400444023" variant="black" />
             </span>

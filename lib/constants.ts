@@ -5,5 +5,7 @@ export const SERVER_ERROR =
   'Hubo un error procesando su solicitud, por favor intente nuevamente. Si el error persiste contáctenos.';
 export const NETWORK_ERROR =
   'Hubo un error al conectarse con el servidor. Revise su conexión a internet e intente nuevamente';
-export const DEFAULT_CACHE_TIME = 8.64e7;
-export const DEFAULT_STALE_TIME = 3.6e6;
+export const DEFAULT_CACHE_TIME = 300000;
+export const DEFAULT_STALE_TIME = 400000;
+export const SANITY_API_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_API_PROJECT_ID! || 'p6yd2y5a';
+export const SANITY_DATASET_NAME = process.env.NEXT_PUBLIC_SANITY_API_DATASET!;

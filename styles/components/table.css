@@ -1,0 +1,40 @@
+@tailwind components;
+
+@layer components {
+  .table {
+    @apply my-8 w-full;
+  }
+  .table-head {
+    @apply border-b-2 border-blue-500 text-lg text-blue-700;
+  }
+  .table-th-sortable {
+    @apply min-w-[150px] cursor-pointer select-none text-base lg:text-lg;
+  }
+  .table-head th {
+    @apply border-r-2 p-2 py-1 text-left font-normal;
+  }
+  .table-head th:last-of-type {
+    @apply border-none;
+  }
+  .table-body {
+    @apply divide-y-2;
+  }
+  .table-body tr {
+    @apply odd:bg-slate-50;
+  }
+  .table-body td {
+    @apply select-text border-r-2 p-2 text-sm lg:pl-6;
+  }
+  .table-body td:last-of-type {
+    @apply border-none pl-2;
+  }
+  .table-sorting-icon {
+    @apply mb-1 mr-0.5 inline rounded-md bg-teal-200/30 p-0.5 text-xl md:ml-2 xl:mr-4;
+  }
+  .table-loading td {
+    @apply h-10 animate-pulse rounded bg-gradient-to-r from-slate-400/60 to-slate-300/80 bg-clip-content p-1;
+  }
+  .table-loading tr {
+    @apply space-x-5;
+  }
+}

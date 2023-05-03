@@ -3,8 +3,8 @@ import React from 'react';
 import User from '@appTypes/user';
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
-// eslint-disable-next-line camelcase
-import { unstable_getServerSession } from 'next-auth';
+
+import { getServerSession } from 'next-auth';
 import { nextAuthOptions } from 'pages/api/auth/[...nextauth]';
 
 const Prestadores = ({ user }: { user: User }) => {
@@ -19,9 +19,9 @@ const Prestadores = ({ user }: { user: User }) => {
   );
 };
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await unstable_getServerSession(req, res, nextAuthOptions);
+  const session = await getServerSession(req, res, nextAuthOptions);
 
-  if (!session || session.status === 'unauthenicated' || !session.user) {
+  if (!session || !session.user) {
     return {
       redirect: {
         destination: '/',

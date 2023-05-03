@@ -1,8 +1,8 @@
 import { InputChangeHandler, TextAreaChangeHandler } from '@appTypes/reactCommon';
-import { XMLParser } from 'fast-xml-parser';
+import { X2jOptionsOptional, XMLParser } from 'fast-xml-parser';
 import _ from 'lodash';
 import { GECROSBaseResponse, ServiceResponse } from '@appTypes/gecros';
-import { QueryObserverOptions } from 'react-query';
+import { QueryObserverOptions } from '@tanstack/react-query';
 import { DEFAULT_CACHE_TIME, DEFAULT_STALE_TIME } from './constants';
 
 export function jsonResponse(status: number, data: any, init?: ResponseInit) {
@@ -20,6 +20,7 @@ export type ParseSOAPOptions = {
   actionName: string;
   resultName: string;
   rootResultName?: string;
+  parserOptions?: X2jOptionsOptional;
 };
 
 /**
@@ -46,9 +47,10 @@ export const parseSOAPResponse = <T extends GECROSBaseResponse>(
   }
   const resultObj = parser.parse(result);
   const finalObj = resultObj?.[rootResultName]?.[resultName] || resultObj?.[rootResultName];
-  if (!finalObj) {
-    throw new Error(`Malformed XML for ${resultName}\n ${xml}`);
-  }
+  // if (!finalObj) {
+  //   throw new Error(`Malformed XML for ${resultName}\n ${xml}`);
+
+  // }
   return finalObj;
 };
 
@@ -60,6 +62,12 @@ export const changeTextInput =
   (setterFn: React.Dispatch<React.SetStateAction<string>>): InputChangeHandler =>
   (e) => {
     setterFn(e.target.value);
+  };
+
+export const changeCheckbox =
+  (setterFn: React.Dispatch<React.SetStateAction<boolean>>): InputChangeHandler =>
+  (e) => {
+    setterFn(e.target.checked);
   };
 
 export const changeTextArea =
@@ -130,6 +138,13 @@ export const getAge = (dateString: string) => {
 
   return `${age} años ${months > 0 ? `${months} meses` : ''}`;
 };
+export function getEnumKeyByEnumValue<TEnumKey extends string, TEnumVal extends string | number>(
+  myEnum: { [key in TEnumKey]: TEnumVal },
+  enumValue: TEnumVal
+): string {
+  const keys = (Object.keys(myEnum) as TEnumKey[]).filter((x) => myEnum[x] === enumValue);
+  return keys.length > 0 ? keys[0] : '';
+}
 
 export const defaultQueryOptions: QueryObserverOptions = {
   cacheTime: DEFAULT_CACHE_TIME,

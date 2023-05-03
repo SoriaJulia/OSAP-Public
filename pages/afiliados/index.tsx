@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
 import { GetServerSideProps } from 'next';
-import { Bank, Bell, CreditCard, CurrencyCircleDollar, Download, Info, X } from 'phosphor-react';
+import { Bank, Bell, CreditCard, CurrencyCircleDollar, Download, X } from 'phosphor-react';
 import Head from 'next/head';
 import { defaultQueryOptions, queryService } from '@lib/utils';
 import Credenciales from 'components/Credencial/List';
 import UltimasAutorizaciones from 'components/Facturacion/UltimasAutorizaciones';
 import { useRouter } from 'next/router';
 import { getLinkPago } from '@lib/facturacion';
-import { dehydrate, QueryClient } from 'react-query';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import Button from '@components/Base/Button';
 import AfiliadosSectionsNav from '@components/AfiliadosSectionsNav';
 import UltimasFacturas from '@components/Facturacion/UltimasFacturas';
@@ -18,14 +18,13 @@ import {
   getCredencialesGrupo,
   getFacturasAfiliado,
 } from '@services/agente';
-import { unstable_getServerSession } from 'next-auth';
+import { getServerSession } from 'next-auth';
 import { nextAuthOptions } from 'pages/api/auth/[...nextauth]';
 import User from '@appTypes/user';
 import { GET_AUTORIZACIONES_QUERY_KEY } from 'hooks/autorizaciones/useAutorizaciones';
 import { GET_FACTURAS_QUERY_KEY } from 'hooks/facturas/useFacturas';
 import { GET_CREDENCIALES_QUERY_KEY } from 'hooks/credenciales/useCredenciales';
 import { GET_COSEGUROS_QUERY_KEY } from 'hooks/coseguros/useCoseguros';
-import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 
 type Props = {
@@ -53,9 +52,9 @@ export const Afiliados = ({ user }: Props) => {
       </Head>
       <AfiliadosSectionsNav />
       <Credenciales agentId={user.agentId} />
-      <section className="flex w-full flex-col items-start pt-8">
+      <section className=" osap-container flex w-full flex-col items-start pt-8">
         <h3 className="mb-6 text-3xl text-blue-800 md:mb-0">Pagos y facturación</h3>
-        <div className="flex w-full justify-end gap-1 px-2 pb-4 sm:gap-4 sm:px-6 xs:gap-2">
+        <div className="flex w-full justify-end gap-1 px-2 pb-4 xs:gap-2 sm:gap-4 sm:px-6">
           <Button
             label="Medios de pago"
             variant="yellowFill"
@@ -101,7 +100,7 @@ export const Afiliados = ({ user }: Props) => {
           <a href="https://assistravel.info/registro" target="_blank" className="info-banner-content">
             <Bell weight="duotone" className="animate-sideBounce" size={24} />
             <span className="font-bold">¿Estas por viajar dentro del país?</span> Recordá completar el
-            <span className="underline">registro de viaje de Assist Travel</span>para poder contar con covertura y
+            <span className="underline">registro de viaje de Assist Travel</span>para poder contar con cobertura y
             viajar tranquilo.
           </a>
 
@@ -113,9 +112,9 @@ export const Afiliados = ({ user }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await unstable_getServerSession(req, res, nextAuthOptions);
+  const session = await getServerSession(req, res, nextAuthOptions);
 
-  if (!session || session.status === 'unauthenicated' || !session.user) {
+  if (!session || !session.user) {
     return {
       redirect: {
         destination: '/',

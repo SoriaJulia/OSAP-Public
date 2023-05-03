@@ -1,6 +1,6 @@
 import { queryService } from '@lib/utils';
 import { getAfiliadosPorNumero, getAfiliadosPorNombre, getAfiliadosPorDocumento } from '@services/afiliados';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const GET_AFILIADOS_QUERY_KEY = 'afiliados';
 const searchServices = {

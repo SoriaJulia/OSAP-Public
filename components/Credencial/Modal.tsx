@@ -12,8 +12,8 @@ type CredencialProps = {
 const CredencialModal: React.FC<CredencialProps & ModalProps> = ({ onDismiss, show, credencial, agentId }) => {
   return (
     <Modal onDismiss={onDismiss} show={show} variant="dark">
-      <div className="m-6 mt-24 flex w-[600px] rotate-90 scale-75 flex-col rounded-xl bg-orange-550/90 drop-shadow-lg sm:mt-12 sm:rotate-0 sm:scale-0 md:mt-6 lg:w-[650px] xs:scale-90 ">
-        <div className="ml-6 mb-1 mt-5 flex  items-end">
+      <div className="m-6 mt-24 flex w-[600px] rotate-90 scale-75 flex-col rounded-xl bg-orange-550/90 drop-shadow-lg xs:scale-90 sm:mt-12 sm:rotate-0 sm:scale-0 md:mt-6 lg:w-[650px] ">
+        <div className="mb-1 ml-6 mt-5 flex  items-end">
           <Logo className="h-16 fill-slate-50" /> <Slogan width="160" height="45" className="fill-slate-50" />
         </div>
         <p className="my-2 border-b-4 border-slate-100 pb-1 pl-6 text-left font-bold text-gray-300">

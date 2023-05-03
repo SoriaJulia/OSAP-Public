@@ -21,15 +21,15 @@ const FacturasList = ({ periodos, periodosToShow, isLoading }: Props) => {
 
   return (
     <div className="flex flex-wrap gap-5 pt-5">
-      {!isEmpty(periodos) ? (
+      {isEmpty(periodos) && !isLoading ? (
+        <EmptyListMessage text="No se encontraron facturas..." />
+      ) : (
         Object.entries(periodos)
           .map(([periodoId, facturas]) => {
-            return <FacturasXPeriodo isLoading={isLoading} key={periodoId} facturas={facturas} periodo={periodoId} />;
+            return <FacturasXPeriodo key={periodoId} facturas={facturas} periodo={periodoId} />;
           })
           .reverse()
           .slice(0, periodosToShow)
-      ) : (
-        <EmptyListMessage text="No se encontraron Facturas..." />
       )}
     </div>
   );

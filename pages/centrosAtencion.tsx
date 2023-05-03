@@ -91,7 +91,7 @@ const CentrosAtencion: NextPage = () => {
         <title>Centros de atención - OSAP</title>
         <meta name="description" content="Nuestros centros de atención, con sus respectivas direcciones y telefonos" />
       </Head>
-      <section className="text-left lg:w-3/5">
+      <section className=" osap-container text-left lg:w-3/5">
         <PageTitle title="Centros de atención" />
         <article className="rounded-sm bg-slate-50 p-4 text-left">
           {listCentros.map((centro) => {
@@ -108,7 +108,7 @@ const CentrosAtencion: NextPage = () => {
           })}
         </article>
       </section>
-      <img className="hidden w-2/5 p-4 pt-16 pr-8 lg:block" src="./img/undraw_interview.svg" alt="" />
+      <img className="hidden w-2/5 p-4 pr-8 pt-16 lg:block" src="./img/undraw_interview.svg" alt="" />
     </div>
   );
 };

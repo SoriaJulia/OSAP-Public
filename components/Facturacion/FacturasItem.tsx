@@ -6,14 +6,10 @@ import { DownloadSimple } from 'phosphor-react';
 type Props = {
   factura: Factura;
   downloadFactura: (compId: number) => void;
-  isLoading: boolean;
 };
-export const FacturasItem = ({ factura, isLoading, downloadFactura }: Props) => {
+export const FacturasItem = ({ factura, downloadFactura }: Props) => {
   const { CompId, Estado, Suc, Nro, Total } = factura;
 
-  if (isLoading) {
-    return <div>show factura card skeleton </div>;
-  }
   return (
     <div className="mr-4 mt-1 grid grid-cols-facturas items-center gap-1">
       <span className="font-display">Nº {`${Suc}-${Nro}`}</span>

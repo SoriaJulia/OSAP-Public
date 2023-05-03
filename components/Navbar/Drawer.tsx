@@ -33,7 +33,7 @@ const Drawer: React.FC<DrawerProps> = ({ show, onDismiss, children }) => {
             transition={{ ease: 'easeInOut', duration: 1 }}
             className="fixed top-0 z-30 flex h-full overflow-y-scroll rounded-r-xl bg-grey-50 px-8 pt-14 "
           >
-            <button className="absolute top-2 right-2 self-end p-3" onKeyDown={onDismiss} onClick={onDismiss}>
+            <button className="absolute right-2 top-2 self-end p-3" onKeyDown={onDismiss} onClick={onDismiss}>
               <X weight="bold" className=" text-grey-300" />
             </button>
 

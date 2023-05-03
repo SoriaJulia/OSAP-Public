@@ -7,14 +7,19 @@ import { useRouter } from 'next/router';
 import { AnimatePresence } from 'framer-motion';
 import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { defaultQueryOptions } from '@lib/utils';
+import { Session } from 'next-auth';
 import Layout from '../components/Layout/Layout';
 
-const noLayoutPages = ['/'];
+const noLayoutPages = ['/login'];
 
-interface CustomAppProps extends AppProps {
-  Component: AppProps['Component'] & { auth: boolean };
+interface PageProps {
+  session: Session;
+  dehydratedState: unknown;
+}
+interface CustomAppProps extends AppProps<PageProps> {
+  Component: AppProps['Component'];
 }
 
 function MyApp({ Component: PageComponent, pageProps: { session, ...pageProps } }: CustomAppProps) {

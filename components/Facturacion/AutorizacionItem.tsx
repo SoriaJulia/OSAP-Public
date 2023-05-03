@@ -16,7 +16,7 @@ const AutorizacionItem = ({ autorizacion }: Props) => {
         onClick={() => {
           setShowDetail(!showDetail);
         }}
-        className="mr-4 ml-1 grid grid-cols-autorizaciones gap-1 text-left "
+        className="ml-1 mr-4 grid grid-cols-autorizaciones gap-1 text-left "
         key={autorizacion.nro_ord}
       >
         <span>Día: {new Date(autorizacion.fecha).getDate()}</span>

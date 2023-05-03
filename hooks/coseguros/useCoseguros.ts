@@ -1,6 +1,6 @@
 import { queryService } from '@lib/utils';
 import { getCosegurosAfiliado } from '@services/agente';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export const GET_COSEGUROS_QUERY_KEY = 'coseguros';
 

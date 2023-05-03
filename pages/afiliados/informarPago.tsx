@@ -8,7 +8,7 @@ import { getSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { CurrencyCircleDollar, PaperPlaneRight, SpinnerGap } from 'phosphor-react';
 import { SERVER_ERROR } from '@lib/constants';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { NEXT_URL } from 'config';
 import TextAreaField from '@components/Base/Fields/TextArea';
@@ -65,7 +65,7 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
   };
 
   return (
-    <div className="mt-4 flex flex-col items-center text-left ">
+    <div className=" osap-container mt-4 flex flex-col items-center text-left ">
       <Head>
         <title>Informar Pago - OSAP</title>
       </Head>
@@ -161,7 +161,7 @@ const InformarPago: NextPage<{ agentId: string }> = ({ agentId }) => {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
-  if (!session || session.status === 'unauthenicated') {
+  if (!session || !session.user) {
     return {
       redirect: {
         destination: '/',

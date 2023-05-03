@@ -12,7 +12,7 @@ import Head from 'next/head';
 import { SpinnerGap, PaperPlaneRight, MapPin, Phone, WhatsappLogo, Envelope, Calendar } from 'phosphor-react';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import InputField from '@components/Base/Fields/Input';
 
 const Contacto: NextPage = () => {
@@ -64,9 +64,10 @@ const Contacto: NextPage = () => {
   };
 
   return (
-    <main>
+    <main className=" osap-container">
       <Head>
         <title>Contacto - OSAP</title>
+        <meta name="description" content="Comunicate con OSAP" />
       </Head>
       <PageTitle title="Estamos para ayudarte" subtitle="Contactános por cualquiera de los siguientes medios" />
       <div className="grid gap-8 lg:grid-cols-2 ">

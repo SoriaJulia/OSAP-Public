@@ -1,0 +1,35 @@
+@tailwind components;
+
+@layer components {
+  .card {
+    @apply rounded px-3 py-2 ring-1 ring-orange-100/50 ring-offset-2  ring-offset-yellow-50/80 print:ring-offset-orange-700/50;
+  }
+  .card-loading {
+    @apply flex  flex-col gap-4 rounded-md bg-gradient-to-br from-gray-200 to-gray-100 p-6;
+  }
+  .card-loading .card-item-loading {
+    @apply animate-pulse rounded bg-gradient-to-r from-slate-400/60 to-slate-300/80;
+  }
+  .card-loading-orange {
+    @apply card-loading from-orange-300 to-orange-100;
+  }
+  .card-loading-orange .card-item-loading {
+    @apply from-slate-50/60 to-slate-200/50;
+  }
+  details {
+    @apply open:card list-none open:bg-slate-50 open:p-4 md:max-w-2xl xl:max-w-4xl;
+  }
+  details .title {
+    @apply text-lg text-blue-600 underline decoration-blue-300;
+  }
+  details .title::marker {
+    @apply text-base text-blue-400;
+  }
+
+  details .content {
+    @apply p-4 text-slate-600;
+  }
+  details .content a {
+    @apply text-blue-400 underline decoration-blue-500;
+  }
+}

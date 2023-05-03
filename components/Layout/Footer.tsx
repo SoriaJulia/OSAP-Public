@@ -46,13 +46,16 @@ export const Footer = () => {
           <Link href="/trabajaConNosotros">Trabajá con nosotros</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
-          <Link href="http://www.osapsalud.com.ar/normas-generales/">Preguntas frecuentes</Link>
+          <Link href="/faq">Preguntas frecuentes</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
           <Link href="/telefonosUtiles">Telefonos útiles</Link>
         </li>
         <li className="transition hover:text-blue-300 hover:underline">
           <Link href="/centrosAtencion">Centros de atención</Link>
+        </li>
+        <li className="transition hover:text-blue-300 hover:underline">
+          <Link href="/afiliados/formularioDeBaja">Baja de servicio</Link>
         </li>
       </ul>
       <div className="col-span-2 flex flex-col items-end gap-2 md:col-auto">

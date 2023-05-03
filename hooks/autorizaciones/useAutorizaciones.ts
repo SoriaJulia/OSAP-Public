@@ -1,6 +1,6 @@
 import { queryService } from '@lib/utils';
 import { getAutorizacionesAfiliado } from '@services/agente';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export const GET_AUTORIZACIONES_QUERY_KEY = 'autorizaciones';
 

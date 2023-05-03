@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={classNames(className, 'btn', {
+      className={classNames(className, {
         [`${buttonVariants[variant]}`]: true,
       })}
       onClick={onClick}

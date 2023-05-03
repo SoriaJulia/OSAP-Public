@@ -2,6 +2,7 @@ import { AutXPeriodo } from '@appTypes/autorizacion';
 import CardSkeleton from '@components/Base/CardSkeleton';
 import EmptyListMessage from '@components/Base/EmptyListMessage';
 import { isEmpty } from 'lodash';
+import React from 'react';
 import AutorizacionesXPeriodoCard from './AutorizacionesXPeriodoCard';
 
 type Props = {

@@ -7,9 +7,10 @@ import ContactLink from '../components/Base/ContactLink';
 
 const ConsultaDistancia: NextPage = () => {
   return (
-    <section className="flex justify-between">
+    <section className=" osap-container flex justify-between">
       <Head>
         <title>Consulta a distancia - OSAP</title>
+        <meta name="description" content="OSAP brinda un servicio de consulta clinica a distancia" />
       </Head>
       <article className="flex flex-col justify-around text-left lg:w-3/5">
         <PageTitle title="Consulta clinica de orientación a distancia" />
@@ -43,7 +44,7 @@ const ConsultaDistancia: NextPage = () => {
             />
           </span>
         </div>
-        <div className="mt-8 mr-2">
+        <div className="mr-2 mt-8">
           <p className="flex items-center gap-2 py-1">
             <Asterisk /> Los coseguros serán los habituales para esta prestación.
           </p>

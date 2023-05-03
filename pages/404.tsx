@@ -8,9 +8,9 @@ import lost from '../public/img/undraw_lost_online.svg';
 const Page404: NextPage = () => {
   const router = useRouter();
   return (
-    <div className="flex items-center justify-between bg-404img bg-contain bg-left bg-no-repeat lg:bg-auto">
+    <div className=" osap-container flex items-center justify-between bg-404img bg-contain bg-left bg-no-repeat lg:bg-auto">
       <div className="flex flex-col items-center p-10">
-        <h1 className="mb-16 -mt-6 text-3xl font-bold text-gray-500 lg:text-4xl">
+        <h1 className="-mt-6 mb-16 text-3xl font-bold text-gray-500 lg:text-4xl">
           Parece que la página que estas buscando no existe...
         </h1>
         <Button

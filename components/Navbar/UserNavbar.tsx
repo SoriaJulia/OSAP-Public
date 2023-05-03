@@ -19,19 +19,19 @@ const UserNavbar: React.FC = ({ children }) => {
 
   return (
     <nav
-      className={` ${loggedUser ? 'md:sticky ' : 'absolute right-0'}
-     absolute top-0 right-0 z-10 justify-end md:top-[4.75rem]
+      className={` ${loggedUser ? 'top-0 md:sticky md:top-[4.75rem] ' : 'absolute right-0 top-0'}
+     absolute right-0 z-10 justify-end 
     `}
     >
       {loggedUser ? (
         <>
-          <div className="user-menu-mobile md:hidden">
+          <div className="user-menu h-14 flex-row gap-4 md:hidden">
             <Link href={homeLink} passHref>
-              <button aria-label="Tramites y constultas Afiliado" className=" ">
+              <button aria-label="Tramites y constultas Afiliado">
                 <House weight="duotone" size={32} />
               </button>
             </Link>
-            <button onClick={handleSignOut} aria-label="Cerrar sesion" className=" ">
+            <button onClick={handleSignOut} aria-label="Cerrar sesion">
               <SignOut weight="duotone" size={32} />
             </button>
           </div>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { NEXT_URL } from 'config';
 import { useSession } from 'next-auth/react';
 import React from 'react';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { Factura } from '../../types/factura';
 import { FacturasItem } from './FacturasItem';
 
@@ -11,9 +11,9 @@ const formatPeriodo = (periodo: string) => {
   return `${periodo.slice(4)}-${periodo.slice(0, 4)}`;
 };
 
-type Props = { facturas: Factura[]; periodo: string; isLoading: boolean };
+type Props = { facturas: Factura[]; periodo: string };
 
-const FacturasXPeriodo = ({ facturas, periodo, isLoading }: Props) => {
+const FacturasXPeriodo = ({ facturas, periodo }: Props) => {
   const { data: session } = useSession();
   const agentId = session?.user?.agentId || '';
 
@@ -31,19 +31,14 @@ const FacturasXPeriodo = ({ facturas, periodo, isLoading }: Props) => {
   };
 
   return (
-    <div className="flex w-96 flex-col gap-2 rounded py-2 px-3 text-left ring-1 ring-orange-100/50 ring-offset-2 ring-offset-yellow-50/80">
+    <div className="card flex w-96 flex-col gap-2 text-left">
       <h3 className="font-display text-xl font-semibold tracking-wide text-blue-600">
         Periodo: <span className="font-2xl">{formatPeriodo(periodo)}</span>
       </h3>
       <span className="text-lg text-gray-600">Vencimiento: {new Date(facturas[0].FecVen).toLocaleDateString()}</span>
       <div>
         {facturas.map((factura: Factura) => (
-          <FacturasItem
-            isLoading={isLoading}
-            downloadFactura={handleDownloadFactura}
-            factura={factura}
-            key={factura.CompId}
-          />
+          <FacturasItem downloadFactura={handleDownloadFactura} factura={factura} key={factura.CompId} />
         ))}
       </div>
     </div>

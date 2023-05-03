@@ -1,6 +1,8 @@
 import { UserRoles } from './enums';
 
 type User = {
+  id: string;
+  message: string;
   name: string;
   agentId: string;
   dni: string;

@@ -15,7 +15,7 @@ const Backdrop: React.FC<BackdropProps> = ({ onClickHandler, show }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
-      className={`fixed top-0 left-0 z-30 flex h-full w-full items-center justify-center bg-gray-700/70 ${
+      className={`fixed left-0 top-0 z-30 flex h-full w-full items-center justify-center bg-gray-700/70 ${
         show ? 'fixed' : 'hidden'
       }`}
       onClick={onClickHandler}

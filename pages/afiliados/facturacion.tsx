@@ -1,6 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
-// eslint-disable-next-line camelcase
-import { unstable_getServerSession } from 'next-auth';
+
+import { getServerSession } from 'next-auth';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import React, { useState } from 'react';
@@ -15,7 +15,7 @@ import { Coseguro } from '@appTypes/coseguro';
 import { AgenteCta } from '@appTypes/agenteCta';
 import User from '@appTypes/user';
 import { nextAuthOptions } from 'pages/api/auth/[...nextauth]';
-import { dehydrate, QueryClient } from 'react-query';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { GET_FACTURAS_QUERY_KEY } from 'hooks/facturas/useFacturas';
 import { getAutorizacionesAfiliado, getCosegurosAfiliado, getFacturasAfiliado } from '@services/agente';
 import { GET_AUTORIZACIONES_QUERY_KEY } from 'hooks/autorizaciones/useAutorizaciones';
@@ -60,7 +60,7 @@ const Facturacion: NextPage<FacturacionProps> = ({ user }) => {
   const router = useRouter();
   const linkPago = user.convenio && getLinkPago(user.agentId, user.convenio);
   return (
-    <div>
+    <div className=" osap-container">
       <Head>
         <title>Pagos y Facturación - OSAP</title>
       </Head>
@@ -112,9 +112,9 @@ const Facturacion: NextPage<FacturacionProps> = ({ user }) => {
   );
 };
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await unstable_getServerSession(req, res, nextAuthOptions);
+  const session = await getServerSession(req, res, nextAuthOptions);
 
-  if (!session || session.status === 'unauthenicated') {
+  if (!session || !session.user) {
     return {
       redirect: {
         destination: '/',

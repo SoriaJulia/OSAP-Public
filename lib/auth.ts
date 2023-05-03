@@ -7,7 +7,7 @@ import { JWT_SECRET_KEY, USER_TOKEN } from '@lib/constants';
 import { jsonResponse } from './utils';
 
 export async function verifyAuthMiddleware(request: NextRequest) {
-  const token = request.cookies[USER_TOKEN];
+  const token = request.cookies.get('USER_TOKEN');
 
   if (!token) {
     return jsonResponse(401, { error: { message: 'Missing user token' } });
