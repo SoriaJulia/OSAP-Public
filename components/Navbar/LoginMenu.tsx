@@ -11,7 +11,7 @@ const LoginMenu = () => {
   };
   return (
     <>
-      <button aria-label="Ingresar" className="user-menu" onClick={handleClick}>
+      <button aria-label="Ingresar" className="user-menu flex flex-col" onClick={handleClick}>
         <UserCircle weight="duotone" size={24} />
         Ingresar
       </button>

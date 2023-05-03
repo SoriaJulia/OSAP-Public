@@ -14,6 +14,6 @@
     @apply flex items-center gap-3;
   }
   .user-menu {
-    @apply z-20 flex h-20 flex-col  items-center rounded-bl-full border-blue-700 bg-blue-700 py-3  pl-8 pr-3 text-sm text-blue-100 transition-all hover:border-b-2 hover:border-l-2 hover:text-base hover:text-teal-100;
+    @apply z-20 h-20 items-center rounded-bl-full border-blue-700 bg-blue-700 py-3  pl-8 pr-3 text-sm text-blue-100 transition-all hover:border-b-2 hover:border-l-2 hover:text-base hover:text-teal-100;
   }
 }
