@@ -25,7 +25,7 @@ const UserNavbar: React.FC = ({ children }) => {
     >
       {loggedUser ? (
         <>
-          <div className="user-menu h-14 flex-row gap-4 md:hidden">
+          <div className="user-menu flex h-14 flex-row gap-4 md:hidden">
             <Link href={homeLink} passHref>
               <button aria-label="Tramites y constultas Afiliado">
                 <House weight="duotone" size={32} />
