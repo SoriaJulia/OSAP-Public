@@ -48,7 +48,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({
   onClick,
   showIcon,
   iconEnd,
-  hideFromDrawer,
+  hideFromDrawer = false,
   closeDrawer,
   onNewTab,
 }) => {

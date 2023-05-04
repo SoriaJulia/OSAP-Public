@@ -19,7 +19,7 @@ const AsistenciaAlViajero: NextPage = () => {
         <div className="flex flex-col gap-6 rounded bg-white p-4 text-lg lg:mr-4 2xl:mr-12">
           <p>
             OSAP ha suscripto un convenio de asistencia en tránsito para todos sus beneficiarios que se encuentren a{' '}
-            <span className="font-semibold">mas de 100 km</span> de su domicilio.
+            <span className="font-semibold">más de 100 km</span> de su domicilio.
             <p>
               La cobertura tiene alcance en <span className="font-semibold">todo el territorio nacional.</span>
             </p>

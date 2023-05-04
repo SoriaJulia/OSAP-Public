@@ -9,13 +9,14 @@ const LabelPosition = {
 };
 
 export type InputFieldProps = {
-  label: string;
+  label: ReactNode;
   helpText?: string;
   errorText?: string;
   labelPosition?: keyof typeof LabelPosition;
   inputWidth?: string;
   id: string;
   trialingIcon?: ReactNode;
+  ariaLabel?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
@@ -31,6 +32,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       required,
       id,
       trialingIcon,
+      ariaLabel,
       ...props
     },
     ref
@@ -40,7 +42,7 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
         <FieldLabel htmlFor={id} required={required} text={label} />
         <div className="field-container">
           <input
-            aria-label={label}
+            aria-label={ariaLabel}
             type={type}
             ref={ref}
             id={id}

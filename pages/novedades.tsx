@@ -16,7 +16,7 @@ const Novedades: NextPage = () => {
             <hr className="w-9 border-b-2 border-orange-600/80" />
             <hr className="w-2 border-b-2 border-orange-600/80" />
           </div>
-          <p className="mb-8 text-xl text-slate-500">Te presentamos nuestas ultimas novedades</p>
+          <p className="mb-8 text-xl text-slate-500">Te presentamos nuestas últimas novedades</p>
         </div>
 
         <NovedadesInfiniteList />

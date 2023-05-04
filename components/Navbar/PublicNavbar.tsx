@@ -20,7 +20,7 @@ const PublicNavbar: React.FC<{ closeDrawer: () => void }> = ({ closeDrawer }) =>
       <NavbarItem
         href="/centrosAtencion"
         onNavbar
-        title="Centros de atencion"
+        title="Centros de atención"
         icon={<Buildings />}
         closeDrawer={closeDrawer}
       />

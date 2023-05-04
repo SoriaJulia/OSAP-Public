@@ -10,10 +10,10 @@ const ConsultaDistancia: NextPage = () => {
     <section className=" osap-container flex justify-between">
       <Head>
         <title>Consulta a distancia - OSAP</title>
-        <meta name="description" content="OSAP brinda un servicio de consulta clinica a distancia" />
+        <meta name="description" content="OSAP brinda un servicio de consulta clínica a distancia" />
       </Head>
       <article className="flex flex-col justify-around text-left lg:w-3/5">
-        <PageTitle title="Consulta clinica de orientación a distancia" />
+        <PageTitle title="Consulta clínica de orientación a distancia" />
         <div className="gap-3 md:columns-2 md:pl-8">
           <span className="flex items-center gap-2 p-4 text-lg md:text-xl">
             <CalendarCheck weight="duotone" size="1.3em" className="text-orange-500" /> Lunes a viernes
@@ -33,12 +33,12 @@ const ConsultaDistancia: NextPage = () => {
             <UserSquare weight="duotone" size="1.3em" className="text-orange-500" /> Dr. Juan Brogliatti
           </span>
           <span className="flex items-center gap-2 p-4 text-lg md:text-xl">
-            <UserSquare weight="duotone" size="1.3em" className="text-orange-500" /> Dr.Mauro Saucedo
+            <UserSquare weight="duotone" size="1.3em" className="text-orange-500" /> Dr. Mauro Saucedo
           </span>
           <span className="flex items-center gap-2 p-4 text-lg md:text-xl">
             <ContactLink
               href="https://wa.me/336418667"
-              label="(336)4418667"
+              label="(336) 4418667"
               variant="blue"
               icon={<WhatsappLogo weight="duotone" size="1.3em" />}
             />
@@ -49,11 +49,11 @@ const ConsultaDistancia: NextPage = () => {
             <Asterisk /> Los coseguros serán los habituales para esta prestación.
           </p>
           <p className="flex items-center gap-2 py-1">
-            <Asterisk /> Al ser a distancia esta disponible para todos los afiliados.
+            <Asterisk /> Al ser a distancia está disponible para todos los afiliados.
           </p>
           {/* TODO agregar link a centros de emergencia */}
           <p className="flex items-center gap-2 py-1">
-            <Asterisk /> Sabados y Domingos, ante una eventual urgencia, dirigirse a la guardia de la clinica de la UOM.
+            <Asterisk /> Sabados y Domingos, ante una eventual urgencia, dirigirse a la guardia de la clínica de la UOM.
           </p>
         </div>
       </article>

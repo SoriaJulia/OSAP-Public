@@ -7,7 +7,7 @@ import CentroAtencion from '../components/CentroAtencion';
 const listCentros = [
   {
     title: 'Sede Central',
-    address: { href: 'https://goo.gl/maps/q5kNyRQML5KfYiam8', label: 'Moreno 187 (San Nicolás)' },
+    address: { href: 'https://goo.gl/maps/q5kNyRQML5KfYiam8', label: 'Av.Moreno 187 (San Nicolás)' },
     phones: [
       { href: 'tel:03364425632', label: '(0336)4425632' },
       { href: 'tel:03364429692', label: '4429692' },

@@ -12,6 +12,10 @@ export type Prestador = {
   depto: string;
   telefono: string;
   idLocalidad: number;
+  email?: string;
+  tel?: string;
+  cel?: string;
+  nombreCartilla?: string;
 };
 
 export enum TiposPrestador {

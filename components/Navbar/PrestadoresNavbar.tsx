@@ -1,4 +1,4 @@
-import { FilePlus, ListChecks, UsersFour } from 'phosphor-react';
+import { FilePlus, HouseLine, ListChecks, UsersFour } from 'phosphor-react';
 import NavbarItem from './NavbarItem';
 
 const PrestadoresNavbar = ({ closeDrawer }: { closeDrawer?: () => void }) => {
@@ -29,6 +29,14 @@ const PrestadoresNavbar = ({ closeDrawer }: { closeDrawer?: () => void }) => {
         href="http://licitaciones.osap.com.ar"
         closeDrawer={closeDrawer}
         icon={<FilePlus />}
+      />
+      <NavbarItem
+        onNavbar
+        variant="secondary"
+        title="Cambio Domicilio"
+        href="/prestadores/cambioDomicilio"
+        closeDrawer={closeDrawer}
+        icon={<HouseLine />}
       />
     </>
   );
