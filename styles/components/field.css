@@ -1,8 +1,6 @@
 @tailwind components;
 @layer components {
-  .field {
-    @apply flex w-full sm:w-auto;
-  }
+  
 
   .field-control {
     @apply w-full appearance-none rounded-sm border-2 border-grey-400 bg-white p-2 caret-blue-500 transition placeholder:text-grey-300 hover:border-blue-500 focus:border-teal-500 focus:outline-none focus:invalid:border-pink-700 disabled:border-grey-400 disabled:bg-grey-100;

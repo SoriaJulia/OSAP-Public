@@ -20,7 +20,7 @@ type Props = {
 
 const PrestadoresList = ({ isLoading, prestadores, printSubtitle, error }: Props) => {
   const [search, setSearch] = useState('');
-  const filteredList = prestadores?.filter((prest) => prest.nombre.toLowerCase().includes(search));
+  const filteredList = prestadores?.filter((prest) => prest.nombre.toLowerCase().includes(search.toLowerCase()));
   const listRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => listRef.current,

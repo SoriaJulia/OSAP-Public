@@ -5,7 +5,7 @@ import { MapPin, Phone, UserSquare } from 'phosphor-react';
 import React from 'react';
 
 const PrestadoresCard = ({ prestador }: { prestador: Prestador }) => {
-  const { nombre, calle, telefono, depto, nroPuerta, piso, idLocalidad } = prestador;
+  const { nombre, calle, telefono, depto, nroPuerta, piso, idLocalidad, especialidad } = prestador;
   const { localidades } = useLocalidades();
 
   const localidad = localidades.find((loc) => loc.gecrosID === idLocalidad.toString());

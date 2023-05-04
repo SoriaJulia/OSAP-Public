@@ -9,6 +9,9 @@
 @tailwind utilities;
 
 @layer components {
+  .field {
+    @apply flex w-full sm:w-auto;
+  }
   .navbar-item-li {
     @apply relative rounded-sm font-display text-xl text-blue-900 transition hover:bg-blue-100;
   }

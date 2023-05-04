@@ -25,11 +25,12 @@ const SelectField: React.FC<FieldProps> = ({
   className = '',
   required,
   id,
+  hidden,
   ...props
 }) => {
   return (
-    <div className={`field ${LabelPosition[labelPosition]} ${className} ${props.hidden ? 'hidden' : ''}`}>
-      <FieldLabel htmlFor={id} text={label} required={required} />
+    <div className={`field ${LabelPosition[labelPosition]} ${className} ${hidden ? 'hidden' : ''}`}>
+      {!hidden && <FieldLabel htmlFor={id} text={label} required={required} />}
       <select
         aria-label={label}
         id={id}
