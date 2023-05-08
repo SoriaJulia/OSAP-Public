@@ -75,13 +75,14 @@ const TipoPrestadorSelect = ({ tipo, setTipo, especialidad, setEspecialidad, esp
         label="Especialidad"
         value={especialidad}
         onChange={(e) => setEspecialidad(e.target.value)}
-        disabled={tipo === TiposPrestador.Bioquimico || tipo === TiposPrestador.Odontologo}
         hidden={!showEspecialidad}
       >
         {(tipo === TiposPrestador.Medico || tipo === TiposPrestador.Kinesiologo) && (
           <option value="">Seleccione especialidad</option>
         )}
-        {tipo === TiposPrestador.PrestadoresDiscapacidad && <option value="0">Todas</option>}
+        {(tipo === TiposPrestador.PrestadoresDiscapacidad || tipo === TiposPrestador.Medico) && (
+          <option value="0">Todas</option>
+        )}
         {especialidades &&
           especialidades.map(({ Codigo, Descripcion }) => (
             <option key={Codigo} value={Codigo}>

@@ -16,7 +16,7 @@ export type Prestador = {
   tel?: string;
   cel?: string;
   nombreCartilla?: string;
-  especialidad: string;
+  Especialidades: string;
 };
 
 export enum TiposPrestador {

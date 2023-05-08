@@ -5,7 +5,7 @@ import { MapPin, Phone, UserSquare } from 'phosphor-react';
 import React from 'react';
 
 const PrestadoresCard = ({ prestador }: { prestador: Prestador }) => {
-  const { nombre, calle, telefono, depto, nroPuerta, piso, idLocalidad, especialidad } = prestador;
+  const { nombre, calle, telefono, depto, nroPuerta, piso, idLocalidad, Especialidades } = prestador;
   const { localidades } = useLocalidades();
 
   const localidad = localidades.find((loc) => loc.gecrosID === idLocalidad.toString());
@@ -18,6 +18,7 @@ const PrestadoresCard = ({ prestador }: { prestador: Prestador }) => {
         <p className="flex gap-1">
           <UserSquare size={26} />
           {capitalizeText(nombre)}
+          <span> - {Especialidades}</span>
         </p>
       </span>
       <span className="flex w-full flex-wrap items-center gap-1 p-2 text-gray-600 print:w-2/3 lg:w-2/3">
