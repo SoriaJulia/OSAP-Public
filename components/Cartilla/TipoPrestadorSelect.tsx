@@ -16,8 +16,9 @@ export const tiposPrestadores: TipoPrestadorSelect[] = [
     name: 'Kinesiólogos',
     id: '5',
     especialidades: [
-      { Codigo: '38', Descripcion: 'KINESIOLOGIA' },
-      { Codigo: '87', Descripcion: 'KINESIOLOGIA (Disc)' },
+      { Codigo: '38', Descripcion: 'Kinesiologia' },
+      { Codigo: '87', Descripcion: 'Kinesiologia (Disc)' },
+      { Codigo: '97', Descripcion: 'Kinesiologia a domicilio' },
     ],
   },
   { name: 'Prestadores Discapacidad', id: '219', especialidades: [] },
