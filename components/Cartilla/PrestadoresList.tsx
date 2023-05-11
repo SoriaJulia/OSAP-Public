@@ -55,7 +55,7 @@ const PrestadoresList = ({ isLoading, prestadores, printSubtitle, error }: Props
       ) : (
         <div className="flex h-[70vh] w-auto flex-wrap content-start items-start gap-4 overflow-y-auto scroll-smooth p-2 print:m-0 print:h-auto lg:ml-6">
           {filteredList?.map((prestador) => (
-            <PrestadoresCard key={`${prestador.id}_${prestador.idInstitucion}`} prestador={prestador} />
+            <PrestadoresCard key={`${prestador.id}_${prestador.calle}${prestador.nroPuerta}`} prestador={prestador} />
           ))}
         </div>
       )}
