@@ -31,5 +31,6 @@ export enum TiposPrestador {
   Fonoaudiologo = '6',
   Psicopedagogia = '195',
   Opticas = '177',
+  Instituciones = '4',
 }
 export type TipoPrestador = { name: string; id: string; especialidades: Array<Especialidad> };

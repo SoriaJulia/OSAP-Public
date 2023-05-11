@@ -20,7 +20,10 @@ type Props = {
 
 const PrestadoresList = ({ isLoading, prestadores, printSubtitle, error }: Props) => {
   const [search, setSearch] = useState('');
-  const filteredList = prestadores?.filter((prest) => prest.nombre.toLowerCase().includes(search.toLowerCase()));
+  const filteredList = prestadores?.filter((prest) =>
+    prest.nombre ? prest.nombre.toLowerCase().includes(search.toLowerCase()) : null
+  );
+
   const listRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => listRef.current,
@@ -32,7 +35,7 @@ const PrestadoresList = ({ isLoading, prestadores, printSubtitle, error }: Props
       <img className="hidden w-3/5 p-2 pl-8 md:block" src="./img/undraw_doctors.svg" alt="Ilustración de doctores" />
     );
   return (
-    <div className="mt-4 flex flex-wrap gap-4  print:mt-0 print:p-4" ref={listRef}>
+    <div className="mt-4 flex flex-wrap gap-4 print:mt-0 print:p-4" ref={listRef}>
       <PrintHeader title="Cartilla de Prestadores" subtitle={printSubtitle} />
       <div className="flex w-full items-end justify-between text-gray-500">
         <span
@@ -47,15 +50,15 @@ const PrestadoresList = ({ isLoading, prestadores, printSubtitle, error }: Props
           alt="Descargar o imprimir lista"
         />
       </div>
-      <EmptyListMessage
-        text="No se encontraron Prestadores..."
-        className={`${isEmpty(filteredList) ? 'flex' : 'hidden'}`}
-      />
-      <div className="flex h-[70vh] w-auto flex-wrap content-start items-start gap-4 overflow-y-auto scroll-smooth p-2 print:m-0 print:h-auto lg:ml-6">
-        {filteredList?.map((prestador) => (
-          <PrestadoresCard key={`${prestador.id}_${prestador.idInstitucion}`} prestador={prestador} />
-        ))}
-      </div>
+      {isEmpty(filteredList) ? (
+        <EmptyListMessage text="No se encontraron Prestadores..." />
+      ) : (
+        <div className="flex h-[70vh] w-auto flex-wrap content-start items-start gap-4 overflow-y-auto scroll-smooth p-2 print:m-0 print:h-auto lg:ml-6">
+          {filteredList?.map((prestador) => (
+            <PrestadoresCard key={`${prestador.id}_${prestador.idInstitucion}`} prestador={prestador} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

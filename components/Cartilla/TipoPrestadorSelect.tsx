@@ -12,6 +12,7 @@ export const tiposPrestadores: TipoPrestadorSelect[] = [
   },
   { name: 'Bioquímicos', id: '2', especialidades: [{ Codigo: '59', Descripcion: 'BIOQUIMICO' }] },
   { name: 'Odontólogos', id: '3', especialidades: [{ Codigo: '94', Descripcion: 'ODONTOLOGIA' }] },
+  { name: 'Clínicas, Sanatorios y Hospitales', id: '4', especialidades: [] },
   {
     name: 'Kinesiólogos',
     id: '5',
@@ -51,7 +52,8 @@ const TipoPrestadorSelect = ({ tipo, setTipo, especialidad, setEspecialidad, esp
   const showEspecialidad =
     tipo === TiposPrestador.Medico ||
     tipo === TiposPrestador.PrestadoresDiscapacidad ||
-    tipo === TiposPrestador.Kinesiologo;
+    tipo === TiposPrestador.Kinesiologo ||
+    tipo === TiposPrestador.Instituciones;
 
   return (
     <>
@@ -80,9 +82,9 @@ const TipoPrestadorSelect = ({ tipo, setTipo, especialidad, setEspecialidad, esp
         {(tipo === TiposPrestador.Medico || tipo === TiposPrestador.Kinesiologo) && (
           <option value="">Seleccione especialidad</option>
         )}
-        {(tipo === TiposPrestador.PrestadoresDiscapacidad || tipo === TiposPrestador.Medico) && (
-          <option value="0">Todas</option>
-        )}
+        {(tipo === TiposPrestador.PrestadoresDiscapacidad ||
+          tipo === TiposPrestador.Medico ||
+          tipo === TiposPrestador.Instituciones) && <option value="0">Todas</option>}
         {especialidades &&
           especialidades.map(({ Codigo, Descripcion }) => (
             <option key={Codigo} value={Codigo}>

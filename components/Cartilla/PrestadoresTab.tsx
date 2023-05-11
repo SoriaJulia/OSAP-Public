@@ -24,7 +24,9 @@ const PrestadoresTab = ({ payload }: Props) => {
   const { localidades } = useLocalidades();
 
   const especialidadesOptions =
-    tipo === TiposPrestador.Medico || tipo === TiposPrestador.PrestadoresDiscapacidad
+    tipo === TiposPrestador.Medico ||
+    tipo === TiposPrestador.PrestadoresDiscapacidad ||
+    tipo === TiposPrestador.Instituciones
       ? payload.especialidades
       : tiposPrestadores.find((esp) => esp.id === tipo)?.especialidades;
 
