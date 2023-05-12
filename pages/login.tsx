@@ -48,72 +48,74 @@ const Login: NextPage = () => {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col items-center justify-evenly bg-gradient-to-br from-orange-600/60 to-yellow-500/50">
       <Head>
         <title>Iniciar Sesion - OSAP </title>
       </Head>
 
-      <div className="flex h-full flex-col items-center justify-evenly bg-gradient-to-br from-orange-600/60 to-yellow-500/50">
-        <div className="flex max-w-md flex-col items-center rounded-xl bg-slate-50 px-6 py-6 drop-shadow-2xl lg:w-2/6">
-          <Link passHref href="http://www.osapsalud.com.ar/">
-            <button aria-label="Volver a Osap Salud" tabIndex={-1} className="mt-6 flex items-center gap-2 md:mr-0">
-              <Logo width="120" height="52" className="fill-orange-500" />
-              <Slogan width="180" height="52" className=" fill-grey-400 " />
-            </button>
-          </Link>
-          <form>
-            <div className="mt-12 flex flex-col gap-4">
-              <h1 className="mb-2 text-3xl text-orange-600">Ingresá </h1>
-              <InputField
-                id="user"
-                type="text"
-                label="Usuario"
-                placeholder="30256544"
-                helpText="Sin espacios ni caracteres especiales"
-                value={username}
-                onChange={changeTextInput(setUsername)}
-              />
-              <Password password={password} setPassword={setPassword} />
-              <RadioGroup legend="Tipo de usuario" stateSetter={setRole} defaultValue={UserRoles.AFILIADO}>
-                <RadioButton id={UserRoles.AFILIADO} label="Afiliado" />
-                <RadioButton id={UserRoles.PRESTADOR} label="Prestador" />
-              </RadioGroup>
+      <div className="mb-6 mt-4 flex max-w-md flex-col items-center rounded-xl bg-slate-50 px-6 py-6 drop-shadow-2xl lg:w-2/6">
+        <Link passHref href="/">
+          <button
+            aria-label="Volver a la pagina principal"
+            tabIndex={-1}
+            className="mt-6 flex items-center gap-2 md:mr-0"
+          >
+            <Logo width="120" height="52" className="fill-orange-500" />
+            <Slogan width="180" height="52" className=" fill-grey-400 " />
+          </button>
+        </Link>
+        <form>
+          <div className="mt-12 flex flex-col gap-4">
+            <h1 className="mb-2 text-3xl text-orange-600">Ingresá </h1>
+            <InputField
+              id="user"
+              type="text"
+              label="Usuario"
+              placeholder="30256544"
+              helpText="Sin espacios ni caracteres especiales"
+              value={username}
+              onChange={changeTextInput(setUsername)}
+            />
+            <Password password={password} setPassword={setPassword} />
+            <RadioGroup legend="Tipo de usuario" stateSetter={setRole} defaultValue={UserRoles.AFILIADO}>
+              <RadioButton id={UserRoles.AFILIADO} label="Afiliado" />
+              <RadioButton id={UserRoles.PRESTADOR} label="Prestador" />
+            </RadioGroup>
 
-              <div className="mb-4 min-h-[24px] w-80 overflow-hidden text-rose-500">
-                {error ? (
-                  <>
-                    <WarningCircle className="mb-1 mr-1 inline" size={18} weight="bold" />
-                    {error}
-                  </>
-                ) : (
-                  ''
-                )}
-              </div>
+            <div className="mb-4 min-h-[24px] w-80 overflow-hidden text-rose-500">
+              {error ? (
+                <>
+                  <WarningCircle className="mb-1 mr-1 inline" size={18} weight="bold" />
+                  {error}
+                </>
+              ) : (
+                ''
+              )}
             </div>
-            <div className="flex flex-row-reverse gap-2 pt-10 md:pt-0 ">
-              <Button
-                label={loginIn ? 'Ingresando...' : 'Ingresar'}
-                variant="fill"
-                trailingIcon={
-                  loginIn ? <Spinner size={20} className="animate-spin" /> : <SignIn weight="bold" size={20} />
-                }
-                type="submit"
-                disabled={!username || !password}
-                onClick={handleLogin}
-                showIconOnMobile
-              />
-              <Button
-                label="Cancelar"
-                variant="yellowFill"
-                type="button"
-                onClick={() => {
-                  setError(null);
-                  window.open('http://www.osapsalud.com.ar//', '_self');
-                }}
-              />
-            </div>
-          </form>
-        </div>
+          </div>
+          <div className="flex flex-row-reverse gap-2 pt-10 md:pt-0 ">
+            <Button
+              label={loginIn ? 'Ingresando...' : 'Ingresar'}
+              variant="fill"
+              trailingIcon={
+                loginIn ? <Spinner size={20} className="animate-spin" /> : <SignIn weight="bold" size={20} />
+              }
+              type="submit"
+              disabled={!username || !password}
+              onClick={handleLogin}
+              showIconOnMobile
+            />
+            <Button
+              label="Cancelar"
+              variant="yellowFill"
+              type="button"
+              onClick={() => {
+                setError(null);
+                router.push('/');
+              }}
+            />
+          </div>
+        </form>
       </div>
     </div>
   );

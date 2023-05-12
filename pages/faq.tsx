@@ -1,5 +1,7 @@
 import SearchInput from '@components/Base/SearchInput';
 import FaqList from '@components/Faqs/List';
+import FormContacto from '@components/FormContacto';
+import ListCentrosAtencion from '@components/ListCentrosAtencion';
 import { changeTextInput, defaultQueryOptions, queryService } from '@lib/utils';
 import { getFaqs } from '@services/faqs';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
@@ -23,9 +25,13 @@ const Faq = () => {
     <div>
       <Head>
         <title>OSAP - Preguntas Frecuentes</title>
+        <meta
+          name="description"
+          content="Preguntas frecuentes relacionadas a OSAP. Informacion sobre coberturas, credenciales, cartilla, etc."
+        />
       </Head>
       <div className=" mb-8 flex flex-col items-center gap-9 rounded-sm bg-gradient-to-br from-sky-100 via-slate-100 to-teal-50 pt-10">
-        <h1 className="mt-6 w-max  text-5xl text-slate-600">¡Hola! ¿En que podemos ayudarte?</h1>
+        <h1 className="mt-6 w-max text-2xl text-slate-600 lg:text-5xl">¡Hola! ¿En que podemos ayudarte?</h1>
         <div className="flex items-center gap-1">
           <hr className="w-9 border-b-2 border-sky-600/60" />
           <hr className="w-2 border-b-2 border-sky-600/60" />
@@ -37,6 +43,17 @@ const Faq = () => {
       </div>
       <section className="osap-container flex flex-col gap-4 md:ml-36">
         <FaqList faqs={faqs} isLoading={isLoading} filter={filter} error={error} />
+        <h2 className="mt-4 border-t border-slate-200 pt-4 text-xl text-blue-500">¿No encontraste lo que buscabas?</h2>
+        <details className="group">
+          <summary className="title group-open:no-underline">Envianos un mensaje</summary>
+          <FormContacto />
+        </details>
+        <details className="group">
+          <summary className="title group-open:mb-6 group-open:no-underline">
+            Contactate con nuestros centros de atención
+          </summary>
+          <ListCentrosAtencion smallTitle />
+        </details>
       </section>
     </div>
   );

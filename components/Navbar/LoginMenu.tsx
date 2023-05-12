@@ -1,31 +1,14 @@
-import { SignIn, UserCircle } from 'phosphor-react';
-import { useState } from 'react';
-import LoginModal from '../LoginModal';
-import Portal from '../Layout/Portal';
+import Link from 'next/link';
+import { UserCircle } from 'phosphor-react';
 
 const LoginMenu = () => {
-  const [showModal, setShowModal] = useState(false);
-
-  const handleClick = () => {
-    setShowModal(true);
-  };
   return (
-    <>
-      <button aria-label="Ingresar" className="user-menu flex flex-col" onClick={handleClick}>
+    <Link href="/login">
+      <button aria-label="Ingresar" className="user-menu flex flex-col">
         <UserCircle weight="duotone" size={24} />
         Ingresar
       </button>
-
-      <Portal>
-        <LoginModal
-          show={showModal}
-          onDismiss={() => {
-            setShowModal(false);
-          }}
-          title="Ingresá con tu usuario y contraseña"
-        />
-      </Portal>
-    </>
+    </Link>
   );
 };
 

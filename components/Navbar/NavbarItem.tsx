@@ -17,7 +17,7 @@ const selected = {
 
 const labelStyle = {
   primary: 'md:font-semibold md:text-red-600  lg:text-xl md:text-lg',
-  secondary: 'md:text-blue-100 md:text-base md:font-sans md:hover:text-blue-100 ',
+  secondary: 'text-sm md:text-blue-100 lg:text-base md:font-sans md:hover:text-blue-100 ',
 };
 
 export type Variants = keyof typeof variants;
@@ -90,7 +90,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({
       transition={{ delay: 0.4 }}
       className={`${onNavbar ? '' : 'md:hidden'} ${hideFromDrawer && 'hidden md:flex'} ${variants[variant]}  ${
         currentPage === href ? selected[variant] : ''
-      }navbar-item-li group`}
+      } navbar-item-li group`}
     >
       {list ? (
         <>

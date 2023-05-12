@@ -49,16 +49,6 @@ const UserNavbar: React.FC = ({ children }) => {
               {children}
             </ul>
             <ul className="flex items-center gap-1 lg:mr-8">
-              {/* <NavbarItem
-                title="Mis Datos"
-                onClick={() => {
-                  console.log('TODO: redirect to mis datos');
-                }}
-                icon={<User weight="light" size={24} />}
-                variant="secondary"
-                onNavbar
-                showIcon
-              /> */}
               <NavbarItem
                 onClick={handleSignOut}
                 href=""

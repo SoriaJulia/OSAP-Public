@@ -1,4 +1,4 @@
-import { Newspaper, UsersThree, Envelope, Phone, Buildings, Suitcase, FirstAidKit } from 'phosphor-react';
+import { Newspaper, UsersThree, Envelope, Phone, Buildings, Suitcase, FirstAidKit, Question } from 'phosphor-react';
 import NavbarItem from './NavbarItem';
 
 const PublicNavbar: React.FC<{ closeDrawer: () => void }> = ({ closeDrawer }) => {
@@ -25,6 +25,7 @@ const PublicNavbar: React.FC<{ closeDrawer: () => void }> = ({ closeDrawer }) =>
         closeDrawer={closeDrawer}
       />
       <NavbarItem href="/telefonosUtiles" title="Telefonos Utiles" icon={<Phone />} closeDrawer={closeDrawer} />
+      <NavbarItem href="/faq" title="Preguntas Frecuentes" onNavbar icon={<Question />} closeDrawer={closeDrawer} />
     </>
   );
 };
