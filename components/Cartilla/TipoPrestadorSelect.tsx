@@ -1,7 +1,7 @@
 import { Especialidad } from '@appTypes/especialidad';
 import { TiposPrestador, TipoPrestador as TipoPrestadorSelect } from '@appTypes/prestador';
 import Select from '@components/Base/Fields/Select';
-import { capitalizeText } from '@lib/utils';
+import { capitalize } from 'lodash';
 import React, { useEffect } from 'react';
 
 export const tiposPrestadores: TipoPrestadorSelect[] = [
@@ -18,7 +18,7 @@ export const tiposPrestadores: TipoPrestadorSelect[] = [
     id: '5',
     especialidades: [
       { Codigo: '38', Descripcion: 'Kinesiologia' },
-      { Codigo: '87', Descripcion: 'Kinesiologia (Disc)' },
+      { Codigo: '87', Descripcion: 'Kinesiologia (Discapacidad)' },
       { Codigo: '97', Descripcion: 'Kinesiologia a domicilio' },
     ],
   },
@@ -45,8 +45,10 @@ type Props = {
 
 const TipoPrestadorSelect = ({ tipo, setTipo, especialidad, setEspecialidad, especialidades }: Props) => {
   useEffect(() => {
-    if (tipo === TiposPrestador.Bioquimico || tipo === TiposPrestador.Odontologo)
-      setEspecialidad(tiposPrestadores[tipo].especialidades[0].Codigo);
+    if (tipo === TiposPrestador.Bioquimico || tipo === TiposPrestador.Odontologo) {
+      const tipoPres = tiposPrestadores.find((p) => p.id === tipo);
+      return setEspecialidad(tipoPres ? tipoPres.especialidades[0].Codigo : '0');
+    }
     if (tipo !== TiposPrestador.Medico && tipo !== TiposPrestador.Kinesiologo) setEspecialidad('0');
   }, [tipo, setEspecialidad]);
   const showEspecialidad =
@@ -88,7 +90,7 @@ const TipoPrestadorSelect = ({ tipo, setTipo, especialidad, setEspecialidad, esp
         {especialidades &&
           especialidades.map(({ Codigo, Descripcion }) => (
             <option key={Codigo} value={Codigo}>
-              {capitalizeText(Descripcion)}
+              {capitalize(Descripcion)}
             </option>
           ))}
       </Select>
