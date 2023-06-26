@@ -37,11 +37,8 @@ const listCentros = [
   },
   {
     title: 'Centro Atención Rosario',
-    address: { href: 'https://goo.gl/maps/meMD2Wi3NUvSvGTh7', label: 'Córdoba 1147 Piso 4 Of. 10' },
-    phones: [
-      { href: 'tel:3414112698', label: '(341)4112698' },
-      { href: 'tel:3414110482', label: '4110482 ' },
-    ],
+    address: { href: 'https://goo.gl/maps/meMD2Wi3NUvSvGTh7', label: 'Córdoba 1147 Piso 2 Of. 2' },
+    phones: [{ href: 'tel:3414497852', label: '(341)4497852' }],
     wsp: [{ href: 'https://wa.me/+5491149983336', label: '+54 9 11 49983336' }],
   },
   {

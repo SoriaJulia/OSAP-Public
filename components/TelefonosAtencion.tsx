@@ -54,12 +54,8 @@ const places = [
     name: 'Rosario',
     phones: [
       {
-        label: '(0341) 4112698',
-        href: 'tel:+5403414112698',
-      },
-      {
-        label: '4110482',
-        href: 'tel:+543414110482',
+        label: '(0341) 4497852',
+        href: 'tel:+5403414497852',
       },
       {
         label: '(011) 49983336',
