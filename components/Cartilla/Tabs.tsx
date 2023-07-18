@@ -21,7 +21,7 @@ const Tabs: FC<TabsProps> = ({ tabs = [], selectedTab = 0, onClick, payload }) =
   const Panel = tabs && tabs.find((tab) => tab.index === selectedTab);
 
   return (
-    <div className="mt-4 lg:mt-0">
+    <div className="lg:mt-0">
       <div
         role="tablist"
         className="hiddenScrollbar z-10 flex gap-2 overflow-x-scroll md:overflow-x-visible"

@@ -89,12 +89,22 @@ export const changeFileInput =
     setterFn(files || []);
   };
 
-export const downloadBase64File = (contentType: string, base64Data: string, fileName: string) => {
-  const linkSource = `data:${contentType};base64,${base64Data}`;
+export const downloadFile = (linkSource: string, fileName: string) => {
   const downloadLink = document.createElement('a');
   downloadLink.href = linkSource;
   downloadLink.download = fileName;
   downloadLink.click();
+  downloadLink.remove();
+};
+
+export const downloadBlob = (blob: Blob, fileName: string) => {
+  const url = window.URL.createObjectURL(blob);
+  downloadFile(url, fileName);
+};
+
+export const downloadBase64File = (contentType: string, base64Data: string, fileName: string) => {
+  const linkSource = `data:${contentType};base64,${base64Data}`;
+  downloadFile(linkSource, fileName);
 };
 
 export const capitalizeText = (text: string) => {
@@ -105,7 +115,6 @@ export const capitalizeText = (text: string) => {
     .join(' ');
 };
 
-// TODO move this to better place
 export type ServiceFunction<T, U> = (...params: U[]) => Promise<ServiceResponse<T>>;
 export function queryService<T, U>(serviceFn: ServiceFunction<T, U>, ...params: U[]) {
   return async () => {

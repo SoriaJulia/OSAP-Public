@@ -1,62 +1,88 @@
 import { Prestador } from '@appTypes/prestador';
 import EmptyListMessage from '@components/Base/EmptyListMessage';
 import { Lottie } from '@components/Base/Lottie';
-import PrintHeader from '@components/Base/PrintHeader';
 import SearchInput from '@components/Base/SearchInput';
 import { changeTextInput } from '@lib/utils';
 import { isEmpty } from 'lodash';
-import { Download } from 'phosphor-react';
 import searchGif from 'public/animations/search-doctor.json';
-import React, { useRef, useState } from 'react';
-import { useReactToPrint } from 'react-to-print';
+import useLocalidades from 'hooks/cartilla/useLocalidades';
+import { getPrestadoresporLocalidad } from '@lib/cartilla';
+import React, { useMemo, useState } from 'react';
+import { CircleNotch, Download } from 'phosphor-react';
 import PrestadoresCard from './PrestadoresCard';
 
 type Props = {
   isLoading: boolean;
   prestadores: Prestador[] | null | undefined;
-  printSubtitle: string;
   error: string | null;
+  downloadPdf: () => void;
+  isGeneratingPdf: boolean;
 };
 
-const PrestadoresList = ({ isLoading, prestadores, printSubtitle, error }: Props) => {
+const PrestadoresList = ({ isLoading, prestadores, error, downloadPdf, isGeneratingPdf }: Props) => {
+  const { localidades } = useLocalidades();
   const [search, setSearch] = useState('');
-  const filteredList = prestadores?.filter((prest) =>
-    prest.nombre ? prest.nombre.toLowerCase().includes(search.toLowerCase()) : null
+  const filteredList = useMemo(
+    () =>
+      prestadores?.filter((prest) => (prest.nombre ? prest.nombre.toLowerCase().includes(search.toLowerCase()) : null)),
+    [prestadores, search]
   );
+  const prestadoresXLoc = getPrestadoresporLocalidad(filteredList || []);
 
-  const listRef = useRef(null);
-  const handlePrint = useReactToPrint({
-    content: () => listRef.current,
-    documentTitle: 'OSAP-CartillaPrestadores',
-  });
   if (isLoading) return <Lottie animationData={searchGif} className="hidden self-center md:block" />;
+
   if (!prestadores && !error)
     return (
       <img className="hidden w-3/5 p-2 pl-8 md:block" src="./img/undraw_doctors.svg" alt="Ilustración de doctores" />
     );
+
   return (
-    <div className="mt-4 flex flex-wrap gap-4 print:mt-0 print:p-4" ref={listRef}>
-      <PrintHeader title="Cartilla de Prestadores" subtitle={printSubtitle} />
+    <div className="mt-4 flex flex-wrap gap-4 print:mt-0 print:p-4">
       <div className="flex w-full items-end justify-between text-gray-500">
         <span
           className={`text-sm print:m-0 lg:ml-8 ${isEmpty(filteredList) ? 'hidden' : 'flex'}`}
         >{`${filteredList?.length} resultados...`}</span>
         <SearchInput value={search} onChange={changeTextInput(setSearch)} />
-        <Download
-          onClick={handlePrint}
-          size={44}
-          weight="duotone"
-          className="mr-6 rounded-full p-2 text-teal-500 hover:bg-slate-100/80 print:hidden"
-          alt="Descargar o imprimir lista"
-        />
+        <button
+          onClick={downloadPdf}
+          className="ml-6 rounded-full p-2 text-teal-500 hover:bg-slate-100/80 disabled:animate-spin disabled:bg-slate-100"
+          disabled={isGeneratingPdf}
+        >
+          {isGeneratingPdf ? (
+            <CircleNotch size={28} className="animate-pulse" weight="duotone" alt="Generando archivo" />
+          ) : (
+            <Download size={28} weight="duotone" alt="Descargar o imprimir lista" />
+          )}
+        </button>
       </div>
       {isEmpty(filteredList) ? (
-        <EmptyListMessage text="No se encontraron Prestadores..." />
+        <div className=" h-[60vh]">
+          <EmptyListMessage text="No se encontraron Prestadores..." />
+        </div>
       ) : (
         <div className="flex h-[70vh] w-auto flex-wrap content-start items-start gap-4 overflow-y-auto scroll-smooth p-2 print:m-0 print:h-auto lg:ml-6">
-          {filteredList?.map((prestador) => (
-            <PrestadoresCard key={`${prestador.id}_${prestador.calle}${prestador.nroPuerta}`} prestador={prestador} />
-          ))}
+          {Object.entries(prestadoresXLoc).map(([locId, prestaodresLoc]) => {
+            const localidad = localidades.find((loc) => loc.gecrosID === locId);
+            if (!localidad?.nombre) return;
+            return (
+              <>
+                <p
+                  className="mt-4 text-2xl font-thin tracking-tight text-slate-400 first:mt-0"
+                  key={localidad?.gecrosID}
+                >
+                  {localidad?.nombre}
+                </p>
+                {prestaodresLoc.map((prestador) => {
+                  return (
+                    <PrestadoresCard
+                      key={`${prestador.id}_${prestador.calle}${prestador.nroPuerta}`}
+                      prestador={prestador}
+                    />
+                  );
+                })}
+              </>
+            );
+          })}
         </div>
       )}
     </div>

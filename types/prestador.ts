@@ -34,3 +34,7 @@ export enum TiposPrestador {
   Instituciones = '4',
 }
 export type TipoPrestador = { name: string; id: string; especialidades: Array<Especialidad> };
+
+export type PrestadorXLocalidad = {
+  [key: string]: Prestador[];
+};
